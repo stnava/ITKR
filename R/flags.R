@@ -28,6 +28,20 @@ paste( system.file("libs", package="ITKR"), '/lib/', sep="")
 }
 
 
+#' return ITK compile flags
+#'
+#' call this to get the compilation flags used for ITK and dependent software
+#'
+#' @author Avants BB
+#' @examples
+#'
+#' getITKcompileflags()
+#'
+#' @export getITKcompileflags
+getITKcompileflags <- function() {
+" -Wno-c++11-long-long -fPIC -O2  "
+}
+
 #' return ITK version information
 #'
 #' call this to get the installed ITK version
