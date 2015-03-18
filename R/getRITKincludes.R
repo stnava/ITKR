@@ -9,5 +9,5 @@
 #'
 #' @export getRITKincludes
 getRITKincludes <- function() {
-paste( system.file("include", package="RITK"), sep="")
+paste( system.file("libs", package="RITK"),"/include/ITK-4.8/", sep="")
 }

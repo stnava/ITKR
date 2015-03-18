@@ -9,5 +9,5 @@
 #'
 #' @export getRITKlibs
 getRITKlibs <- function() {
-paste( system.file("libs", package="RITK"), sep="")
+paste('"', system.file("libs", package="RITK"), '/lib/"', sep="")
 }

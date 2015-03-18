@@ -13,7 +13,7 @@ fi
 cd ./src
 itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
 itktag=1d6fe27b6e7552f62f94b6c3cb64c4438bce3a86
-mkdir  itks itkb itki
+mkdir  itks itkb
 if [[ ! -s itks/CMakeLists.txt ]] ; then
     git clone $itkgit itks
 fi
@@ -32,14 +32,14 @@ cmake \
     -DBUILD_SHARED_LIBS=OFF \
     -DBUILD_TESTING:BOOL=OFF \
     -DBUILD_EXAMPLES:BOOL=OFF \
-    -DCMAKE_INSTALL_PREFIX:PATH=../itki/  \
+    -DCMAKE_INSTALL_PREFIX:PATH=${R_PACKAGE_DIR}/libs/  \
     -DITK_LEGACY_REMOVE:BOOL=OFF  \
     -DITK_FUTURE_LEGACY_REMOVE:=BOOL=ON \
     -DITKV3_COMPATIBILITY:BOOL=ON \
     -DITK_BUILD_DEFAULT_MODULES:BOOL=OFF \
     -DKWSYS_USE_MD5:BOOL=ON \
     -DITK_WRAPPING:BOOL=OFF \
-    -DModule_MGHIO:BOOL=OFF \
+    -DModule_MGHIO:BOOL=ON \
     -DModule_ITKDeprecated:BOOL=OFF \
     -DModule_ITKReview:BOOL=ON \
     -DModule_ITKVtkGlue:BOOL=OFF \

@@ -1,8 +1,8 @@
 CXX_STD = CXX11
 myrootantssource=${PWD}/ants/
 myrootantslib=${PWD}/antb/lib/
-myrootitklib=${PWD}/itki/lib/
-myrootitksource=${PWD}/itki/
+myrootitklib=${R_PACKAGE_DIR}/libs/lib/
+myrootitksource=${R_PACKAGE_DIR}/libs/include/
 PKG_CPPFLAGS= -I../inst/include -I${PWD} -I${myrootitksource} -I${myrootantssource}/Examples/include/ -DVCL_CAN_STATIC_CONST_INIT_FLOAT=0
 myarch  := $(shell uname)
 PKG_LIBS = ${libitk} ${libants} ${libitk} ${libants} ${libitk} ${libants} ${libitk} ${libants}
@@ -12,4 +12,4 @@ all: $(SHLIB)
 
 $(SHLIB): libs
 
-libs: ; cd ${PWD}/itkb && $(MAKE) -j 2 && $(MAKE) install && cd ${PWD}/itki/lib && cp ${PWD}/itki/lib/lib*a ${R_PACKAGE_DIR}/libs/ && rm -r -f ${PWD}/itki ${PWD}/itks ${PWD}/itkb
+libs: ; cd ${PWD}/itkb && $(MAKE) -j 2 && $(MAKE) install

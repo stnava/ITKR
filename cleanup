@@ -1,2 +1,2 @@
 ############### still a WIP ###############
-rm -f -r src/*.o src/*.so */*~ *~  src/itks src/itkb src/itki
+rm -f -r src/*.o src/*.so */*~ *~  src/itks src/itkb 
