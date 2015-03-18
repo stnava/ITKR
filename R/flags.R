@@ -9,8 +9,11 @@
 #'
 #' @export getITKincludes
 getITKincludes <- function() {
-cat( paste( system.file("libs",
-  package="ITKR"),"/include/ITK-",getITKversion(),"/", sep="") )
+  itklocation<-paste( system.file("libs",
+    package="ITKR"),"/include/ITK-",getITKversion(),"/", sep="")
+  if ( ! file.exists(itklocation) )
+    stop("getITKincludes: itk includes do not exist")
+  cat( itklocation )
 }
 
 #' return ITK library location
@@ -24,8 +27,10 @@ cat( paste( system.file("libs",
 #'
 #' @export getITKlibs
 getITKlibs <- function() {
-# paste('"', system.file("libs", package="ITKR"), '/lib/"', sep="")
-cat( paste( system.file("libs", package="ITKR"), '/lib/', sep="") )
+  itklibs <- paste( system.file("libs", package="ITKR"), '/lib/', sep="")
+  if ( ! file.exists(itklibs) )
+    stop("getITKlibs: itk libs do not exist")
+  cat( itklibs )
 }
 
 
@@ -40,7 +45,7 @@ cat( paste( system.file("libs", package="ITKR"), '/lib/', sep="") )
 #'
 #' @export getITKcompileflags
 getITKcompileflags <- function() {
-cat(" -Wno-c++11-long-long -fPIC -O2  ")
+  cat(" -Wno-c++11-long-long -fPIC -O2  ")
 }
 
 #' return ITK version information
@@ -54,5 +59,6 @@ cat(" -Wno-c++11-long-long -fPIC -O2  ")
 #'
 #' @export getITKversion
 getITKversion <- function() {
-"4.8"
+  # should update this as versions change
+  "4.8"
 }
