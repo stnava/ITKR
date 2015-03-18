@@ -13,4 +13,4 @@ all: $(SHLIB)
 
 $(SHLIB): libs
 
-libs: ; cd ${PWD}/itkb && $(MAKE) -j 2 && $(MAKE) install && cd ${PWD}/itki/lib && cp ${PWD}/itki/lib/lib*a ${R_PACKAGE_DIR}/libs/ && rm -r -f itki itks itkb
+libs: ; cd ${PWD}/itkb && $(MAKE) -j 2 && $(MAKE) install && cd ${PWD}/itki/lib && cp ${PWD}/itki/lib/lib*a ${R_PACKAGE_DIR}/libs/ && rm -r -f ${PWD}/itki ${PWD}/itks ${PWD}/itkb
