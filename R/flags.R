@@ -23,7 +23,8 @@ paste( system.file("libs", package="ITKR"),"/include/ITK-",getITKversion(),"/", 
 #'
 #' @export getITKlibs
 getITKlibs <- function() {
-paste('"', system.file("libs", package="ITKR"), '/lib/"', sep="")
+# paste('"', system.file("libs", package="ITKR"), '/lib/"', sep="")
+paste( system.file("libs", package="ITKR"), '/lib/', sep="")
 }
 
 
