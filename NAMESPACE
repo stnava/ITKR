@@ -1,5 +1,4 @@
 exportPattern("^[^.]")
-import(Rcpp)
 import(tools)
 import(methods)
-useDynLib(RcppITK)
+useDynLib(RITK)

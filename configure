@@ -1,7 +1,5 @@
 #!/bin/bash
 CXX_STD=CXX11
-RCPP_INCLUDE_DIR=`${R_DIR}Rscript -e 'Rcpp:::CxxFlags()'`
-RCPP_LIB_DIR=`${R_DIR}Rscript -e 'Rcpp:::LdFlags()'`
 R_INCLUDE_DIR=`${R_DIR}R CMD config --cppflags`
 R_LIB_DIR=`${R_DIR}R CMD config --ldflags`
 JTHREADS=2
