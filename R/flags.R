@@ -9,7 +9,8 @@
 #'
 #' @export getITKincludes
 getITKincludes <- function() {
-paste( system.file("libs", package="ITKR"),"/include/ITK-",getITKversion(),"/", sep="")
+cat( paste( system.file("libs",
+  package="ITKR"),"/include/ITK-",getITKversion(),"/", sep="") )
 }
 
 #' return ITK library location
@@ -24,7 +25,7 @@ paste( system.file("libs", package="ITKR"),"/include/ITK-",getITKversion(),"/", 
 #' @export getITKlibs
 getITKlibs <- function() {
 # paste('"', system.file("libs", package="ITKR"), '/lib/"', sep="")
-paste( system.file("libs", package="ITKR"), '/lib/', sep="")
+cat( paste( system.file("libs", package="ITKR"), '/lib/', sep="") )
 }
 
 
@@ -39,7 +40,7 @@ paste( system.file("libs", package="ITKR"), '/lib/', sep="")
 #'
 #' @export getITKcompileflags
 getITKcompileflags <- function() {
-" -Wno-c++11-long-long -fPIC -O2  "
+cat(" -Wno-c++11-long-long -fPIC -O2  ")
 }
 
 #' return ITK version information
