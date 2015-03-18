@@ -9,5 +9,5 @@
 #'
 #' @export getRITKincludes
 getRITKincludes <- function() {
-paste('-I"', system.file("include", package="RITK"), '"', sep="")
+paste( system.file("include", package="RITK"), sep="")
 }
