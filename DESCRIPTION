@@ -1,4 +1,4 @@
-Package: RITK
+Package: ITKR
 Type: Package
 Title: ITK in R
 Version: 1.0
@@ -6,7 +6,7 @@ Date: 2012-02-01
 Author: Brian B. Avants, Benjamin M. Kandel, Jeff T. Duda, Philip A. Cook,
     Nicholas J. Tustison, Shrinidhi KL
 Maintainer: Brian B. Avants <stnava@gmail.com>
-Description: RITK interfaces a state of the art image processing library with R statistical methods. RITK wraps ITK C++ core via Rcpp to access these frameworks from within R and support reproducible analyses.
+Description: ITKR interfaces a state of the art image processing library with R statistical methods. ITKR wraps ITK C++ core via Rcpp to access these frameworks from within R and support reproducible analyses.
 License: GPL (>=2)
 LazyLoad: yes
 SystemRequirements: cmake, git, clang (recommended)

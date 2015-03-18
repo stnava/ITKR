@@ -1,2 +1,2 @@
-# RcppITK
-Rcpp based port of ITK to R
+# ITKR
+cmake based port of ITK to R
