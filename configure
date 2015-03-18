@@ -1,0 +1,54 @@
+#!/bin/bash
+CXX_STD=CXX11
+RCPP_INCLUDE_DIR=`${R_DIR}Rscript -e 'Rcpp:::CxxFlags()'`
+RCPP_LIB_DIR=`${R_DIR}Rscript -e 'Rcpp:::LdFlags()'`
+R_INCLUDE_DIR=`${R_DIR}R CMD config --cppflags`
+R_LIB_DIR=`${R_DIR}R CMD config --ldflags`
+JTHREADS=2
+if [[ `uname` -eq Darwin ]] ; then
+  CMAKE_BUILD_TYPE=Release
+fi
+if [[ $TRAVIS -eq true ]] ; then
+  CMAKE_BUILD_TYPE=Release
+  JTHREADS=2
+fi
+cd ./src
+itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
+itktag=1d6fe27b6e7552f62f94b6c3cb64c4438bce3a86
+mkdir  itks itkb itki
+if [[ ! -s itks/CMakeLists.txt ]] ; then
+    git clone $itkgit itks
+fi
+cd itks
+if [[ -d .git ]]; then
+    git checkout master;  git pull;  git checkout $itktag
+fi
+cd ../itkb
+compflags=" -fPIC "
+compflags=" -Wno-c++11-extensions -fPIC -O2 -std=c++11 "
+compflags=" -Wno-c++11-long-long -fPIC -O2  "
+cmake \
+    -DCMAKE_BUILD_TYPE:STRING="${CMAKE_BUILD_TYPE}" \
+    -DCMAKE_C_FLAGS="${CMAKE_C_FLAGS} -Wno-c++11-long-long -fPIC -O2 -DNDEBUG  "\
+    -DCMAKE_CXX_FLAGS="${CMAKE_CXX_FLAGS} -Wno-c++11-long-long -fPIC -O2 -DNDEBUG  "\
+    -DBUILD_SHARED_LIBS=OFF \
+    -DBUILD_TESTING:BOOL=OFF \
+    -DBUILD_EXAMPLES:BOOL=OFF \
+    -DCMAKE_INSTALL_PREFIX:PATH=../itki/  \
+    -DITK_LEGACY_REMOVE:BOOL=OFF  \
+    -DITK_FUTURE_LEGACY_REMOVE:=BOOL=ON \
+    -DITKV3_COMPATIBILITY:BOOL=ON \
+    -DITK_BUILD_DEFAULT_MODULES:BOOL=OFF \
+    -DKWSYS_USE_MD5:BOOL=ON \
+    -DITK_WRAPPING:BOOL=OFF \
+    -DModule_MGHIO:BOOL=OFF \
+    -DModule_ITKDeprecated:BOOL=OFF \
+    -DModule_ITKReview:BOOL=ON \
+    -DModule_ITKVtkGlue:BOOL=OFF \
+    -D ITKGroup_Core=ON \
+    -D Module_ITKReview=ON \
+    -D ITKGroup_Filtering=ON \
+    -D ITKGroup_IO=ON \
+    -D ITKGroup_Numerics=ON \
+    -D ITKGroup_Registration=ON \
+    -D ITKGroup_Segmentation=ON ../itks/

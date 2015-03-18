@@ -1,0 +1,17 @@
+Package: RcppITK
+Type: Package
+Title: ITK in R
+Version: 1.0
+Date: 2012-02-01
+Author: Brian B. Avants, Benjamin M. Kandel, Jeff T. Duda, Philip A. Cook,
+    Nicholas J. Tustison, Shrinidhi KL
+Maintainer: Brian B. Avants <stnava@gmail.com>
+Description: RcppITK interfaces a state of the art image processing library with R statistical methods. RcppITK wraps ITK C++ core via Rcpp to access these frameworks from within R and support reproducible analyses.
+License: GPL (>=2)
+LazyLoad: yes
+Depends: methods
+Imports: Rcpp, tools
+LinkingTo: Rcpp
+SystemRequirements: cmake, git, clang (recommended)
+Additional_repositories: https://github.com/InsightSoftwareConsortium/ITK.git
+VignetteBuilder: knitr

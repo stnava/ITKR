@@ -1,0 +1,6 @@
+^\.travis\.yml$
+src/itki/
+src/itks/
+src/itkb/
+src/*.o
+src/*.so
