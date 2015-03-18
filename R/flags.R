@@ -34,9 +34,9 @@ paste('"', system.file("libs", package="ITKR"), '/lib/"', sep="")
 #' @author Avants BB
 #' @examples
 #'
-#' getITKVersion()
+#' getITKversion()
 #'
-#' @export getITKVersion
+#' @export getITKversion
 getITKversion <- function() {
 "4.8"
 }

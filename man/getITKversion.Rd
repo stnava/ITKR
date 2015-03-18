@@ -10,7 +10,7 @@ getITKversion()
 call this to get the installed ITK version
 }
 \examples{
-getITKVersion()
+getITKversion()
 }
 \author{
 Avants BB
