@@ -4,7 +4,6 @@ myrootantslib=${PWD}/antb/lib/
 myrootitklib=${R_PACKAGE_DIR}/libs/lib/
 myrootitksource=${R_PACKAGE_DIR}/libs/include/
 PKG_CPPFLAGS= -I../inst/include -I${PWD} -I${myrootitksource} -I${myrootantssource}/Examples/include/
-myarch  := $(shell uname)
 PKG_LIBS = ${libitk} ${libants} ${libitk} ${libants} ${libitk} ${libants} ${libitk} ${libants}
 .PHONY: all libs
 
