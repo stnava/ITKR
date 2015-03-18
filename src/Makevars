@@ -12,4 +12,4 @@ all: $(SHLIB)
 
 $(SHLIB): libs
 
-libs: ; cd ${PWD}/itkb && $(MAKE) -j 2 && $(MAKE) install && rm -r -f ${R_PACKAGE_DIR}/libs/bin && rm -r -f ${R_PACKAGE_DIR}/libs/share && rm -r -f ${PWD}/itks/.git ${PWD}/itks/Modules/Remote/MGHIO/.git
+libs: ; cd ${PWD}/itkb && $(MAKE) -j 2 && $(MAKE) install && rm -r -f ${R_PACKAGE_DIR}/libs/bin && rm -r -f ${R_PACKAGE_DIR}/libs/share && rm -r -f ${PWD}/itks && rm -r -f ${PWD}/itkb
