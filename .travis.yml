@@ -29,7 +29,7 @@ install:
 
 script:
 - travis_wait 40 R CMD build ITKR
-- R CMD check ITKR_1.0.tar.gz --as-cran
+- R CMD check ITKR_0.0.tar.gz --as-cran
 
 after_failure:
  - ./travis-tool.sh dump_logs
