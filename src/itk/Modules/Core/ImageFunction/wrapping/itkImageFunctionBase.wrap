@@ -1,0 +1,27 @@
+itk_wrap_class("itk::ImageFunction" POINTER)
+  foreach(d ${ITK_WRAP_DIMS})
+    # UC is required for InterpolateImageFunction
+    UNIQUE(types "${WRAP_ITK_SCALAR};UC")
+    foreach(t ${types})
+      itk_wrap_template("${ITKM_I${t}${d}}${ITKM_D}${ITKM_F}"  "${ITKT_I${t}${d}},${ITKT_D},${ITKT_F}")
+      itk_wrap_template("${ITKM_I${t}${d}}${ITKM_D}${ITKM_D}"  "${ITKT_I${t}${d}},${ITKT_D},${ITKT_D}")
+    endforeach()
+
+    # Required by InterpolateImageFunction
+    foreach(t ${WRAP_ITK_VECTOR})
+      itk_wrap_template("${ITKM_I${t}${d}${d}}${ITKM_VD${d}}${ITKM_D}" "${ITKT_I${t}${d}${d}},${ITKT_VD${d}},${ITKT_D}")
+      itk_wrap_template("${ITKM_I${t}${d}${d}}${ITKM_CVD${d}}${ITKM_D}" "${ITKT_I${t}${d}${d}},${ITKT_CVD${d}},${ITKT_D}")
+      itk_wrap_template("${ITKM_I${t}${d}${d}}${ITKM_D}${ITKM_D}" "${ITKT_I${t}${d}${d}},${ITKT_D},${ITKT_D}")
+    endforeach()
+    foreach(t ${WRAP_ITK_COLOR})
+      itk_wrap_template("${ITKM_I${t}${d}}${ITKM_${t}}${ITKM_D}" "${ITKT_I${t}${d}},${ITKT_${t}},${ITKT_D}")
+    endforeach()
+    foreach(t ${WRAP_ITK_RGB})
+      itk_wrap_template("${ITKM_I${t}${d}}RGBD${ITKM_D}" "${ITKT_I${t}${d}},itk::RGBPixel< double >,${ITKT_D}")
+    endforeach()
+    foreach(t ${WRAP_ITK_RGBA})
+      itk_wrap_template("${ITKM_I${t}${d}}RGBAD${ITKM_D}" "${ITKT_I${t}${d}},itk::RGBAPixel< double >,${ITKT_D}")
+    endforeach()
+
+  endforeach()
+itk_end_wrap_class()

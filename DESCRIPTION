@@ -1,16 +1,15 @@
 Package: ITKR
 Type: Package
 Title: ITK in R
-Version: 0.0
+Version: 0.1
 Date: 2015-03-17
-Author: Brian B. Avants, Benjamin M. Kandel, Jeff T. Duda
+Author: The Insight Software Consortium, Brian B. Avants
 Maintainer: Brian B. Avants <stnava@gmail.com>
-Description: Make the state of the art image processing library, ITK, available within R. Provide developer access to the ITK framework from within R and, ultimately, support reproducible statistical analyses of medical images via interfacing with other packages.
-License: GPL (>=2)
+Description: Make the state of the art image processing library, ITK (http://github.com/InsightSoftwareConsortium/ITK.git), available within R. Support reproducible statistical analyses of medical images by facilitating interface of ITK with R packages.
+License: Apache License (== 2.0)
 LazyLoad: yes
 NeedsCompilation: yes
 OS_type: unix
 SystemRequirements: cmake, git, clang (recommended)
 URL: http://github.com/stnava/ITKR/
 BugReports: http://github.com/stnava/ITKR/issues
-Additional_repositories: http://github.com/InsightSoftwareConsortium/ITK.git

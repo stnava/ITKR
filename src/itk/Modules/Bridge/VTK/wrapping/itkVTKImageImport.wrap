@@ -1,0 +1,10 @@
+itk_wrap_class("itk::VTKImageImport" POINTER)
+  UNIQUE(types "${WRAP_ITK_SCALAR};UC;UL")
+  itk_wrap_filter_dims(dims "1;2;3")
+
+  foreach(t ${types})
+    foreach(d ${dims})
+      itk_wrap_template("${ITKM_I${t}${d}}" "${ITKT_I${t}${d}}")
+    endforeach()
+  endforeach()
+itk_end_wrap_class()
