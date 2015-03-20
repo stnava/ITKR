@@ -12,7 +12,7 @@ getITKincludes <- function() {
   itklocation<-paste( system.file("libs",
     package="ITKR"),"/include/ITK-",getITKversion(),"/", sep="")
   if ( ! file.exists(itklocation) )
-    stop("getITKincludes: itk includes do not exist")
+    print("getITKincludes: itk includes do not exist")
   cat( itklocation )
 }
 
@@ -29,7 +29,7 @@ getITKincludes <- function() {
 getITKlibs <- function() {
   itklibs <- paste( system.file("libs", package="ITKR"), '/lib/', sep="")
   if ( ! file.exists(itklibs) )
-    stop("getITKlibs: itk libs do not exist")
+    print("getITKlibs: itk libs do not exist")
   cat( itklibs )
 }
 
