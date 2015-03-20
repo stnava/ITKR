@@ -6,4 +6,3 @@ src/*.o
 src/*.so
 src/symbols.rds
 cran-comments.md
-README.md

@@ -10,5 +10,7 @@ License: GPL (>=2)
 LazyLoad: yes
 NeedsCompilation: yes
 OS_type: unix
-SystemRequirements: cmake (http://www.cmake.org/), git, clang (recommended)
-Additional_repositories: https://github.com/InsightSoftwareConsortium/ITK.git
+SystemRequirements: cmake, git, clang (recommended)
+URL: http://github.com/stnava/ITKR/
+BugReports: http://github.com/stnava/ITKR/issues
+Additional_repositories: http://github.com/InsightSoftwareConsortium/ITK.git
