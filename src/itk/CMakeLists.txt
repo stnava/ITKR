@@ -349,10 +349,6 @@ mark_as_advanced(ITK_COMPUTER_MEMORY_SIZE)
 option(ITK_USE_FLOAT_SPACE_PRECISION "Use single precision for origin/spacing/directions in itk::Image" OFF)
 mark_as_advanced(ITK_USE_FLOAT_SPACE_PRECISION)
 
-#----------------------------------------------------------------------
-# Make sure remote modules are downloaded before sorting out the module
-# dependencies.
-add_subdirectory(Modules/Remote)
 
 # Enable modules according to user inputs and the module dependency DAG.
 include(ITKModuleEnablement)
