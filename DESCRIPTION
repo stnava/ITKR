@@ -8,9 +8,12 @@ Maintainer: Brian B. Avants <stnava@gmail.com>
 Description: ITKR interfaces a state of the art image processing library with R statistical methods. ITKR uses cmake to access these frameworks from within R and, ultimately, support reproducible statistical analyses of medical images via interfacing with other packages.
 License: GPL (>=2)
 LazyLoad: yes
+Suggests:
+    knitr
 NeedsCompilation: yes
 OS_type: unix
 SystemRequirements: cmake, git, clang (recommended)
 URL: http://github.com/stnava/ITKR/
 BugReports: http://github.com/stnava/ITKR/issues
 Additional_repositories: http://github.com/InsightSoftwareConsortium/ITK.git
+VignetteBuilder: knitr
