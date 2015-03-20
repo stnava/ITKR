@@ -18,4 +18,4 @@ which uses `cat` to report the install location.  We use `cat` because it allows
 ```
 itkinstalldir <- capture.output( ITKR::getITKincludes() )
 ```
-This package is still an early development version.
+This package is still an early development version.  It is currently being reviewed by CRAN.
