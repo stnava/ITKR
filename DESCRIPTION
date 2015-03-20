@@ -5,7 +5,7 @@ Version: 0.0
 Date: 2015-03-17
 Author: Brian B. Avants, Benjamin M. Kandel, Jeff T. Duda
 Maintainer: Brian B. Avants <stnava@gmail.com>
-Description: This package interfaces a state of the art image processing library, ITK, with R statistical methods. This package enables developer access to the ITK framework from within R and, ultimately, will support reproducible statistical analyses of medical images via interfacing with other packages.
+Description: Make the state of the art image processing library, ITK, available within R. Provide developer access to the ITK framework from within R and, ultimately, support reproducible statistical analyses of medical images via interfacing with other packages.
 License: GPL (>=2)
 LazyLoad: yes
 NeedsCompilation: yes
