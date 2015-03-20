@@ -50,25 +50,6 @@ ZLIB_LIBS 	= 	$(ZLIB_PATH) -lm -lz
 
 ##ARCH = X86_64
 
-ifeq ($(ARCH),SGI) ## SGI 32bit
-ZLIB_INC	=	-I/usr/freeware/include
-ZLIB_PATH	=	-L/usr/freeware/lib32
-RANLIB		=	echo "ranlib not needed"
-else
-ifeq ($(ARCH),I386) ## 32-bit Linux
-ZLIB_INC	=	-I/usr/include
-ZLIB_PATH	=	-L/usr/lib
-TAR		=	/bin/tar
-else
-ifeq ($(ARCH),X86_64) ## 64-bit Linux
-ZLIB_INC	=
-ZLIB_PATH	=
-ZLIB_LIBS 	= 	$(ZLIB_PATH) -lm -lz
-TAR		=	/bin/tar
-endif
-endif
-endif
-
 
 #################################################################
 
