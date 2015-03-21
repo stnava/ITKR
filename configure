@@ -7,14 +7,14 @@ if [[ ! -d itkb ]] ; then
   mkdir itkb
 fi
 itkfiles=`find ${PWD} -name "*.itk"`
+basedir=${PWD}
 for x in $itkfiles ; do
   locdir=`dirname "${x}"`
   cd $locdir
   echo $x
   ${R_HOME}/bin/Rscript -e 'args <- commandArgs(trailingOnly = TRUE); untar(args[1])' ${x}
 done
-exit
-cd ./itkb
+cd ${basedir}/itkb
 compflags=" -fPIC "
 compflags=" -Wno-c++11-extensions -fPIC -O2 -std=c++11 "
 compflags=" -Wno-c++11-long-long -fPIC -O2  "
