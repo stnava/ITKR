@@ -36,6 +36,7 @@ install:
 - cd ${basedir}
 
 script:
+- R CMD INSTALL ITKR
 - travis_wait 40 R CMD build ITKR
 - travis_wait 100 R CMD check ITKR_0.0.tar.gz --as-cran
 - cd ITKR
