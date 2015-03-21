@@ -2,12 +2,17 @@
 CXX_STD=CXX11
 JTHREADS=2
 CMAKE_BUILD_TYPE=Release
+
+# get r version of cmake
+cmaker=`${R_HOME}/bin/Rscript -e 'cmaker::cmake()'`
+
+# go to source directory
 cd ./src
 if [[ ! -d itkb ]] ; then
   mkdir itkb
 fi
-cmaker=`${R_HOME}/bin/Rscript -e 'cmaker::cmake()'`
 
+# deal with non-portable file extensions
 itkfiles=`find ${PWD} -name "*.itk"`
 basedir=${PWD}
 for x in $itkfiles ; do
@@ -16,6 +21,8 @@ for x in $itkfiles ; do
   echo $x
   ${R_HOME}/bin/Rscript -e 'args <- commandArgs(trailingOnly = TRUE); untar(args[1])' ${x}
 done
+
+# now build itk
 cd ${basedir}/itkb
 compflags=" -Wno-c++11-long-long -fPIC -O2  "
 ${cmaker} \
