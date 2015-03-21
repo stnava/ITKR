@@ -6,13 +6,14 @@ cd ./src
 if [[ ! -d itkb ]] ; then
   mkdir itkb
 fi
-itkfiles=`find ./ -name "*.itk"`
+itkfiles=`find ${PWD} -name "*.itk"`
 for x in $itkfiles ; do
-  locdir=$(dirname "${x}")
+  locdir=`dirname "${x}"`
   cd $locdir
-  ${R_HOME}/bin/Rscript -e 'untar("*.itk")'`
+  echo $x
+  ${R_HOME}/bin/Rscript -e 'args <- commandArgs(trailingOnly = TRUE); untar(args[1])' ${x}
 done
-derka
+exit
 cd ./itkb
 compflags=" -fPIC "
 compflags=" -Wno-c++11-extensions -fPIC -O2 -std=c++11 "
