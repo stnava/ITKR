@@ -3,8 +3,11 @@ CXX_STD=CXX11
 JTHREADS=2
 CMAKE_BUILD_TYPE=Release
 
-# get r version of cmake
-cmaker=`${R_HOME}/bin/Rscript -e 'cmaker::cmake()'`
+# get a version of cmake
+cmaker=`which cmake`
+if [[ ! -x $cmaker ]] ; then # try r version
+  cmaker=`${R_HOME}/bin/Rscript -e 'cmaker::cmake()'`
+fi
 
 # go to source directory
 cd ./src
