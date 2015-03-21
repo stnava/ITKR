@@ -6,6 +6,8 @@ cd ./src
 if [[ ! -d itkb ]] ; then
   mkdir itkb
 fi
+cmaker=`${R_HOME}/bin/Rscript -e 'cmaker::cmake()'`
+
 itkfiles=`find ${PWD} -name "*.itk"`
 basedir=${PWD}
 for x in $itkfiles ; do
@@ -15,13 +17,11 @@ for x in $itkfiles ; do
   ${R_HOME}/bin/Rscript -e 'args <- commandArgs(trailingOnly = TRUE); untar(args[1])' ${x}
 done
 cd ${basedir}/itkb
-compflags=" -fPIC "
-compflags=" -Wno-c++11-extensions -fPIC -O2 -std=c++11 "
 compflags=" -Wno-c++11-long-long -fPIC -O2  "
-cmake \
+${cmaker} \
     -DCMAKE_BUILD_TYPE:STRING="${CMAKE_BUILD_TYPE}" \
-    -DCMAKE_C_FLAGS="${CMAKE_C_FLAGS} -Wno-c++11-long-long -fPIC -O2 -DNDEBUG  "\
-    -DCMAKE_CXX_FLAGS="${CMAKE_CXX_FLAGS} -Wno-c++11-long-long -fPIC -O2 -DNDEBUG  "\
+    -DCMAKE_C_FLAGS="${CMAKE_C_FLAGS} ${compflags} -DNDEBUG  "\
+    -DCMAKE_CXX_FLAGS="${CMAKE_CXX_FLAGS} ${compflags} -DNDEBUG  "\
     -DBUILD_SHARED_LIBS=OFF \
     -DBUILD_TESTING:BOOL=OFF \
     -DBUILD_EXAMPLES:BOOL=OFF \

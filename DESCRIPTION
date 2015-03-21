@@ -10,6 +10,7 @@ License: Apache License (== 2.0)
 LazyLoad: yes
 NeedsCompilation: yes
 OS_type: unix
-SystemRequirements: cmake, git, clang (recommended)
+Depends: cmaker
+SystemRequirements: clang (recommended)
 URL: http://github.com/stnava/ITKR/
 BugReports: http://github.com/stnava/ITKR/issues
