@@ -6,3 +6,7 @@ src/*.o
 src/*.so
 src/symbols.rds
 cran-comments.md
+.travis.yml
+.git
+.gitignore
+src/itk/Modules/ThirdParty/.gitattributes
