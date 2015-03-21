@@ -7,6 +7,12 @@ if [[ ! -d itkb ]] ; then
   mkdir itkb
 fi
 itkfiles=`find ./ -name "*.itk"`
+for x in $itkfiles ; do
+  locdir=$(dirname "${x}")
+  cd $locdir
+  ${R_HOME}/bin/Rscript -e 'untar("*.itk")'`
+done
+derka
 cd ./itkb
 compflags=" -fPIC "
 compflags=" -Wno-c++11-extensions -fPIC -O2 -std=c++11 "
