@@ -16,13 +16,15 @@ if [[ ! -d itkb ]] ; then
 fi
 
 # deal with non-portable file extensions
-itkfiles=`find ${PWD} -name "*.itk"`
 basedir=${PWD}
-for x in $itkfiles ; do
-  locdir=`dirname "${x}"`
-  cd $locdir
-  echo $x
-  ${R_HOME}/bin/Rscript -e 'args <- commandArgs(trailingOnly = TRUE); untar(args[1])' ${x}
+for ct in 1 2 ; do
+itkfiles=`find ${basedir} -name "*.itk"`
+  for x in $itkfiles ; do
+    locdir=`dirname "${x}"`
+    cd $locdir
+    echo $x
+    ${R_HOME}/bin/Rscript -e 'args <- commandArgs(trailingOnly = TRUE); untar(args[1])' ${x}
+  done
 done
 
 # now build itk
