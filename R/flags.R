@@ -5,14 +5,14 @@
 #' @author Avants BB
 #' @examples
 #'
-#' getITKincludes()
+#' itkIncludes()
 #'
-#' @export getITKincludes
-getITKincludes <- function() {
+#' @export itkIncludes
+itkIncludes <- function() {
   itklocation<-paste( system.file("libs",
-    package="ITKR"),"/include/ITK-",getITKversion(),"/", sep="")
+    package="ITKR"),"/include/ITK-",itkVersion(),"/", sep="")
   if ( ! file.exists(itklocation) )
-    print("getITKincludes: itk includes do not exist")
+    print("itkIncludes: itk includes do not exist")
   cat( itklocation )
 }
 
@@ -23,13 +23,13 @@ getITKincludes <- function() {
 #' @author Avants BB
 #' @examples
 #'
-#' getITKlibs()
+#' itkLibs()
 #'
-#' @export getITKlibs
-getITKlibs <- function() {
+#' @export itkLibs
+itkLibs <- function() {
   itklibs <- paste( system.file("libs", package="ITKR"), '/lib/', sep="")
   if ( ! file.exists(itklibs) )
-    print("getITKlibs: itk libs do not exist")
+    print("itkLibs: itk libs do not exist")
   cat( itklibs )
 }
 
@@ -41,11 +41,11 @@ getITKlibs <- function() {
 #' @author Avants BB
 #' @examples
 #'
-#' getITKcompileflags()
+#' itkCompileFlags()
 #'
-#' @export getITKcompileflags
-getITKcompileflags <- function() {
-  cat(" -Wno-c++11-long-long -fPIC -O2  ")
+#' @export itkCompileFlags
+itkCompileFlags <- function() {
+  cat(" -fPIC -O2  ")
 }
 
 #' return ITK version information
@@ -55,10 +55,10 @@ getITKcompileflags <- function() {
 #' @author Avants BB
 #' @examples
 #'
-#' getITKversion()
+#' itkVersion()
 #'
-#' @export getITKversion
-getITKversion <- function() {
+#' @export itkVersion
+itkVersion <- function() {
   # should update this as versions change
   "4.8"
 }
