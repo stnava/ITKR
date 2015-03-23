@@ -1,14 +1,8 @@
 CXX_STD = CXX11
-myrootantssource=${PWD}/ants/
-myrootantslib=${PWD}/antb/lib/
-myrootitklib=${R_PACKAGE_DIR}/libs/lib/
-myrootitksource=${R_PACKAGE_DIR}/libs/include/
-PKG_CPPFLAGS= -I../inst/include -I${PWD} -I${myrootitksource} -I${myrootantssource}/Examples/include/
-PKG_LIBS = ${libitk} ${libants} ${libitk} ${libants} ${libitk} ${libants} ${libitk} ${libants}
 .PHONY: all libs
 
 all: $(SHLIB)
 
 $(SHLIB): libs
 
-libs: ; cd ${PWD}/itkb && $(MAKE) -j 2 && $(MAKE) install && rm -r -f ${R_PACKAGE_DIR}/libs/bin && rm -r -f ${R_PACKAGE_DIR}/libs/share && rm -r -f ${PWD}/itks && rm -r -f ${PWD}/itkb
+libs: ; cd ${PWD}/itkb && $(MAKE) -j 2 && $(MAKE) install && rm -r -f ${R_PACKAGE_DIR}/libs/bin && rm -r -f ${R_PACKAGE_DIR}/libs/share
