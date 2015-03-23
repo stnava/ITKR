@@ -1,3 +1,22 @@
+#' return ITK directory information
+#'
+#' call this to get the include path for ITK configuration.
+#' this is what needs to be passed to dependent programs.
+#'
+#' @author Avants BB
+#' @examples
+#'
+#' itkDir()
+#'
+#' @export itkDir
+itkDir <- function() {
+  itkd<-paste( system.file("libs",
+    package="ITKR"),"/lib/cmake/ITK-",itkVersion(),"/", sep="")
+  if ( ! file.exists(itkd) )
+    print("itkDir: itk dir does not exist")
+  cat( itkd )
+}
+
 #' return ITK installation information
 #'
 #' call this to get the include path for ITK headers and libraries
