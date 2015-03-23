@@ -29,7 +29,7 @@ done
 
 # now build itk
 cd ${basedir}/itkb
-compflags=" -Wno-c++11-long-long -fPIC -O2  "
+compflags=" -fPIC -O2  "
 ${cmaker} \
     -DCMAKE_BUILD_TYPE:STRING="${CMAKE_BUILD_TYPE}" \
     -DCMAKE_C_FLAGS="${CMAKE_C_FLAGS} ${compflags} -DNDEBUG  "\
