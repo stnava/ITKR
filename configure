@@ -6,7 +6,7 @@ CMAKE_BUILD_TYPE=Release
 # get a version of cmake
 cmaker=`which cmake`
 if [[ ! -x $cmaker ]] ; then # try r version
-  cmaker=`${R_HOME}/bin/Rscript -e 'cmaker::cmake()'`
+  cmaker=`${R_HOME}/bin/Rscript -e 'a<-cmaker::cmake()'`
 fi
 
 # go to source directory
