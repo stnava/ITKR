@@ -37,7 +37,7 @@ install:
 
 script:
 - travis_wait 40 R CMD build ITKR
-- travis_wait 100 R CMD check ITKR_0.0.tar.gz --as-cran
+- travis_wait 100 R CMD INSTALL --build ITKR_0.0.tar.gz
 - cd ITKR
 
 before_deploy: git fetch --tags
@@ -45,14 +45,8 @@ before_deploy: git fetch --tags
 deploy:
   provider: releases
   api_key:
-    secure: KeamoMlOUTB1Oi1VrBIbRaDCzHdrVqfSKXYc06zqi6FBkdXIsaNmX2P50CyOAlEBpkXATUMX2S8CAqwa37XSEF3WwSpRDTGEWgwas0N3D1PRSPN8HJYZ2hKWjcchZF1ov9ERRMOtJshlQ+W6YddPQiHRVCx2/8VAjNqxgT+1sQI=
+    secure: sMbXZTmLc6h1nsUkZlanuI7huOILHQJSuNLGKRCrmn/NcF6mAW4nX92hSGC1QpXafGAhuzKy0oATVJGVziPWpZ5e4bw3+puPEMfc6w743YMBYYSHoHTGoefnRuzngjDrhSZc7QHSRLp32z3i/cpArLT0SYg61/89h9lp93jXJQo=
   file: ../ITKR_0.0_R_x86_64-pc-linux-gnu.tar.gz
-  skip_cleanup: true
-  on:
-    tags: true
-    all_branches: true
-
-#  file: ../ITKR_0.0.tgz # osx
 
 after_failure:
  - ./travis-tool.sh dump_logs
