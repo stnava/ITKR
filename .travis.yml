@@ -52,7 +52,7 @@ deploy:
   file: ../ITKR_0.0_R_x86_64-pc-linux-gnu.tar.gz
 
 after_failure:
- - ./travis-tool.sh dump_logs
+  - ./travis-tool.sh dump_logs
 
 notifications:
   email:
