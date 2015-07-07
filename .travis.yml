@@ -10,7 +10,7 @@ os:
 branches:
   only:
     - master
-    - testtar
+#    - testtar
 
 before_install:
   - sudo apt-get update
