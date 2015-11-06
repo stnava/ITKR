@@ -14,8 +14,7 @@ branches:
 
 before_install:
   - sudo apt-get update
-  - wget http://www.cmake.org/files/v3.2/cmake-3.2.0-rc1-Linux-x86_64.sh
-  - sudo sh cmake-3.2.0-rc1-Linux-x86_64.sh --skip-license --prefix=/usr
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then wget --no-check-certificate https://cmake.org/files/v3.4/cmake-3.4.0-rc1-Linux-x86_64.sh; sh cmake-3.4.0-rc1-Linux-x86_64.sh --skip-license --prefix=${HOME}; export PATH=$HOME/bin/:$PATH; fi
   - cd ..
   - basedir=${PWD}
   - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
