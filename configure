@@ -10,7 +10,7 @@ if [[ $TRAVIS -eq true ]] ; then
 fi
 cd ./src
 itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
-itktag=5538e605e730f054d40fee78c258fbaf959fbc92
+itktag=c98c5ddd9a01f311b4dd95f036acde0fd9a4e155
 mkdir  itks itkb
 if [[ ! -s itks/CMakeLists.txt ]] ; then
     git clone $itkgit itks
