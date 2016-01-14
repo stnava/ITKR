@@ -116,5 +116,5 @@ deploy:
   file: ${PKG_FILE_NAME}
   skip_cleanup: true
   on:
-    tags: true
+    branch: master
     repo: stnava/ITKR
