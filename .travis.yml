@@ -1,12 +1,18 @@
-# .travis.yml using container-based infrastructure
+# use containers
+sudo: false
 
-# use c as catch-all language
-language: c
+os:
+  - linux
+  - osx
+
+language: cpp
+
 compiler:
   - clang
 
-# use containers
-sudo: false
+matrix:
+  allow_failures:
+    - os: osx
 
 # only run for pushes to master branch
 branches:
