@@ -1,4 +1,3 @@
-# use containers
 sudo: false
 
 os:
@@ -12,12 +11,11 @@ compiler:
 
 matrix:
   allow_failures:
-    - os: osx
+  - os: osx
 
-# only run for pushes to master branch
 branches:
   only:
-   - master
+  - master
 
 addons:
   apt:
@@ -29,29 +27,19 @@ addons:
     - r-recommended
     - pandoc
 
-# cache local R libraries directory:
 cache:
   directories:
-    - ~/Rlib
+  - ~/Rlib
 
 before_install:
   - basedir=${PWD}
   - cd ..
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then wget --no-check-certificate https://cmake.org/files/v3.4/cmake-3.4.0-rc1-Linux-x86_64.sh; sh cmake-3.4.0-rc1-Linux-x86_64.sh --skip-license --prefix=${HOME}; export PATH=$HOME/bin/:$PATH; fi
   - if [ "$TRAVIS_OS_NAME" == "osx" ];  then echo "need cmake 3.2"; fi
-  - if [ "$TRAVIS_OS_NAME" == "osx" ];  then cmake --version;  curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh ; chmod 755 ./travis-tool.sh;  ./travis-tool.sh bootstrap; fi
+  - if [ "$TRAVIS_OS_NAME" == "osx" ];  then cmake --version;  curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh; chmod 755 ./travis-tool.sh;  ./travis-tool.sh bootstrap; fi
   - export PATH=$HOME/bin/:$PATH
   - cd $basedir
 
-# install the package and dependencies:
-# - create directory for R libraries (if not already exists)
-# - create .Renviron with location of R libraries
-# - define R repository in .Rprofile
-# - add .travis.yml to .Rbuildignore
-# - install devtools if not already installed
-# - install covr if not already installed
-# - update all installed packages
-# - install package with dependencies
 install:
   - mkdir -p ~/.R
   - echo "CC=clang" >  ~/.R/Makevars
@@ -66,32 +54,24 @@ install:
   - echo '.travis.yml' > .Rbuildignore
   - Rscript -e 'if(!"Rcpp" %in% rownames(installed.packages())) { install.packages("Rcpp", dependencies = TRUE) }'
   - Rscript -e 'if(!"knitr" %in% rownames(installed.packages())) { install.packages("knitr", dependencies = TRUE) }'
-#  - Rscript -e 'if(!"devtools" %in% rownames(installed.packages())) { install.packages("devtools", dependencies = TRUE) }'
-#  - Rscript -e 'if(!"covr" %in% rownames(installed.packages())) { install.packages("covr", dependencies = TRUE) }'
   - Rscript -e 'update.packages(ask = FALSE, instlib = "~/Rlib")'
   - cd ${basedir}
 
-# Build and check package
 script:
   - source ~/.R/Makevars
   - cd ..
+  - travis_wait 100  R CMD INSTALL --build ITKR
+  - PKG_FILE_NAME=$(ls -1t *.tar.gz | head -n 1)
+  - if [ "$TRAVIS_OS_NAME" == "osx" ];  then  PKG_FILE_NAME=$(ls -1t *.tgz | head -n  1) ; fi
+
 #  - travis_wait 100 R CMD build ITKR --no-build-vignettes --no-manual
 #  - PKG_FILE_NAME=$(ls -1t *.tar.gz | head -n 1)
 #  - travis_wait 100 R CMD check "${PKG_FILE_NAME}" --no-build-vignettes --no-manual # --as-cran
-  - travis_wait 100  R CMD INSTALL --build ITKR
-  - PKG_FILE_NAME=$(ls -1t *.tar.gz | head -n 1)
-  - if [ "$TRAVIS_OS_NAME" == "osx" ];  then  PKG_FILE_NAME=$(ls -1t *.tgz | head -n 1) ; fi
-
-# report coverage rate to coveralls
-after_success:
-#  - Rscript -e 'covr::coveralls(exclusions = "src/RcppExports.cpp")'
 
 after_failure:
-#  - ./travis-tool.sh dump_logs
-  - cat /home/travis/build/stnava/ITKR.Rcheck/00install.out
-  - cat /home/travis/build/stnava/ITKR.Rcheck/00check.log
+  - cat ~/build/stnava/ANTsR.Rcheck/00install.out
+  - cat ~/build/stnava/ANTsR.Rcheck/00check.log
 
-# send e-mails if stuff changes
 notifications:
   email:
     recipients:
@@ -111,12 +91,12 @@ env:
   - WARNINGS_ARE_ERRORS=0
 
 before_deploy:
-    - cd $TRAVIS_BUILD_DIR
+- cd $TRAVIS_BUILD_DIR
 
 deploy:
   provider: releases
   api_key:
-    secure: ccfe9119010ccc11080d2bf5d37548bef7aab3d7
+    secure: DTOJMnkUgxgSuaoJD/isIXs6aDldXiEoghVZOUUXjCsixXNTEq/fuiRZ0pO2S5BJ8wtqDvaoIMbJ586xmr4yZs/F0LZCF6h3ZC9RZAJ75955rKSBlA6wFH6vjpZszFc9Npgp+Kg3wss0mjokOfY6axa31IFC+k5YwjbRc20ZLxg=
   file: ${PKG_FILE_NAME}
   skip_cleanup: true
   on:
