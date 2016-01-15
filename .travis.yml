@@ -79,11 +79,11 @@ before_deploy:
 - export GIT_TAG=$TRAVIS_BRANCH-0.1.$TRAVIS_BUILD_NUMBER
 - git tag $GIT_TAG -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER"
 - git push -q https://${GH_TOKEN}@github.com/stnava/ITKR --tags
-- ls -R
+
 deploy:
   provider: releases
   api_key:
-    secure: DTOJMnkUgxgSuaoJD/isIXs6aDldXiEoghVZOUUXjCsixXNTEq/fuiRZ0pO2S5BJ8wtqDvaoIMbJ586xmr4yZs/F0LZCF6h3ZC9RZAJ75955rKSBlA6wFH6vjpZszFc9Npgp+Kg3wss0mjokOfY6axa31IFC+k5YwjbRc20ZLxg=
+    secure: S8mvNBpvzJVU28vuVRnSCXuI/ltEvaXnXwufjMsmiKhNV4pyTfS+t5C8G2SMnyytsssb8RPPGtht1o5U8Zs7wB6PaEqVQ83xKvyA9+L6UcXCPISTY/i7zENTKi1Y8lnkmILlVSN6NVC6y0gRYQRunLGL9fJrJ9eAMbfeES2npFs=
   file: ${PKG_FILE_NAME}
   skip_cleanup: true
   on:
