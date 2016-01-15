@@ -77,7 +77,7 @@ env:
   - WARNINGS_ARE_ERRORS=0
   - secure: gVr+Jv2MpuBzTeK6D1n9X/LknoVOM3562W827ZR9VVCfdciLs6NCPdhgnEmkZFTbKBxNEL2AVIFDcbKEir5ok+zQXTYxRp/GiwISn0uKCJO4WUqFOEetUiyR8delXhBpV1vvNi3BYHaP6zl3ftMXzARzSecTxA4FyuPkTbOfT9o=
 
-before_deploy:
+after_success:
 - cd $TRAVIS_BUILD_DIR
 - git config --global user.email "builds@travis-ci.com"
 - git config --global user.name "Travis CI"
@@ -92,5 +92,5 @@ deploy:
   file: ${PKG_FILE_NAME}
   skip_cleanup: true
   on:
-    tags: true
+    all_branches: true
     repo: stnava/ITKR
