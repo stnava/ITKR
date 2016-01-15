@@ -26,7 +26,7 @@ cache:
 before_install:
 - basedir=${PWD}
 - cd ..
-- if [ "$TRAVIS_OS_NAME" == "linux" ]; then wget --no-check-certificate https://cmake.org/files/v3.4/cmake-3.4.0-rc1-Linux-x86_64.sh; sh cmake-3.4.0-rc1-Linux-x86_64.sh --skip-license --prefix=${HOME}; export PATH=$HOME/bin/:$PATH; fi
+- if [ "$TRAVIS_OS_NAME" == "linux" ]; then wget --no-check-certificate https://cmake.org/files/v3.4/cmake-3.4.0-rc1-Linux-x86_64.sh; sh cmake-3.4.0-rc1-Linux-x86_64.sh --skip-license --prefix=${HOME}; export PATH=$HOME/bin/:$PATH;  fi
 - if [ "$TRAVIS_OS_NAME" == "osx" ];  then cmake --version;  curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh;  chmod 755 ./travis-tool.sh;  ./travis-tool.sh bootstrap; fi
 - export PATH=$HOME/bin/:$PATH
 - cd $basedir
@@ -42,7 +42,7 @@ install:
 - echo 'R_LIBS_USER="~/Rlib"' >>  $HOME/.Renviron
 - echo 'options(repos = "http://cran.rstudio.com")' > .Rprofile
 - echo '.travis.yml' > .Rbuildignore
-- Rscript -e 'if(!"Rcpp" %in% rownames(installed.packages())) { install.packages("Rcpp",  dependencies = TRUE) }'
+- Rscript -e 'if(!"Rcpp" %in% rownames(installed.packages())) { install.packages("Rcpp",  dependencies  = TRUE) }'
 - Rscript -e 'if(!"knitr" %in% rownames(installed.packages())) { install.packages("knitr",  dependencies = TRUE) }'
 - Rscript -e 'update.packages(ask = FALSE, instlib = "~/Rlib")'
 - cd ${basedir}
@@ -51,7 +51,7 @@ script:
 - cd ..
 - travis_wait 100  R CMD INSTALL --build ITKR
 - PKG_FILE_NAME=$(ls -1t *.tar.gz | head -n 1)
-- if [ "$TRAVIS_OS_NAME" == "osx" ];  then  PKG_FILE_NAME=$(ls -1t *.tgz | head -n  1); fi
+- if [ "$TRAVIS_OS_NAME" == "osx" ];  then  PKG_FILE_NAME=$(ls -1t *.tgz | head -n  1);  fi
 after_failure:
 - cat ~/build/stnava/ITKR.Rcheck/00install.out
 - cat ~/build/stnava/ITKR.Rcheck/00check.log
@@ -79,11 +79,10 @@ before_deploy:
 - export GIT_TAG=$TRAVIS_BRANCH-0.1.$TRAVIS_BUILD_NUMBER
 - git tag $GIT_TAG -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER"
 - git push -q https://${GH_TOKEN}@github.com/stnava/ITKR --tags
-
 deploy:
   provider: releases
-  api-key: ${GH_TOKEN}
+  api_key:
+    secure: jKPC6UoHjlv0imYdlMQjUDRdy8xHIQbvG/nYkV6eteVpp2VBDKPJOGaBOaIouOIAzYKXpMERh3IyHdtt8QCNmEGh7CuhjHT6+wc5UYy3IYG9hZlQotIbSTzRQfKNsHESHZXGJBO38FwXrLtFPcpp8K7RpSi2/6c/D9U50vkeaTQ=
   file: ${PKG_FILE_NAME}
-  skip_cleanup: true
   on:
-    tags: true
+    repo: stnava/ITKR
