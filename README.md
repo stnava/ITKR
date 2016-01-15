@@ -19,3 +19,12 @@ which uses `cat` to report the install location.  We use `cat` because it allows
 itkinstalldir <- capture.output( ITKR::getITKincludes() )
 ```
 This package is still an early development version.
+
+Deployment notes:
+
+# see these sites for more info
+# https://docs.travis-ci.com/user/deployment/
+# https://iamstarkov.com/deploy-gh-pages-from-travis/
+# http://stackoverflow.com/questions/28217556/travis-ci-auto-tag-build-for-github-release
+# https://github.com/travis-ci/travis.rb/issues/199
+
