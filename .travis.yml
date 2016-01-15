@@ -82,11 +82,8 @@ before_deploy:
 
 deploy:
   provider: releases
-  api_key:
-    secure: S8mvNBpvzJVU28vuVRnSCXuI/ltEvaXnXwufjMsmiKhNV4pyTfS+t5C8G2SMnyytsssb8RPPGtht1o5U8Zs7wB6PaEqVQ83xKvyA9+L6UcXCPISTY/i7zENTKi1Y8lnkmILlVSN6NVC6y0gRYQRunLGL9fJrJ9eAMbfeES2npFs=
+  api-key: ${GH_TOKEN}
   file: ${PKG_FILE_NAME}
   skip_cleanup: true
   on:
-    tags: false
-    all_branches: true
-    repo: stnava/ITKR
+    tags: true
