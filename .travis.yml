@@ -94,9 +94,6 @@ deploy:
   file: ${PKG_FILE_NAME}
   skip_cleanup: true
   on:
-    all_branches: true
-
-  on:
     tags: false
     all_branches: true
 
