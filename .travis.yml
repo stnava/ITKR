@@ -75,6 +75,7 @@ env:
   - _R_CHECK_FORCE_SUGGESTS_="0"
   - BOOTSTRAP_LATEX=1
   - WARNINGS_ARE_ERRORS=0
+  - GH_REF: github.com/stnava/ITKR.git
   - secure: gVr+Jv2MpuBzTeK6D1n9X/LknoVOM3562W827ZR9VVCfdciLs6NCPdhgnEmkZFTbKBxNEL2AVIFDcbKEir5ok+zQXTYxRp/GiwISn0uKCJO4WUqFOEetUiyR8delXhBpV1vvNi3BYHaP6zl3ftMXzARzSecTxA4FyuPkTbOfT9o=
 
 after_success:
@@ -84,6 +85,7 @@ after_success:
 - export GIT_TAG=$TRAVIS_BRANCH-0.1.$TRAVIS_BUILD_NUMBER
 - git tag $GIT_TAG -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER"
 - git push -q https://${GH_TOKEN}@github.com/stnava/ITKR --tags
+- ls
 
 deploy:
   provider: releases
@@ -93,4 +95,11 @@ deploy:
   skip_cleanup: true
   on:
     all_branches: true
-    repo: stnava/ITKR
+
+  on:
+    tags: false
+    all_branches: true
+
+branches:
+  except:
+    - /^*-v[0-9]/
