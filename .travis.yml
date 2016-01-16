@@ -1,16 +1,18 @@
 sudo: false
+
 os:
-- linux
-- osx
+  - linux
+  - osx
+
 language: cpp
+
 compiler:
-- clang
+  - clang
+
 matrix:
   allow_failures:
   - os: osx
-branches:
-  except:
-  - /^*-v[0-9]/
+
 addons:
   apt:
     sources:
@@ -24,44 +26,49 @@ cache:
   directories:
   - ~/Rlib
 before_install:
-- basedir=${PWD}
-- cd ..
-- if [ "$TRAVIS_OS_NAME" == "linux" ]; then wget --no-check-certificate https://cmake.org/files/v3.4/cmake-3.4.0-rc1-Linux-x86_64.sh; sh cmake-3.4.0-rc1-Linux-x86_64.sh --skip-license --prefix=${HOME}; export PATH=$HOME/bin/:$PATH;  fi
-- if [ "$TRAVIS_OS_NAME" == "osx" ];  then cmake --version;  curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh;  chmod 755 ./travis-tool.sh;  ./travis-tool.sh bootstrap; fi
-- export PATH=$HOME/bin/:$PATH
-- cd $basedir
+  - basedir=${PWD}
+  - cd ..
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then wget --no-check-certificate https://cmake.org/files/v3.4/cmake-3.4.0-rc1-Linux-x86_64.sh; sh cmake-3.4.0-rc1-Linux-x86_64.sh --skip-license --prefix=${HOME}; export PATH=$HOME/bin/:$PATH;  fi
+  - if [ "$TRAVIS_OS_NAME" == "osx" ];  then cmake --version;  curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh;  chmod 755 ./travis-tool.sh;  ./travis-tool.sh bootstrap; fi
+  - export PATH=$HOME/bin/:$PATH
+  - cd $basedir
+
 install:
-- mkdir -p ~/.R
-- echo "CC=clang" >  ~/.R/Makevars
-- echo "CXX=clang++" >> ~/.R/Makevars
-- echo "CXX1X=clang++" >> ~/.R/Makevars
-- echo "CXX1XSTD=-std=c++11" >> ~/.R/Makevars
-- source ~/.R/Makevars
-- mkdir -p ~/Rlib
-- echo 'R_LIBS=~/Rlib' > .Renviron
-- echo 'R_LIBS_USER="~/Rlib"' >>  $HOME/.Renviron
-- echo 'options(repos = "http://cran.rstudio.com")' > .Rprofile
-- echo '.travis.yml' > .Rbuildignore
-- Rscript -e 'if(!"Rcpp" %in% rownames(installed.packages())) { install.packages("Rcpp",  dependencies  =  TRUE)  }'
-- Rscript -e 'if(!"knitr" %in% rownames(installed.packages())) { install.packages("knitr",  dependencies  = TRUE) }'
-- Rscript -e 'update.packages(ask = FALSE, instlib = "~/Rlib")'
-- cd ${basedir}
+  - mkdir -p ~/.R
+  - echo "CC=clang" >  ~/.R/Makevars
+  - echo "CXX=clang++" >> ~/.R/Makevars
+  - echo "CXX1X=clang++" >> ~/.R/Makevars
+  - echo "CXX1XSTD=-std=c++11" >> ~/.R/Makevars
+  - source ~/.R/Makevars
+  - mkdir -p ~/Rlib
+  - echo 'R_LIBS=~/Rlib' > .Renviron
+  - echo 'R_LIBS_USER="~/Rlib"' >>  $HOME/.Renviron
+  - echo 'options(repos = "http://cran.rstudio.com")' > .Rprofile
+  - echo '.travis.yml' > .Rbuildignore
+  - Rscript -e 'if(!"Rcpp" %in% rownames(installed.packages())) { install.packages("Rcpp",  dependencies  =  TRUE)  }'
+  - Rscript -e 'if(!"knitr" %in% rownames(installed.packages())) { install.packages("knitr",  dependencies  = TRUE) }'
+  - Rscript -e 'update.packages(ask = FALSE, instlib = "~/Rlib")'
+  - cd ${basedir}
+
 script:
-- source ~/.R/Makevars
-- cd ..
-- travis_wait 100  R CMD INSTALL --build ITKR
-- PKG_FILE_NAME=$(ls -1t *.tar.gz | head -n 1)
-- mydir=${PWD}
-- if [ "$TRAVIS_OS_NAME" == "osx" ];  then  PKG_FILE_NAME=$(ls -1t *.tgz | head -n  1);  fi
+  - source ~/.R/Makevars
+  - cd ..
+  - travis_wait 100  R CMD INSTALL --build ITKR
+  - PKG_FILE_NAME=$(ls -1t *.tar.gz | head -n 1)
+  - mydir=${PWD}
+  - if [ "$TRAVIS_OS_NAME" == "osx" ];  then  PKG_FILE_NAME=$(ls -1t *.tgz | head -n  1);  fi
+
 after_failure:
-- cat ~/build/stnava/ITKR.Rcheck/00install.out
-- cat ~/build/stnava/ITKR.Rcheck/00check.log
+  - cat ~/build/stnava/ITKR.Rcheck/00install.out
+  - cat ~/build/stnava/ITKR.Rcheck/00check.log
+
 notifications:
   email:
     recipients:
     - stnava@gmail.com
     on_success: change
     on_failure: always
+
 env:
   global:
   - R_BUILD_ARGS=" "
@@ -74,6 +81,7 @@ env:
   - WARNINGS_ARE_ERRORS=0
   - GH_REF: github.com/stnava/ITKR.git
   - secure: gVr+Jv2MpuBzTeK6D1n9X/LknoVOM3562W827ZR9VVCfdciLs6NCPdhgnEmkZFTbKBxNEL2AVIFDcbKEir5ok+zQXTYxRp/GiwISn0uKCJO4WUqFOEetUiyR8delXhBpV1vvNi3BYHaP6zl3ftMXzARzSecTxA4FyuPkTbOfT9o=
+
 after_success:
 # - cd ${basedir}
 # - git config --global user.email "builds@travis-ci.com"
