@@ -51,6 +51,7 @@ script:
 - cd ..
 - travis_wait 100  R CMD INSTALL --build ITKR
 - PKG_FILE_NAME=$(ls -1t *.tar.gz | head -n 1)
+- mydir=${PWD}
 - if [ "$TRAVIS_OS_NAME" == "osx" ];  then  PKG_FILE_NAME=$(ls -1t *.tgz | head -n  1);  fi
 after_failure:
 - cat ~/build/stnava/ITKR.Rcheck/00install.out
@@ -74,11 +75,13 @@ env:
   - GH_REF: github.com/stnava/ITKR.git
   - secure: gVr+Jv2MpuBzTeK6D1n9X/LknoVOM3562W827ZR9VVCfdciLs6NCPdhgnEmkZFTbKBxNEL2AVIFDcbKEir5ok+zQXTYxRp/GiwISn0uKCJO4WUqFOEetUiyR8delXhBpV1vvNi3BYHaP6zl3ftMXzARzSecTxA4FyuPkTbOfT9o=
 after_success:
-- cd $TRAVIS_BUILD_DIR
 - git config --global user.email "builds@travis-ci.com"
 - git config --global user.name "Travis CI"
 - export GIT_TAG=$TRAVIS_BRANCH-0.1.$TRAVIS_BUILD_NUMBER
 - git tag $GIT_TAG -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER"
+- cd $mydir
+- ls $PKG_FILE_NAME
+
 deploy:
   provider: releases
   api_key:
