@@ -84,8 +84,8 @@ after_success:
 - git config --global user.name "Travis CI"
 - export GIT_TAG=$TRAVIS_BRANCH-0.1.$TRAVIS_BUILD_NUMBER
 - git tag $GIT_TAG -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER"
-- git push -q https://${GH_TOKEN}@github.com/stnava/ITKR --tags
-- ls
+# - git push -q https://${GH_TOKEN}@github.com/stnava/ITKR --tags
+# - ls
 
 deploy:
   provider: releases
@@ -94,7 +94,7 @@ deploy:
   file: ${PKG_FILE_NAME}
   skip_cleanup: true
   on:
-    tags: false
+    tags: true
     all_branches: true
 
 branches:
