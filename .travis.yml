@@ -42,29 +42,25 @@ install:
 - echo 'R_LIBS_USER="~/Rlib"' >>  $HOME/.Renviron
 - echo 'options(repos = "http://cran.rstudio.com")' > .Rprofile
 - echo '.travis.yml' > .Rbuildignore
-- Rscript -e 'if(!"Rcpp" %in% rownames(installed.packages())) { install.packages("Rcpp",  dependencies  = TRUE) }'
-- Rscript -e 'if(!"knitr" %in% rownames(installed.packages())) { install.packages("knitr",  dependencies = TRUE) }'
+- Rscript -e 'if(!"Rcpp" %in% rownames(installed.packages())) { install.packages("Rcpp",  dependencies  =  TRUE)  }'
+- Rscript -e 'if(!"knitr" %in% rownames(installed.packages())) { install.packages("knitr",  dependencies  = TRUE) }'
 - Rscript -e 'update.packages(ask = FALSE, instlib = "~/Rlib")'
 - cd ${basedir}
-
 script:
 - source ~/.R/Makevars
 - cd ..
 - travis_wait 100  R CMD INSTALL --build ITKR
 - PKG_FILE_NAME=$(ls -1t *.tar.gz | head -n 1)
 - if [ "$TRAVIS_OS_NAME" == "osx" ];  then  PKG_FILE_NAME=$(ls -1t *.tgz | head -n  1);  fi
-
 after_failure:
 - cat ~/build/stnava/ITKR.Rcheck/00install.out
 - cat ~/build/stnava/ITKR.Rcheck/00check.log
-
 notifications:
   email:
     recipients:
     - stnava@gmail.com
     on_success: change
     on_failure: always
-
 env:
   global:
   - R_BUILD_ARGS=" "
@@ -77,26 +73,18 @@ env:
   - WARNINGS_ARE_ERRORS=0
   - GH_REF: github.com/stnava/ITKR.git
   - secure: gVr+Jv2MpuBzTeK6D1n9X/LknoVOM3562W827ZR9VVCfdciLs6NCPdhgnEmkZFTbKBxNEL2AVIFDcbKEir5ok+zQXTYxRp/GiwISn0uKCJO4WUqFOEetUiyR8delXhBpV1vvNi3BYHaP6zl3ftMXzARzSecTxA4FyuPkTbOfT9o=
-
 after_success:
 - cd $TRAVIS_BUILD_DIR
 - git config --global user.email "builds@travis-ci.com"
 - git config --global user.name "Travis CI"
 - export GIT_TAG=$TRAVIS_BRANCH-0.1.$TRAVIS_BUILD_NUMBER
 - git tag $GIT_TAG -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER"
-# - git push -q https://${GH_TOKEN}@github.com/stnava/ITKR --tags
-# - ls
-
 deploy:
   provider: releases
   api_key:
-    secure: gVr+Jv2MpuBzTeK6D1n9X/LknoVOM3562W827ZR9VVCfdciLs6NCPdhgnEmkZFTbKBxNEL2AVIFDcbKEir5ok+zQXTYxRp/GiwISn0uKCJO4WUqFOEetUiyR8delXhBpV1vvNi3BYHaP6zl3ftMXzARzSecTxA4FyuPkTbOfT9o=
+    secure: UL/OXal9+cvomf7iDtJnAoVY8YEmVa7MECjbBrfnmGeloQ6yRhYVUk5sRlbPNM4VczdtN6/k8hH8LpN/3IT8Wqh+YxIaN0kw/0J05dzj1OLcilRKxTFtQo7i1VYqdTqytXbbvaISaVLF+0UjGIwfFARr/m/GZsKXV54wXhTFirY=
   file: ${PKG_FILE_NAME}
   skip_cleanup: true
   on:
     tags: true
-    all_branches: true
-
-branches:
-  except:
-    - /^*-v[0-9]/
+    repo: stnava/ITKR
