@@ -1,7 +1,7 @@
 Package: ITKR
 Type: Package
 Title: ITK in R
-Version: 0.0
+Version: 0.0.1
 Date: 2015-03-17
 Author: Brian B. Avants, Benjamin M. Kandel, Jeff T. Duda
 Maintainer: Brian B. Avants <stnava@gmail.com>
@@ -10,6 +10,8 @@ License: GPL (>=2)
 LazyLoad: yes
 NeedsCompilation: yes
 OS_type: unix
+Imports:
+    git2r
 SystemRequirements: cmake, git, clang (recommended)
 URL: http://github.com/stnava/ITKR/
 BugReports: http://github.com/stnava/ITKR/issues
