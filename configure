@@ -1,6 +1,12 @@
 #!/bin/bash
 CXX_STD=CXX11
 JTHREADS=2
+
+cmaker=`which cmake`
+if [[ ! -x $cmaker ]] ; then # try r version
+  cmaker=`Rscript -e 'a<-cmaker::cmake()'`
+fi
+
 if [[ `uname` -eq Darwin ]] ; then
   CMAKE_BUILD_TYPE=Release
 fi
@@ -13,15 +19,19 @@ itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
 itktag=fc03bcc92b11326b87c232c14eb234fc1f791f9f
 mkdir  itks itkb
 if [[ ! -s itks/CMakeLists.txt ]] ; then
-    git clone $itkgit itks
+    # git clone $itkgit itks
+    echo "library(git2r); clone(url = \"${itkgit}\", local_path = \"itks\")" > tmp.R
+    Rscript tmp.R
+    rm tmp.R
 fi
+
 cd itks
 if [[ -d .git ]]; then
     git checkout master;  git pull;  git checkout $itktag
 fi
 cd ../itkb
 compflags=" -fPIC -O2  "
-cmake \
+${cmaker} \
     -DCMAKE_BUILD_TYPE:STRING="${CMAKE_BUILD_TYPE}" \
     -DCMAKE_C_FLAGS="${CMAKE_C_FLAGS} -Wno-c++11-long-long -fPIC -O2 -DNDEBUG  "\
     -DCMAKE_CXX_FLAGS="${CMAKE_CXX_FLAGS} -Wno-c++11-long-long -fPIC -O2 -DNDEBUG  "\
