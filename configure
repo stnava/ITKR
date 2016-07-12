@@ -4,7 +4,7 @@ JTHREADS=2
 
 cmaker=`which cmake`
 if [[ ! -x $cmaker ]] ; then # try r version
-  cmaker=`${R_HOME}/bin/Rscript -e 'a<-cmaker::cmake()'`
+  cmaker=`Rscript -e 'a<-cmaker::cmake()'`
 fi
 
 if [[ `uname` -eq Darwin ]] ; then
@@ -19,7 +19,8 @@ itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
 itktag=fc03bcc92b11326b87c232c14eb234fc1f791f9f
 mkdir  itks itkb
 if [[ ! -s itks/CMakeLists.txt ]] ; then
-    git clone $itkgit itks
+    # git clone $itkgit itks
+    Rscript -e 'library(git2r); clone(url = "${itkgit}", local_path = "itks")'
 fi
 cd itks
 if [[ -d .git ]]; then
