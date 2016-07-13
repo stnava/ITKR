@@ -22,14 +22,14 @@ itktag=fc03bcc92b11326b87c232c14eb234fc1f791f9f
 mkdir  itks itkb
 if [[ ! -s itks/CMakeLists.txt ]] ; then
     # git clone $itkgit itks
-    echo "library(git2r); config(user.name = 'muschellij2', user.email = 'muschellij2@gmail.com'); repo = clone(url = \"${itkgit}\", local_path = \"itks\"); save(repo, file = 'repo.rda');" > tmp.R
+    echo "library(git2r); repo = clone(url = \"${itkgit}\", local_path = \"itks\"); config(repo, user.name = 'muschellij2', user.email = 'muschellij2@gmail.com'); save(repo, file = 'repo.rda');" > tmp.R
     Rscript tmp.R
     rm tmp.R
 fi
 
 cd itks
 if [[ -d .git ]]; then
-    echo "library(git2r); config(user.name = 'muschellij2', user.email = 'muschellij2@gmail.com'); load('../repo.rda'); checkout(repo, branch = 'master'); pull(repo); gtag = tag(repo, \"${itktag}\", message = 'itktag'); checkout(gtag)" > tmp.R
+    echo "library(git2r); load('../repo.rda'); config(repo, user.name = 'muschellij2', user.email = 'muschellij2@gmail.com'); checkout(repo, branch = 'master'); pull(repo); gtag = tag(repo, \"${itktag}\", message = 'itktag'); checkout(gtag)" > tmp.R
     Rscript tmp.R
     rm tmp.R    
     # git checkout master;  git pull;  git checkout $itktag
