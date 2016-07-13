@@ -8,10 +8,21 @@ cmaker=`which cmake`
 if [[ ! -x $cmaker ]] ; then # try r version
   cmaker=`Rscript -e 'a<-cmaker::cmake()'`
 fi
+
 gitcmd=`which git`
 if [[ ! -x $gitcmd ]] ; then # try install git
-  apt-get install -y git-core
+    installer=`which apt-get`
+    git_installer="git-core"
+    if [[ ! -x $installer ]] ; then
+        installer=`which port`
+    fi    
+    if [[ ! -x $installer ]] ; then
+        installer=`which brew`
+        git_installer="git"
+    fi
+  apt-get install -y ${git_installer}
 fi
+
 gitcmd=`which git`
 if [[ ! -x $gitcmd ]] ; then # try install git
   exit 1
@@ -29,18 +40,18 @@ itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
 itktag=fc03bcc92b11326b87c232c14eb234fc1f791f9f
 mkdir  itks itkb
 if [[ ! -s itks/CMakeLists.txt ]] ; then
-    # git clone $itkgit itks
-    echo "library(git2r); repo = clone(url = \"${itkgit}\", local_path = \"itks\"); config(repo, user.name = 'muschellij2', user.email = 'muschellij2@gmail.com'); save(repo, file = 'repo.rda');" > tmp.R
-    Rscript tmp.R
-    rm tmp.R
+    git clone $itkgit itks
+    # echo "library(git2r); repo = clone(url = \"${itkgit}\", local_path = \"itks\"); config(repo, user.name = 'muschellij2', user.email = 'muschellij2@gmail.com'); save(repo, file = 'repo.rda');" > tmp.R
+    # Rscript tmp.R
+    # rm tmp.R
 fi
 
 cd itks
 if [[ -d .git ]]; then
-    echo "library(git2r); load('../repo.rda'); config(repo, user.name = 'muschellij2', user.email = 'muschellij2@gmail.com'); checkout(repo, branch = 'master'); pull(repo); gtag = tag(repo, \"${itktag}\", message = 'itktag'); checkout(gtag)" > tmp.R
-    Rscript tmp.R
-    rm tmp.R    
-    # git checkout master;  git pull;  git checkout $itktag
+    # echo "library(git2r); load('../repo.rda'); config(repo, user.name = 'muschellij2', user.email = 'muschellij2@gmail.com'); checkout(repo, branch = 'master'); pull(repo); gtag = tag(repo, \"${itktag}\", message = 'itktag'); checkout(gtag)" > tmp.R
+    # Rscript tmp.R
+    # rm tmp.R    
+    git checkout master;  git pull;  git checkout $itktag
 fi
 cd ../itkb
 compflags=" -fPIC -O2  "
