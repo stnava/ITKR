@@ -8,6 +8,10 @@ cmaker=`which cmake`
 if [[ ! -x $cmaker ]] ; then # try r version
   cmaker=`Rscript -e 'a<-cmaker::cmake()'`
 fi
+gitcmd=`which git`
+if [[ ! -x $gitcmd ]] ; then # try install git
+  apt-get install git-core
+fi
 
 if [[ `uname` -eq Darwin ]] ; then
   CMAKE_BUILD_TYPE=Release
