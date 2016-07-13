@@ -20,7 +20,7 @@ if [[ ! -x $gitcmd ]] ; then # try install git
         installer=`which brew`
         git_installer="git"
     fi
-  apt-get install -y ${git_installer}
+  ${installer} install -y ${git_installer}
 fi
 
 gitcmd=`which git`
