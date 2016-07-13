@@ -10,6 +10,7 @@
 #'
 #' @export itkDir
 #' @import git2r
+#' @import cmaker
 itkDir <- function() {
   itkd<-paste( system.file("libs",
     package="ITKR"),"/lib/cmake/ITK-",itkVersion(),"/", sep="")

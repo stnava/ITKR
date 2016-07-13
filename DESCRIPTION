@@ -11,6 +11,7 @@ LazyLoad: yes
 NeedsCompilation: yes
 OS_type: unix
 Imports:
+    cmaker,
     git2r
 SystemRequirements: cmake, git, clang (recommended)
 URL: http://github.com/stnava/ITKR/
