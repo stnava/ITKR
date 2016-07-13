@@ -12,6 +12,10 @@ gitcmd=`which git`
 if [[ ! -x $gitcmd ]] ; then # try install git
   apt-get install git-core
 fi
+gitcmd=`which git`
+if [[ ! -x $gitcmd ]] ; then # try install git
+  exit 1
+fi
 
 if [[ `uname` -eq Darwin ]] ; then
   CMAKE_BUILD_TYPE=Release
