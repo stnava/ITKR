@@ -12,10 +12,10 @@ devtools::install_github( "stnava/ITKR" )
 ```
 The primary result of this installation process is *R*-based access to the ITK library.  The user or developer can identify the location of the ITK installation by performing:
 ```
-ITKR::getITKincludes()
+ITKR::itkIncludes()
 ```
 which uses `cat` to report the install location.  We use `cat` because it allows the developer simpler access to these variable names in Makefiles and other compilation-related scripts.  If you want to store the variable within R:
 ```
-itkinstalldir <- capture.output( ITKR::getITKincludes() )
+itkinstalldir <- capture.output( ITKR::itkIncludes() )
 ```
 This package is still an early development version.
