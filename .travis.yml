@@ -1,16 +1,18 @@
 sudo: false
+
 os:
-- linux
-- osx
+  - linux
+  - osx
+
 language: cpp
+
 compiler:
-- clang
+  - clang
+
 matrix:
   allow_failures:
   - os: osx
-branches:
-  except:
-  - /^*-v[0-9]/
+
 addons:
   apt:
     sources:
@@ -24,43 +26,49 @@ cache:
   directories:
   - ~/Rlib
 before_install:
-- basedir=${PWD}
-- cd ..
-- if [ "$TRAVIS_OS_NAME" == "linux" ]; then wget --no-check-certificate https://cmake.org/files/v3.4/cmake-3.4.0-rc1-Linux-x86_64.sh; sh cmake-3.4.0-rc1-Linux-x86_64.sh --skip-license --prefix=${HOME}; export PATH=$HOME/bin/:$PATH;  fi
-- if [ "$TRAVIS_OS_NAME" == "osx" ];  then cmake --version;  curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh;  chmod 755 ./travis-tool.sh;  ./travis-tool.sh bootstrap; fi
-- export PATH=$HOME/bin/:$PATH
-- cd $basedir
+  - basedir=${PWD}
+  - cd ..
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then wget --no-check-certificate https://cmake.org/files/v3.4/cmake-3.4.0-rc1-Linux-x86_64.sh; sh cmake-3.4.0-rc1-Linux-x86_64.sh --skip-license --prefix=${HOME}; export PATH=$HOME/bin/:$PATH;  fi
+  - if [ "$TRAVIS_OS_NAME" == "osx" ];  then cmake --version;  curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh;  chmod 755 ./travis-tool.sh;  ./travis-tool.sh bootstrap; fi
+  - export PATH=$HOME/bin/:$PATH
+  - cd $basedir
+
 install:
-- mkdir -p ~/.R
-- echo "CC=clang" >  ~/.R/Makevars
-- echo "CXX=clang++" >> ~/.R/Makevars
-- echo "CXX1X=clang++" >> ~/.R/Makevars
-- echo "CXX1XSTD=-std=c++11" >> ~/.R/Makevars
-- source ~/.R/Makevars
-- mkdir -p ~/Rlib
-- echo 'R_LIBS=~/Rlib' > .Renviron
-- echo 'R_LIBS_USER="~/Rlib"' >>  $HOME/.Renviron
-- echo 'options(repos = "http://cran.rstudio.com")' > .Rprofile
-- echo '.travis.yml' > .Rbuildignore
-- Rscript -e 'if(!"Rcpp" %in% rownames(installed.packages())) { install.packages("Rcpp",  dependencies  = TRUE) }'
-- Rscript -e 'if(!"knitr" %in% rownames(installed.packages())) { install.packages("knitr",  dependencies = TRUE) }'
-- Rscript -e 'update.packages(ask = FALSE, instlib = "~/Rlib")'
-- cd ${basedir}
+  - mkdir -p ~/.R
+  - echo "CC=clang" >  ~/.R/Makevars
+  - echo "CXX=clang++" >> ~/.R/Makevars
+  - echo "CXX1X=clang++" >> ~/.R/Makevars
+  - echo "CXX1XSTD=-std=c++11" >> ~/.R/Makevars
+  - source ~/.R/Makevars
+  - mkdir -p ~/Rlib
+  - echo 'R_LIBS=~/Rlib' > .Renviron
+  - echo 'R_LIBS_USER="~/Rlib"' >>  $HOME/.Renviron
+  - echo 'options(repos = "http://cran.rstudio.com")' > .Rprofile
+  - echo '.travis.yml' > .Rbuildignore
+  - Rscript -e 'if(!"Rcpp" %in% rownames(installed.packages())) { install.packages("Rcpp",  dependencies  =  TRUE)  }'
+  - Rscript -e 'if(!"knitr" %in% rownames(installed.packages())) { install.packages("knitr",  dependencies  = TRUE) }'
+  - Rscript -e 'update.packages(ask = FALSE, instlib = "~/Rlib")'
+  - cd ${basedir}
+
 script:
-- source ~/.R/Makevars
-- cd ..
-- travis_wait 100  R CMD INSTALL --build ITKR
-- PKG_FILE_NAME=$(ls -1t *.tar.gz | head -n 1)
-- if [ "$TRAVIS_OS_NAME" == "osx" ];  then  PKG_FILE_NAME=$(ls -1t *.tgz | head -n  1);  fi
+  - source ~/.R/Makevars
+  - cd ..
+  - travis_wait 100  R CMD INSTALL --build ITKR
+  - PKG_FILE_NAME=$(ls -1t *.tar.gz | head -n 1)
+  - mydir=${PWD}
+  - if [ "$TRAVIS_OS_NAME" == "osx" ];  then  PKG_FILE_NAME=$(ls -1t *.tgz | head -n  1);  fi
+
 after_failure:
-- cat ~/build/stnava/ITKR.Rcheck/00install.out
-- cat ~/build/stnava/ITKR.Rcheck/00check.log
+  - cat ~/build/stnava/ITKR.Rcheck/00install.out
+  - cat ~/build/stnava/ITKR.Rcheck/00check.log
+
 notifications:
   email:
     recipients:
     - stnava@gmail.com
     on_success: change
     on_failure: always
+
 env:
   global:
   - R_BUILD_ARGS=" "
@@ -71,18 +79,28 @@ env:
   - _R_CHECK_FORCE_SUGGESTS_="0"
   - BOOTSTRAP_LATEX=1
   - WARNINGS_ARE_ERRORS=0
-  - secure: S8mvNBpvzJVU28vuVRnSCXuI/ltEvaXnXwufjMsmiKhNV4pyTfS+t5C8G2SMnyytsssb8RPPGtht1o5U8Zs7wB6PaEqVQ83xKvyA9+L6UcXCPISTY/i7zENTKi1Y8lnkmILlVSN6NVC6y0gRYQRunLGL9fJrJ9eAMbfeES2npFs=
-before_deploy:
-- cd $TRAVIS_BUILD_DIR
-- git config --global user.email "builds@travis-ci.com"
-- git config --global user.name "Travis CI"
-- export GIT_TAG=$TRAVIS_BRANCH-0.1.$TRAVIS_BUILD_NUMBER
-- git tag $GIT_TAG -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER"
-- git push -q https://${GH_TOKEN}@github.com/stnava/ITKR --tags
+  - GH_REF: github.com/stnava/ITKR.git
+  - secure: gVr+Jv2MpuBzTeK6D1n9X/LknoVOM3562W827ZR9VVCfdciLs6NCPdhgnEmkZFTbKBxNEL2AVIFDcbKEir5ok+zQXTYxRp/GiwISn0uKCJO4WUqFOEetUiyR8delXhBpV1vvNi3BYHaP6zl3ftMXzARzSecTxA4FyuPkTbOfT9o=
+
+after_success:
+# - cd ${basedir}
+# - git config --global user.email "builds@travis-ci.com"
+# - git config --global user.name "Travis CI"
+# - export GIT_TAG=$TRAVIS_BRANCH-0.1.$TRAVIS_BUILD_NUMBER
+# - git tag $GIT_TAG -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER"
+# - git push -q https://${GH_TOKEN}@github.com/stnava/ITKR --tags
+ - cd $mydir
+
+branches:
+  except:
+    - /^*-v[0-9]/
+
 deploy:
   provider: releases
   api_key:
-    secure: jKPC6UoHjlv0imYdlMQjUDRdy8xHIQbvG/nYkV6eteVpp2VBDKPJOGaBOaIouOIAzYKXpMERh3IyHdtt8QCNmEGh7CuhjHT6+wc5UYy3IYG9hZlQotIbSTzRQfKNsHESHZXGJBO38FwXrLtFPcpp8K7RpSi2/6c/D9U50vkeaTQ=
+    secure: UL/OXal9+cvomf7iDtJnAoVY8YEmVa7MECjbBrfnmGeloQ6yRhYVUk5sRlbPNM4VczdtN6/k8hH8LpN/3IT8Wqh+YxIaN0kw/0J05dzj1OLcilRKxTFtQo7i1VYqdTqytXbbvaISaVLF+0UjGIwfFARr/m/GZsKXV54wXhTFirY=
   file: ${PKG_FILE_NAME}
+  skip_cleanup: true
   on:
+    tags: true
     repo: stnava/ITKR
