@@ -10,14 +10,16 @@ if [[ $TRAVIS -eq true ]] ; then
 fi
 cd ./src
 itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
-itktag=63fb4dd95f56debc595c9527672beeb8fe09bb16
+itktag=63fb4dd95f56debc595c9527672beeb8fe09bb16 # old tag
+itktag=b128fc204cf6a6cb6501743d7dadf9a6b69246f6
 mkdir  itks itkb
 if [[ ! -s itks/CMakeLists.txt ]] ; then
     git clone $itkgit itks
 fi
 cd itks
 if [[ -d .git ]]; then
-    git checkout master;  git pull;  git checkout $itktag
+    git checkout master;
+    git checkout $itktag
 fi
 cd ../itkb
 compflags=" -fPIC -O2  "
