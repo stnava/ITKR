@@ -32,7 +32,7 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" == "osx" ];  then cmake --version;  curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh;  chmod 755 ./travis-tool.sh;  ./travis-tool.sh bootstrap; fi
   - export PATH=$HOME/bin/:$PATH
   - cd $basedir
-  - R -e 'install.packages(c("devtools", "git2r"));'
+  - R -e 'install.packages(c("devtools", "git2r"), lib = "~/Rlib");'
   - R -e 'devtools::install_github("stnava/cmaker")'
 
 install:
