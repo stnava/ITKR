@@ -33,7 +33,7 @@ before_install:
   - export PATH=$HOME/bin/:$PATH
   - cd $basedir
   - R -e 'install.packages(c("devtools", "git2r"), lib = "~/Rlib");'
-  - R -e 'devtools::install_github("stnava/cmaker")'
+  - R -e 'devtools::install_github("stnava/cmaker", lib = "~/Rlib")'
 
 install:
   - mkdir -p ~/.R
