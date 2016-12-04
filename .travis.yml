@@ -7,7 +7,7 @@ os:
 language: r
 r:
   - release
-  - devel
+#  - devel
 
 compiler:
   - clang
