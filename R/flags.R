@@ -9,13 +9,37 @@
 #' itkDir()
 #'
 #' @export itkDir
+#' @import git2r
+#' @import cmaker
 itkDir <- function() {
-  itkd<-paste( system.file("libs",
-    package="ITKR"),"/lib/cmake/ITK-",itkVersion(),"/", sep="")
+  root = itk_lib_root()
+  itkd<-paste(root ,"/lib/cmake/ITK-",itkVersion(),"/", sep="")
   if ( ! file.exists(itkd) )
     print("itkDir: itk dir does not exist")
   cat( itkd )
 }
+
+#' return ITK libs directory
+#'
+#' call this to get the include path for ITK configuration.
+#'
+#' @author Avants BB
+#' @examples
+#'
+#' itkDir()
+#'
+#' @export itkDir
+#' @import git2r
+#' @import cmaker
+itk_lib_root <- function() {
+  itkd = system.file("libs",
+              package="ITKR")
+  if ( ! file.exists(itkd) )
+    print("itkDir: libs dir does not exist")
+  return( itkd )
+}
+
+
 
 #' return ITK installation information
 #'
@@ -28,8 +52,8 @@ itkDir <- function() {
 #'
 #' @export itkIncludes
 itkIncludes <- function() {
-  itklocation<-paste( system.file("libs",
-    package="ITKR"),"/include/ITK-",itkVersion(),"/", sep="")
+  root = itk_lib_root()
+  itklocation<-paste( root,"/include/ITK-",itkVersion(),"/", sep="")
   if ( ! file.exists(itklocation) )
     print("itkIncludes: itk includes do not exist")
   cat( itklocation )
@@ -46,7 +70,8 @@ itkIncludes <- function() {
 #'
 #' @export itkLibs
 itkLibs <- function() {
-  itklibs <- paste( system.file("libs", package="ITKR"), '/lib/', sep="")
+  root = itk_lib_root()
+  itklibs <- paste( root, '/lib/', sep="")
   if ( ! file.exists(itklibs) )
     print("itkLibs: itk libs do not exist")
   cat( itklibs )
@@ -78,7 +103,17 @@ itkCompileFlags <- function() {
 #'
 #' @export itkVersion
 itkVersion <- function() {
+  root = itk_lib_root()
+  itkd = file.path(root ,"lib", "cmake")
+  in_dirs = list.dirs(itkd, full.names = FALSE, recursive = FALSE)
+  in_dirs = grep("^ITK.*\\d$", in_dirs, value = TRUE)
+  if (length(in_dirs) != 1) {
+    stop("multiple versions of ITK exist!")
+  }
+  version = strsplit(in_dirs, "-")[[1]][2]
   # should update this as versions change
-  "4.11"
+  # may not be necessary to change version
+  # "4.11"
+  return(version)
 }
 

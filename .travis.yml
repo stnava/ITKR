@@ -59,6 +59,9 @@ install:
   - echo '.travis.yml' > .Rbuildignore
   - Rscript -e 'if(!"Rcpp" %in% rownames(installed.packages())) { install.packages("Rcpp",  dependencies  =  TRUE)  }'
   - Rscript -e 'if(!"knitr" %in% rownames(installed.packages())) { install.packages("knitr",  dependencies  = TRUE) }'
+  - Rscript -e 'if(!"devtools" %in% rownames(installed.packages())) { install.packages("devtools",  dependencies  = TRUE) }'
+  - Rscript -e 'if(!"git2r" %in% rownames(installed.packages())) { install.packages("git2r",  dependencies  = TRUE) }'
+  - Rscript -e 'devtools::install_github("stnava/cmaker", lib = "~/Rlib")'  
   - Rscript -e 'update.packages(ask = FALSE, instlib = "~/Rlib")'
   - cd ${basedir}
 

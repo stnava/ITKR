@@ -10,7 +10,11 @@ License: GPL (>=2)
 LazyLoad: yes
 NeedsCompilation: yes
 OS_type: unix
+Imports:
+    cmaker,
+    git2r
 SystemRequirements: cmake, git, clang (recommended)
 URL: http://github.com/stnava/ITKR/
 BugReports: http://github.com/stnava/ITKR/issues
 Additional_repositories: http://github.com/InsightSoftwareConsortium/ITK.git
+Remotes: stnava/cmaker

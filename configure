@@ -1,6 +1,33 @@
 #!/bin/bash
 CXX_STD=CXX11
 JTHREADS=2
+
+# Rscript -e 'install.packages("git2r")'
+
+cmaker=`which cmake`
+if [[ ! -x $cmaker ]] ; then # try r version
+  cmaker=`Rscript -e 'a<-cmaker::cmake()'`
+fi
+
+gitcmd=`which git`
+if [[ ! -x $gitcmd ]] ; then # try install git
+    installer=`which apt-get`
+    git_installer="git-core"
+    if [[ ! -x $installer ]] ; then
+        installer=`which port`
+    fi    
+    if [[ ! -x $installer ]] ; then
+        installer=`which brew`
+        git_installer="git"
+    fi
+  ${installer} install -y ${git_installer}
+fi
+
+gitcmd=`which git`
+if [[ ! -x $gitcmd ]] ; then # try install git
+  exit 1
+fi
+
 if [[ `uname` -eq Darwin ]] ; then
   CMAKE_BUILD_TYPE=Release
 fi
@@ -14,15 +41,23 @@ itktag=2714cc1805f50504f5b9a60d0f62ffec8e73989 # 4.11
 mkdir  itks itkb
 if [[ ! -s itks/CMakeLists.txt ]] ; then
     git clone $itkgit itks
+    # echo "library(git2r); repo = clone(url = \"${itkgit}\", local_path = \"itks\"); config(repo, user.name = 'muschellij2', user.email = 'muschellij2@gmail.com'); save(repo, file = 'repo.rda');" > tmp.R
+    # Rscript tmp.R
+    # rm tmp.R
 fi
+
 cd itks
 if [[ -d .git ]]; then
+    # echo "library(git2r); load('../repo.rda'); config(repo, user.name = 'muschellij2', user.email = 'muschellij2@gmail.com'); checkout(repo, branch = 'master'); pull(repo); gtag = tag(repo, \"${itktag}\", message = 'itktag'); checkout(gtag)" > tmp.R
+    # Rscript tmp.R
+    # rm tmp.R    
+    # git checkout master;  git pull;  git checkout $itktag
     git checkout master;
     git checkout $itktag
 fi
 cd ../itkb
 compflags=" -fPIC -O2  "
-cmake \
+${cmaker} \
     -DCMAKE_BUILD_TYPE:STRING="${CMAKE_BUILD_TYPE}" \
     -DCMAKE_C_FLAGS="${CMAKE_C_FLAGS} -Wno-c++11-long-long -fPIC -O2 -DNDEBUG  "\
     -DCMAKE_CXX_FLAGS="${CMAKE_CXX_FLAGS} -Wno-c++11-long-long -fPIC -O2 -DNDEBUG  "\
