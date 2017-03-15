@@ -15,6 +15,11 @@ mkdir  itks itkb
 if [[ ! -s itks/CMakeLists.txt ]] ; then
     git clone $itkgit itks
 fi
+if [[ ! -d ../data/ ]] ; then
+  mkdir -p ../data
+fi
+echo "Dependency;GitTag" > ../data/softwareVersions.csv
+echo "ITK;${itktag}" >> ../data/softwareVersions.csv
 cd itks
 if [[ -d .git ]]; then
     git checkout master;
