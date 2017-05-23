@@ -1,7 +1,7 @@
 Package: ITKR
 Type: Package
 Title: ITK in R
-Version: 0.0.1
+Version: 0.1.0
 Date: 2015-03-17
 Author: Brian B. Avants, Benjamin M. Kandel, Jeff T. Duda
 Maintainer: Brian B. Avants <stnava@gmail.com>
@@ -9,8 +9,7 @@ Description: Make the state of the art image processing library, ITK, available 
 License: GPL (>=2)
 LazyLoad: yes
 NeedsCompilation: yes
-OS_type: unix
 SystemRequirements: cmake, git, clang (recommended)
 URL: http://github.com/stnava/ITKR/
 BugReports: http://github.com/stnava/ITKR/issues
-Additional_repositories: http://github.com/InsightSoftwareConsortium/ITK.git
+
