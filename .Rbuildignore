@@ -7,3 +7,5 @@ src/*.so
 src/symbols.rds
 cran-comments.md
 ^appveyor\.yml$
+^.*\.Rproj$
+^\.Rproj\.user$
