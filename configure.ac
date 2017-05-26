@@ -5,7 +5,9 @@ cd ./src
 itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
 itktag=2714cc1805f50504f5b9a60d0f62ffec8e73989 # 4.11
 mkdir itks itkb
-git clone $itkgit itks
+if [[ ! -s itks/CMakeLists.txt ]] ; then
+    git clone $itkgit itks
+fi
 mkdir -p ../data
 echo "Dependency;GitTag" > ../data/softwareVersions.csv
 echo "ITK;${itktag}" >> ../data/softwareVersions.csv
