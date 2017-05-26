@@ -3,6 +3,7 @@ CXX_STD=CXX11
 CC=`R CMD config CC`
 CXX=`R CMD config CXX`
 JTHREADS=2
+CMAKE_BUILD_TYPE=Release
 cd ./src
 itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
 itktag=2714cc1805f50504f5b9a60d0f62ffec8e73989 # 4.11
