@@ -1,5 +1,6 @@
 #!/bin/bash
 CXX_STD=CXX11
+CC=`R CMD config CC`
 JTHREADS=2
 cd ./src
 itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
