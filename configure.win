@@ -1,44 +1,26 @@
 #!/bin/bash
 CXX_STD=CXX11
+CC=`R CMD config CC`
+CXX=`R CMD config CXX`
 JTHREADS=2
-if [[ `uname` -eq Darwin ]] ; then
-  CMAKE_BUILD_TYPE=Release
-fi
-if [[ $TRAVIS -eq true ]] ; then
-  CMAKE_BUILD_TYPE=Release
-  JTHREADS=2
-fi
+CMAKE_BUILD_TYPE=Release
 cd ./src
 itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
 # itktag=2714cc1805f50504f5b9a60d0f62ffec8e73989 # 4.11
-itktag=c5138560409c75408ff76bccff938f21e5dcafc6 #4.12
-# if ther is a directory but no git,
-# remove it
-if [[ -d itks ]]; then 
-	if [[ ! -d itks/.git ]]; then
-		rm -rf itks/
-	fi	
-fi
-# if no directory, clone it
-if [[ ! -d itks ]]; then 
-    git clone $itkgit itks	
-fi
-cd itks
-if [[ -d .git ]]; then
-    git checkout master;
-    git checkout $itktag
-    rm -rf .git    
-fi
-cd ../
-if [[ ! -d ../data/ ]] ; then
-  mkdir -p ../data
-fi
+itktag=c5138560409c75408ff76bccff938f21e5dcafc6 # 4.12
+mkdir itks itkb
+git clone $itkgit itks
+mkdir -p ../data
 echo "Dependency;GitTag" > ../data/softwareVersions.csv
 echo "ITK;${itktag}" >> ../data/softwareVersions.csv
-mkdir -p itkb
-cd itkb
+cd itks
+git checkout master;
+git checkout $itktag
+rm -rf .git
+cd ../itkb
 compflags=" -fPIC -O2  "
 cmake \
+    -G "MinGW Makefiles" \
     -DCMAKE_BUILD_TYPE:STRING="${CMAKE_BUILD_TYPE}" \
     -DCMAKE_C_FLAGS="${CMAKE_C_FLAGS} -Wno-c++11-long-long -fPIC -O2 -DNDEBUG  "\
     -DCMAKE_CXX_FLAGS="${CMAKE_CXX_FLAGS} -Wno-c++11-long-long -fPIC -O2 -DNDEBUG  "\

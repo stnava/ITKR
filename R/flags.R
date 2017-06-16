@@ -9,6 +9,7 @@
 #' itkDir()
 #'
 #' @export itkDir
+#' @import Rcpp
 itkDir <- function() {
   itkd<-paste( system.file("libs",
     package="ITKR"),"/lib/cmake/ITK-",itkVersion(),"/", sep="")
@@ -79,6 +80,7 @@ itkCompileFlags <- function() {
 #' @export itkVersion
 itkVersion <- function() {
   # should update this as versions change
-  "4.11"
+  # "4.11"
+  "4.12"
 }
 

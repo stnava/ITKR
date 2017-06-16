@@ -1,78 +1,79 @@
+# use containers
 sudo: false
-
+# cache local R libraries directory:
+cache: packages
 os:
   - linux
   - osx
 
+r_build_args: --no-build-vignettes --no-manual
+env:
+  global:
+  - R_BUILD_ARGS="--no-build-vignettes --no-manual"
+  - R_CHECK_ARGS=" --timings --as-cran"
+  - R_CHECK_TIME="TRUE"
+  - R_CHECK_TESTS="TRUE"
+  - _R_CHECK_TIMINGS_="0"
+  - _R_CHECK_FORCE_SUGGESTS_="0"
+  - BOOTSTRAP_LATEX=1
+  # - WARNINGS_ARE_ERRORS=0  
+
 language: r
+
 r:
   - release
   - devel
-
-compiler:
-  - clang
-
-r_binary_packages:
-  - devtools
-  - testthat
-  - ggplot2
-  - png
-  - Rcpp
-  - dplyr
-  - knitr
-  - rmarkdown
 
 matrix:
   allow_failures:
   - os: osx
 
-addons:
-  apt:
-    sources:
-    - r-packages-precise
-    packages:
-    - cmake
-    - r-base-dev
-    - r-recommended
-    - pandoc
-cache:
-  directories:
-  - ~/Rlib
-before_install:
-  - basedir=${PWD}
-  - cd ..
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then wget --no-check-certificate https://cmake.org/files/v3.4/cmake-3.4.0-rc1-Linux-x86_64.sh; sh cmake-3.4.0-rc1-Linux-x86_64.sh --skip-license --prefix=${HOME}; export PATH=$HOME/bin/:$PATH;  fi
-  - export PATH=$HOME/bin/:$PATH
-  - cd $basedir
+cran: http://cran.rstudio.com
 
-install:
+before_install:
   - mkdir -p ~/.R
+  - export CC=clang
+  - export CXX=clang++
   - echo "CC=clang" >  ~/.R/Makevars
   - echo "CXX=clang++" >> ~/.R/Makevars
   - echo "CXX1X=clang++" >> ~/.R/Makevars
   - echo "CXX1XSTD=-std=c++11" >> ~/.R/Makevars
-  - source ~/.R/Makevars
-  - mkdir -p ~/Rlib
-  - echo 'R_LIBS=~/Rlib' > .Renviron
-  - echo 'R_LIBS_USER="~/Rlib"' >>  $HOME/.Renviron
-  - echo 'options(repos = "http://cran.rstudio.com")' > .Rprofile
-  - echo '.travis.yml' > .Rbuildignore
-  - Rscript -e 'if(!"Rcpp" %in% rownames(installed.packages())) { install.packages("Rcpp",  dependencies  =  TRUE)  }'
-  - Rscript -e 'if(!"knitr" %in% rownames(installed.packages())) { install.packages("knitr",  dependencies  = TRUE) }'
-  - Rscript -e 'update.packages(ask = FALSE, instlib = "~/Rlib")'
-  - cd ${basedir}
+  - source ~/.R/Makevars  
+  - export cmake_version="3.9"
+  - export cmake_url=https://cmake.org/files/v${cmake_version}/cmake-${cmake_version}.0-rc1
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; 
+    then 
+    cmake_url=${cmake_url}-Linux-x86_64.sh ;
+    wget -O cmake.sh --no-check-certificate ${cmake_url} ;
+    sh cmake.sh --skip-license --prefix=${HOME};    
+    rm cmake.sh ;   
+    fi
+  - export PATH=$HOME/bin/:$PATH
 
 script:
   - source ~/.R/Makevars
+  - export CXX=clang++
+  - export CC=clang
   - cd ..
-  - travis_wait 100  R CMD INSTALL --build ITKR
+  - travis_wait 100 R CMD build ITKR ${R_BUILD_ARGS}
   - PKG_FILE_NAME=$(ls -1t *.tar.gz | head -n 1)
+  - if [[ ${#TRAVIS_TAG} -eq 0 ]]; then travis_wait 100 R CMD check ${R_CHECK_ARGS} "${PKG_FILE_NAME}" --no-manual; fi # --as-cran
   - mydir=${PWD}
-  - if [ "$TRAVIS_OS_NAME" == "osx" ];  then  PKG_FILE_NAME=$(ls -1t *.tgz | head -n  1);  fi
+  - if [[ ${#TRAVIS_TAG} -gt 0 ]]; 
+    then 
+      travis_wait 100 R CMD INSTALL --build ITKR; 
+      PKG_FILE_NAME=$(ls -1t *.tar.gz | head -n 1); 
+    fi
+  - if [ "$TRAVIS_OS_NAME" == "osx" ];  
+      then  
+      PKG_FILE_NAME=$(ls -1t *.tgz | head -n  1);  
+    fi
 
 after_failure:
-  - cat ~/build/stnava/ITKR.Rcheck/00install.out
-  - cat ~/build/stnava/ITKR.Rcheck/00check.log
+  - echo ${TRAVIS_BUILD_DIR}
+  - dn=`dirname ${TRAVIS_BUILD_DIR}`
+  - cat ${dn}/ITKR.Rcheck/00install.out
+  - cat ${dn}/ITKR.Rcheck/00check.log
 
 notifications:
   email:
@@ -80,32 +81,6 @@ notifications:
     - stnava@gmail.com
     on_success: change
     on_failure: always
-
-env:
-  global:
-  - R_BUILD_ARGS=" "
-  - R_CHECK_ARGS=" --timings"
-  - R_CHECK_TIME="TRUE"
-  - R_CHECK_TESTS="TRUE"
-  - _R_CHECK_TIMINGS_="0"
-  - _R_CHECK_FORCE_SUGGESTS_="0"
-  - BOOTSTRAP_LATEX=1
-  - WARNINGS_ARE_ERRORS=0
-  - GH_REF: github.com/stnava/ITKR.git
-  - secure: gVr+Jv2MpuBzTeK6D1n9X/LknoVOM3562W827ZR9VVCfdciLs6NCPdhgnEmkZFTbKBxNEL2AVIFDcbKEir5ok+zQXTYxRp/GiwISn0uKCJO4WUqFOEetUiyR8delXhBpV1vvNi3BYHaP6zl3ftMXzARzSecTxA4FyuPkTbOfT9o=
-
-after_success:
-# - cd ${basedir}
-# - git config --global user.email "builds@travis-ci.com"
-# - git config --global user.name "Travis CI"
-# - export GIT_TAG=$TRAVIS_BRANCH-0.1.$TRAVIS_BUILD_NUMBER
-# - git tag $GIT_TAG -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER"
-# - git push -q https://${GH_TOKEN}@github.com/stnava/ITKR --tags
- - cd $mydir
-
-branches:
-  except:
-    - /^*-v[0-9]/
 
 deploy:
   provider: releases
@@ -116,3 +91,4 @@ deploy:
   on:
     tags: true
     repo: stnava/ITKR
+    all_branches: true

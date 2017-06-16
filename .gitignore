@@ -3,6 +3,7 @@ src/itki/
 src/itks/
 src/itkb/
 src/*.o
+src/*.o-*
 src/*.so
 src/symbols.rds
 .Rproj.user
