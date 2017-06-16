@@ -10,5 +10,5 @@ all: $(SHLIB)
 
 $(SHLIB): libs
 
-libs: ; cd itkb && $(MAKE) -j 2 && $(MAKE) install
+libs: ; cd itkb && $(MAKE) -j 2 && $(MAKE) install && rm -rf ../itks
 
