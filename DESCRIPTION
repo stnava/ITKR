@@ -14,5 +14,4 @@ NeedsCompilation: yes
 SystemRequirements: cmake, git, clang (recommended)
 URL: http://github.com/stnava/ITKR/
 BugReports: http://github.com/stnava/ITKR/issues
-
-
+RoxygenNote: 6.0.1
