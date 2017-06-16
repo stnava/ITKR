@@ -44,7 +44,7 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; 
     then 
     cmake_url=${cmake_url}-Linux-x86_64.sh ;
-    wget -O cmake.sh ${cmake_url} ;
+    wget -O cmake.sh --no-check-certificate ${cmake_url} ;
     sh cmake.sh --skip-license --prefix=${HOME};    
     rm cmake.sh ;   
     fi
