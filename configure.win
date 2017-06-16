@@ -16,6 +16,7 @@ echo "ITK;${itktag}" >> ../data/softwareVersions.csv
 cd itks
 git checkout master;
 git checkout $itktag
+rm -rf .git
 cd ../itkb
 compflags=" -fPIC -O2  "
 cmake \

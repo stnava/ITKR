@@ -5,4 +5,4 @@ all: $(SHLIB)
 
 $(SHLIB): libs
 
-libs: ; cd ${PWD}/itkb && $(MAKE) -j 2 && $(MAKE) install
+libs: ; cd itkb && $(MAKE) -j 2 && $(MAKE) install
