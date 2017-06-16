@@ -9,6 +9,7 @@
 #' itkDir()
 #'
 #' @export itkDir
+#' @import Rcpp
 itkDir <- function() {
   itkd<-paste( system.file("libs",
     package="ITKR"),"/lib/cmake/ITK-",itkVersion(),"/", sep="")
