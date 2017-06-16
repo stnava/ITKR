@@ -33,8 +33,8 @@ cd ../
 if [[ ! -d ../data/ ]] ; then
   mkdir -p ../data
 fi
-echo "Dependency,GitTag" > ../data/softwareVersions.csv
-echo "ITK,${itktag}" >> ../data/softwareVersions.csv
+echo "Dependency;GitTag" > ../data/softwareVersions.csv
+echo "ITK;${itktag}" >> ../data/softwareVersions.csv
 mkdir -p itkb
 cd itkb
 compflags=" -fPIC -O2  "
