@@ -31,6 +31,7 @@ matrix:
 cran: http://cran.rstudio.com
 
 before_install:
+  - export ORIG_PATH=${PATH}    
   - mkdir -p ~/.R
   - export CC=clang
   - export CXX=clang++
@@ -39,21 +40,17 @@ before_install:
   - echo "CXX1X=clang++" >> ~/.R/Makevars
   - echo "CXX1XSTD=-std=c++11" >> ~/.R/Makevars
   - source ~/.R/Makevars  
+  - wget -O travis_helpers.sh http://bit.ly/travis_helpers
+  - source travis_helpers.sh
+  - rm travis_helpers.sh
   - export cmake_version="3.4"
-  - export cmake_url=https://cmake.org/files/v${cmake_version}/cmake-${cmake_version}.0-rc1
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; 
-    then 
-    cmake_url=${cmake_url}-Linux-x86_64.sh ;
-    wget -O cmake.sh --no-check-certificate ${cmake_url} ;
-    sh cmake.sh --skip-license --prefix=${HOME};    
-    rm cmake.sh ;   
-    fi
-  - export PATH=$HOME/bin/:$PATH
+  - cmake --version
+  - cmake_setup    
+  - cmake --version
+
 
 script:
   - source ~/.R/Makevars
-  - export CXX=clang++
-  - export CC=clang
   - cd ..
   - travis_wait 100 R CMD build ITKR ${R_BUILD_ARGS}
   - PKG_FILE_NAME=$(ls -1t *.tar.gz | head -n 1)
@@ -68,6 +65,9 @@ script:
       then  
       PKG_FILE_NAME=$(ls -1t *.tgz | head -n  1);  
     fi
+
+after_success:
+  - export PATH=${ORIG_PATH}
 
 after_failure:
   - echo ${TRAVIS_BUILD_DIR}
