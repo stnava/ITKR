@@ -54,7 +54,9 @@ script:
   - cd ..
   - travis_wait 100 R CMD build ITKR ${R_BUILD_ARGS}
   - PKG_FILE_NAME=$(ls -1t *.tar.gz | head -n 1)
+  - ls
   - if [[ ${#TRAVIS_TAG} -eq 0 ]]; then travis_wait 100 R CMD check ${R_CHECK_ARGS} "${PKG_FILE_NAME}" --no-manual --install-args=--build; fi # --as-cran
+  - ls
   - mydir=${PWD}
   - if [[ ${#TRAVIS_TAG} -gt 0 ]]; 
     then 
