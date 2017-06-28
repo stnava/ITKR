@@ -32,10 +32,12 @@ cran: http://cran.rstudio.com
 
 before_install:
   - export ORIG_PATH=${PATH}    
+  - echo $CXX11
   - mkdir -p ~/.R
   - export CC=clang
   - export CXX=clang++
   - export CXX1X=clang++
+  - export CXX11=clang++    
   - echo "CC=clang" >  ~/.R/Makevars
   - echo "CXX=clang++" >> ~/.R/Makevars
   - echo "CXX1X=clang++" >> ~/.R/Makevars
