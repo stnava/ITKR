@@ -35,6 +35,7 @@ before_install:
   - mkdir -p ~/.R
   - export CC=clang
   - export CXX=clang++
+  - export CXX1X=clang++
   - echo "CC=clang" >  ~/.R/Makevars
   - echo "CXX=clang++" >> ~/.R/Makevars
   - echo "CXX1X=clang++" >> ~/.R/Makevars
