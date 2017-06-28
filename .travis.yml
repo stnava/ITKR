@@ -16,7 +16,7 @@ env:
   - _R_CHECK_TIMINGS_="0"
   - _R_CHECK_FORCE_SUGGESTS_="0"
   - BOOTSTRAP_LATEX=1
-  # - WARNINGS_ARE_ERRORS=0  
+  # - WARNINGS_ARE_ERRORS=0
 
 language: r
 
@@ -40,7 +40,7 @@ before_install:
   - echo "CXX=clang++" >> ~/.R/Makevars
   - echo "CXX1X=clang++" >> ~/.R/Makevars
   - echo "CXX1XSTD=-std=c++11" >> ~/.R/Makevars
-  - source ~/.R/Makevars  
+  - source ~/.R/Makevars
   - wget -O travis_helpers.sh http://bit.ly/travis_helpers
   - source travis_helpers.sh
   - rm travis_helpers.sh
@@ -48,7 +48,16 @@ before_install:
   - cmake --version
   - cmake_setup    
   - cmake --version
-
+#  - export cmake_version="3.9"
+#  - export cmake_url=https://cmake.org/files/v${cmake_version}/cmake-${cmake_version}.0-rc1
+#  - if [ "$TRAVIS_OS_NAME" == "linux" ];
+#    then
+#    cmake_url=${cmake_url}-Linux-x86_64.sh ;
+#    wget -O cmake.sh --no-check-certificate ${cmake_url} ;
+#    sh cmake.sh --skip-license --prefix=${HOME};
+#    rm cmake.sh ;
+#    fi
+  - export PATH=$HOME/bin/:$PATH
 
 script:
   - source ~/.R/Makevars
@@ -59,16 +68,17 @@ script:
   - if [[ ${#TRAVIS_TAG} -eq 0 ]]; then travis_wait 100 R CMD check ${R_CHECK_ARGS} "${PKG_FILE_NAME}" --no-manual --install-args=--build; fi # --as-cran
   - ls
   - mydir=${PWD}
-  - if [[ ${#TRAVIS_TAG} -gt 0 ]]; 
-    then 
-      travis_wait 100 R CMD INSTALL --build ITKR; 
-      PKG_FILE_NAME=$(ls -1t *.tar.gz | head -n 1); 
+  - if [[ ${#TRAVIS_TAG} -gt 0 ]];
+    then
+      travis_wait 100 R CMD INSTALL --build ITKR;
+      PKG_FILE_NAME=$(ls -1t *.tar.gz | head -n 1);
     fi
-  - if [ "$TRAVIS_OS_NAME" == "osx" ];  
-      then  
-      PKG_FILE_NAME=$(ls -1t *.tgz | head -n  1);  
+  - if [ "$TRAVIS_OS_NAME" == "osx" ];
+      then
+      PKG_FILE_NAME=$(ls -1t *.tgz | head -n  1);
     fi
 
+# this is for deployment warnings
 after_success:
   - export PATH=${ORIG_PATH}
 
