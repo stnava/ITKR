@@ -6,6 +6,8 @@ os:
   - linux
   - osx
 
+compiler: clang
+
 r_build_args: --no-build-vignettes --no-manual
 env:
   global:
@@ -31,9 +33,13 @@ matrix:
 cran: http://cran.rstudio.com
 
 before_install:
+  - export ORIG_PATH=${PATH}    
+  - echo $CXX11
   - mkdir -p ~/.R
   - export CC=clang
   - export CXX=clang++
+  - export CXX1X=clang++
+  - export CXX11=clang++    
   - echo "CC=clang" >  ~/.R/Makevars
   - echo "CXX=clang++" >> ~/.R/Makevars
   - echo "CXX1X=clang++" >> ~/.R/Makevars
@@ -44,7 +50,7 @@ before_install:
   - rm travis_helpers.sh
   - export cmake_version="3.4"
   - cmake --version
-  - cmake_setup
+  - cmake_setup    
   - cmake --version
 #  - export cmake_version="3.9"
 #  - export cmake_url=https://cmake.org/files/v${cmake_version}/cmake-${cmake_version}.0-rc1
@@ -59,12 +65,12 @@ before_install:
 
 script:
   - source ~/.R/Makevars
-  - export CXX=clang++
-  - export CC=clang
   - cd ..
   - travis_wait 100 R CMD build ITKR ${R_BUILD_ARGS}
   - PKG_FILE_NAME=$(ls -1t *.tar.gz | head -n 1)
-  - if [[ ${#TRAVIS_TAG} -eq 0 ]]; then travis_wait 100 R CMD check ${R_CHECK_ARGS} "${PKG_FILE_NAME}" --no-manual; fi # --as-cran
+  - ls
+  - if [[ ${#TRAVIS_TAG} -eq 0 ]]; then travis_wait 100 R CMD check ${R_CHECK_ARGS} "${PKG_FILE_NAME}" --no-manual --install-args=--build; fi # --as-cran
+  - ls
   - mydir=${PWD}
   - if [[ ${#TRAVIS_TAG} -gt 0 ]];
     then
@@ -75,6 +81,10 @@ script:
       then
       PKG_FILE_NAME=$(ls -1t *.tgz | head -n  1);
     fi
+
+# this is for deployment warnings
+after_success:
+  - export PATH=${ORIG_PATH}
 
 after_failure:
   - echo ${TRAVIS_BUILD_DIR}
