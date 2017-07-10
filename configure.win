@@ -18,12 +18,14 @@ git checkout master;
 git checkout $itktag
 rm -rf .git
 cd ../itkb
+export MAKE=c:/Rtools/mingw_64/bin/mingw32-make.exe
 compflags=" -fPIC -O2  "
 cmake \
     -G "MinGW Makefiles" \
     -DCMAKE_BUILD_TYPE:STRING="${CMAKE_BUILD_TYPE}" \
     -DCMAKE_C_FLAGS="${CMAKE_C_FLAGS} -Wno-c++11-long-long -fPIC -O2 -DNDEBUG  "\
     -DCMAKE_CXX_FLAGS="${CMAKE_CXX_FLAGS} -Wno-c++11-long-long -fPIC -O2 -DNDEBUG  "\
+    -DCMAKE_MAKE_PROGRAM=${MAKE} \
     -DITK_USE_GIT_PROTOCOL:BOOL=OFF \
     -DBUILD_SHARED_LIBS=OFF \
     -DBUILD_TESTING:BOOL=OFF \
