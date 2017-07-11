@@ -13,7 +13,7 @@
 itkDir <- function() {
   itkd<-paste( system.file("libs",
     package="ITKR"),"/lib/cmake/ITK-",itkVersion(),"/", sep="")
-  if ( ! file.exists(itkd) )
+  if ( ! file.exists(itkd) && !dir.exists(itkd) )
     print("itkDir: itk dir does not exist")
   cat( itkd )
 }
