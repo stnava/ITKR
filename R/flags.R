@@ -31,7 +31,7 @@ itkDir <- function() {
 itkIncludes <- function() {
   itklocation<-paste( system.file("libs",
     package="ITKR"),"/include/ITK-",itkVersion(),"/", sep="")
-  if ( ! file.exists(itklocation) )
+  if ( ! file.exists(itklocation) && !dir.exists(itklocation) )
     print("itkIncludes: itk includes do not exist")
   cat( itklocation )
 }
@@ -48,7 +48,7 @@ itkIncludes <- function() {
 #' @export itkLibs
 itkLibs <- function() {
   itklibs <- paste( system.file("libs", package="ITKR"), '/lib/', sep="")
-  if ( ! file.exists(itklibs) )
+  if ( ! file.exists(itklibs) && !dir.exists(itklibs) )
     print("itkLibs: itk libs do not exist")
   cat( itklibs )
 }
