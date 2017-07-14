@@ -19,6 +19,7 @@ git checkout $itktag
 rm -rf .git
 cd ../itkb
 compflags=" -fPIC -O2  "
+mv C:/Rtools/bin/sh.exe C:/Rtools/bin/sh_move.exe
 cmake \
     -G "MinGW Makefiles" \
     -DCMAKE_BUILD_TYPE:STRING="${CMAKE_BUILD_TYPE}" \
@@ -47,3 +48,4 @@ cmake \
     -D ITKGroup_Registration=ON \
     -D ITKGroup_Segmentation=ON ../itks/
 cd ../
+mv C:/Rtools/bin/sh_move.exe C:/Rtools/bin/sh.exe
