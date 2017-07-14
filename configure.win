@@ -19,9 +19,9 @@ git checkout $itktag
 rm -rf .git
 cd ../itkb
 compflags=" -fPIC -O2  "
-if [ -n "${APPVEYOR}" ]; then
-	export PATH='/c/Rtools/MinGW/bin:/c/Rtools/gcc-4.6.3/bin:/c/R/bin/i386:/usr/bin:/c/Program Files (x86)/Git/bin:/c/Perl/site/bin:/c/Perl/bin:/c/Windows/system32:/c/Windows:/c/Tools/GitVersion:/c/Tools/PsTools:/c/Ruby193/bin:/c/Program Files (x86)/CMake/bin:/c/Program Files/Java/jdk1.8.0/bin:/c/Python27:/c/Users/appveyor/AppData/Roaming/npm:/c/Program Files/LLVM/bin:/c/Tools/curl/bin:/c/Program Files/Amazon/AWSCLI/:/c/Program Files/Git/cmd:/c/Program Files/Git/usr/bin:/c/Users/appveyor/AppData/Roaming/npm:/c/Program Files/AppVeyor/BuildAgent/:/usr/texbin'
-fi
+# if [ -n "${APPVEYOR}" ]; then
+# 	export PATH='/c/Rtools/MinGW/bin:/c/Rtools/gcc-4.6.3/bin:/c/R/bin/i386:/usr/bin:/c/Program Files (x86)/Git/bin:/c/Perl/site/bin:/c/Perl/bin:/c/Windows/system32:/c/Windows:/c/Tools/GitVersion:/c/Tools/PsTools:/c/Ruby193/bin:/c/Program Files (x86)/CMake/bin:/c/Program Files/Java/jdk1.8.0/bin:/c/Python27:/c/Users/appveyor/AppData/Roaming/npm:/c/Program Files/LLVM/bin:/c/Tools/curl/bin:/c/Program Files/Amazon/AWSCLI/:/c/Program Files/Git/cmd:/c/Program Files/Git/usr/bin:/c/Users/appveyor/AppData/Roaming/npm:/c/Program Files/AppVeyor/BuildAgent/:/usr/texbin'
+# fi
 
 cmake \
     -G "MinGW Makefiles" \
