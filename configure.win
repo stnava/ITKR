@@ -19,9 +19,8 @@ git checkout $itktag
 rm -rf .git
 cd ../itkb
 compflags=" -fPIC -O2  "
-mv C:/Rtools/bin/sh.exe C:/Rtools/bin/sh_move.exe
 cmake \
-    -G "MinGW Makefiles" \
+    -G "MSYS Makefiles" \
     -DCMAKE_BUILD_TYPE:STRING="${CMAKE_BUILD_TYPE}" \
     -DCMAKE_C_FLAGS="${CMAKE_C_FLAGS} -Wno-c++11-long-long -fPIC -O2 -DNDEBUG  "\
     -DCMAKE_CXX_FLAGS="${CMAKE_CXX_FLAGS} -Wno-c++11-long-long -fPIC -O2 -DNDEBUG  "\
@@ -48,4 +47,3 @@ cmake \
     -D ITKGroup_Registration=ON \
     -D ITKGroup_Segmentation=ON ../itks/
 cd ../
-mv C:/Rtools/bin/sh_move.exe C:/Rtools/bin/sh.exe
