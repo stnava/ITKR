@@ -23,9 +23,10 @@ build_script:
   # - set PATH=%PATH:C:/MinGW/msys/1.0/bin=%
   # - set PATH=%PATH:/c/MinGW/msys/1.0/bin=%
   # - set PATH=%PATH:C:\Rtools\gcc-4.6.3\bin=%
-  - set PATH=%PATH:C:\Program Files (x86)\Git\bin=%
+  # - set PATH=%PATH:C:\Program Files (x86)\Git\bin=%
   - set PATH=%PATH:C:\Program Files (x86)\Git\usr\bin=%
-  - set PATH=%PATH:C:\Program Files\Git\usr\bin=%
+  # - set PATH=%PATH:C:\Program Files\Git\usr\bin=%
+  - rename C:\Program Files\Git\usr\bin\sh.exe _sh.exe
 
 test_script:
   - travis-tool.sh run_tests
