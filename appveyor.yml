@@ -16,6 +16,8 @@ cache:
 # Adapt as necessary starting from here
 build_script:
   - travis-tool.sh install_deps
+  - Rscript -e "devtools::install_github('muschellij2/devtools')"
+  - Rscript -e "devtools::install_github('muschellij2/ITKR')"
   # - set PATH=%PATH:C:/Rtools/bin=%
   # - set PATH=%PATH:C:\Rtools\bin=%
   # - set PATH=%PATH:/c/Rtools/bin=%
