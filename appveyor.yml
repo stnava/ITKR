@@ -24,6 +24,7 @@ build_script:
   # - set PATH=%PATH:C:\Rtools\gcc-4.6.3\bin=%
   - set PATH=%PATH:C:\Program Files (x86)\Git\bin=%
   - set PATH=%PATH:C:\Program Files\Git\bin=%
+  - set PATH=%PATH:C:/Program Files/Git/usr/bin=%  
 
 test_script:
   - travis-tool.sh run_tests
