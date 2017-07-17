@@ -13,6 +13,9 @@ install:
 cache:
   - C:\RLibrary
 
+before_build:
+  # Workaround for CMake not wanting sh.exe on PATH for MinGW
+  - set PATH=%PATH:C:\Program Files (x86)\Git\bin;=%
 
 # Adapt as necessary starting from here
 
