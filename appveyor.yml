@@ -19,7 +19,7 @@ build_script:
   # - set PATH=%PATH:C:/Rtools/bin=%
   # - set PATH=%PATH:C:\Rtools\bin=%
   # - set PATH=%PATH:/c/Rtools/bin=%
-  - set PATH=%PATH:C:\MinGW\msys\1.0\bin=%
+  # - set PATH=%PATH:C:\MinGW\msys\1.0\bin=%
   # - set PATH=%PATH:C:/MinGW/msys/1.0/bin=%
   # - set PATH=%PATH:/c/MinGW/msys/1.0/bin=%
   # - set PATH=%PATH:C:\Rtools\gcc-4.6.3\bin=%
