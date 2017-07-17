@@ -17,10 +17,11 @@ cache:
 build_script:
   - travis-tool.sh install_deps
   # - Rscript -e "remotes::install_github('muschellij2/devtools')"
-  - Rscript -e "remotes::install_github('muschellij2/ITKR')"
+  # - Rscript -e "remotes::install_github('muschellij2/ITKR')"
   # - set PATH=%PATH:C:/Rtools/bin=%
   # - set PATH=%PATH:C:\Rtools\bin=%
   # - set PATH=%PATH:/c/Rtools/bin=%
+  - set PATH=%PATH:C:\MinGW\bin=%
   - set PATH=%PATH:C:\MinGW\msys\1.0\bin=%
   # - set PATH=%PATH:C:/MinGW/msys/1.0/bin=%
   # - set PATH=%PATH:/c/MinGW/msys/1.0/bin=%
