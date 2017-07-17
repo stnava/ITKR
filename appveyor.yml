@@ -27,7 +27,7 @@ build_script:
   - set PATH=%PATH:C:\Program Files (x86)\Git\usr\bin=%
   # - set PATH=%PATH:C:\Program Files\Git\usr\bin=%
   - ren "C:\Program Files\Git\usr\bin\sh.exe" "_sh.exe"
-  - ren "C:\Rtools\bin\sh.exe" "_sh.exe"
+  # - ren "C:\Rtools\bin\sh.exe" "_sh.exe"
 
 test_script:
   - travis-tool.sh run_tests
@@ -35,6 +35,7 @@ test_script:
 on_failure:
   - 7z a failure.zip *.Rcheck\*
   - appveyor PushArtifact failure.zip
+  - appveyor PushArtifact *.Rcheck\00install.out
 
 artifacts:
   - path: '*.Rcheck\**\*.log'
