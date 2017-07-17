@@ -19,9 +19,9 @@ git checkout $itktag
 rm -rf .git
 cd ../itkb
 compflags=" -fPIC -O2  "
-if [ -n "${APPVEYOR}" ]; then
-	mv C:/Rtools/bin/sh.exe C:/Rtools/bin/_sh.exe
-fi
+# if [ -n "${APPVEYOR}" ]; then
+# 	mv C:/Rtools/bin/sh.exe C:/Rtools/bin/_sh.exe
+# fi
 
 cmake \
     -G "MinGW Makefiles" \
@@ -52,6 +52,6 @@ cmake \
     -D ITKGroup_Segmentation=ON ../itks/
 cd ../
 
-if [ -n "${APPVEYOR}" ]; then
-	mv C:/Rtools/bin/_sh.exe C:/Rtools/bin/sh.exe
-fi
+# if [ -n "${APPVEYOR}" ]; then
+# 	mv C:/Rtools/bin/_sh.exe C:/Rtools/bin/sh.exe
+# fi
