@@ -14,8 +14,10 @@ cache:
   - C:\RLibrary
 
 before_build:
+  - ps: wget 'https://cmake.org/files/v3.9/cmake-3.9.0-rc5-win64-x64.msi'  -OutFile "$pwd\cmake.msi"
+  - ps: msiexec /i cmake.msi /quiet /qn /norestart /log install.log 
   # Workaround for CMake not wanting sh.exe on PATH for MinGW
-  - set PATH=%PATH:C:\Program Files (x86)\Git\bin;=%
+  # - set PATH=%PATH:C:\Program Files (x86)\Git\bin;=%
 
 # Adapt as necessary starting from here
 
