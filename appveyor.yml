@@ -13,6 +13,11 @@ install:
 cache:
   - C:\RLibrary
 
+before_install:
+  - set PATH=%PATH:C:\Rtools\bin=%
+  # - set PATH=%PATH:C:\Rtools\gcc-4.6.3\bin=%
+  - set PATH=%PATH:C:\Program Files (x86)\Git\bin=%
+  - set PATH=%PATH:C:\Program Files\Git\bin=%  
 # Adapt as necessary starting from here
 build_script:
   - travis-tool.sh install_deps
