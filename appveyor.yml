@@ -33,9 +33,9 @@ test_script:
   - travis-tool.sh run_tests
 
 on_failure:
+  - appveyor PushArtifact ITKR.Rcheck\00install.out
   - 7z a failure.zip *.Rcheck\*
   - appveyor PushArtifact failure.zip
-  - appveyor PushArtifact ITKR.Rcheck\00install.out
 
 artifacts:
   - path: '*.Rcheck\**\*.log'
