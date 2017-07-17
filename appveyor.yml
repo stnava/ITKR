@@ -17,7 +17,7 @@ cache:
 build_script:
   - travis-tool.sh install_deps
   # - set PATH=%PATH:C:/Rtools/bin=%
-  - set PATH=%PATH:C:\Rtools\bin=%
+  # - set PATH=%PATH:C:\Rtools\bin=%
   # - set PATH=%PATH:/c/Rtools/bin=%
   - set PATH=%PATH:C:\MinGW\msys\1.0\bin=%
   # - set PATH=%PATH:C:/MinGW/msys/1.0/bin=%
@@ -27,7 +27,7 @@ build_script:
   - set PATH=%PATH:C:\Program Files (x86)\Git\usr\bin=%
   # - set PATH=%PATH:C:\Program Files\Git\usr\bin=%
   - ren "C:\Program Files\Git\usr\bin\sh.exe" "_sh.exe"
-  # - ren "C:\Rtools\bin\sh.exe" "_sh.exe"
+  - ren "C:\Rtools\bin\sh.exe" "_sh.exe"
 
 test_script:
   - travis-tool.sh run_tests
