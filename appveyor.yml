@@ -36,7 +36,8 @@ build_script:
   # - set PATH=%PATH:C:\Program Files (x86)\Git\usr\bin=%
   # - set PATH=%PATH:C:\Program Files\Git\usr\bin=%
   # - ren "C:\Program Files\Git\usr\bin\sh.exe" "_sh.exe"
-  # - set PATH=%PATH:C:\Rtools\MinGW\bin
+  - set PATH=C:\Rtools\MinGW\bin:%PATH
+  - set PATH=C:\Rtools\bin:%PATH
   # - ren "C:\Rtools\bin\sh.exe" "_sh.exe"
 
 test_script:
