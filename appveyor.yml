@@ -27,7 +27,6 @@ build_script:
   - set PATH=%PATH:/c/MinGW/bin;=%  
   - set PATH=%PATH:C:\MinGW\msys\1.0\bin=%
   - set PATH=%PATH:C:/MinGW/msys/1.0/bin=%
-  - rm C:/MinGW/sh.exe
   - rm C:/MinGW/gcc.exe
   # - set PATH=%PATH:C:/MinGW/msys/1.0/bin=%
   # - set PATH=%PATH:/c/MinGW/msys/1.0/bin=%
