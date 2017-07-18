@@ -16,6 +16,7 @@ cache:
 # Adapt as necessary starting from here
 build_script:
   - travis-tool.sh install_deps
+  - set PATH=C:\Rtools\mingw_32\bin:%PATH
   - set PATH=C:\Rtools\MinGW\bin:%PATH
   - set PATH=C:\Rtools\bin:%PATH
   # - ren "C:\Rtools\bin\sh.exe" "_sh.exe"

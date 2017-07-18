@@ -21,6 +21,7 @@ cd ../itkb
 compflags=" -fPIC -O2  "
 if [ -n "${APPVEYOR}" ]; then
     CMAKE_MAKE_PROGRAM=C:/Rtools/bin/make.exe
+    CMAKE_C_PROGRAM=C:/Rtools/mingw_32/bin/gcc.exe
     cmake \
     -G "MinGW Makefiles" \
     -DCMAKE_BUILD_TYPE:STRING="${CMAKE_BUILD_TYPE}" \
