@@ -21,16 +21,11 @@ cd ../itkb
 compflags=" -fPIC -O2  "
 if [ -n "${APPVEYOR}" ]; then
     CMAKE_MAKE_PROGRAM=C:/Rtools/bin/make.exe
-	# mv C:/Rtools/bin/sh.exe C:/Rtools/bin/_sh.exe
-else 
-    CMAKE_MAKE_PROGRAM=make
-fi
-
-cmake \
+    cmake \
     -G "MinGW Makefiles" \
     -DCMAKE_BUILD_TYPE:STRING="${CMAKE_BUILD_TYPE}" \
-    -DCMAKE_C_FLAGS="${CMAKE_C_FLAGS} -Wno-c++11-long-long -fPIC -O2 -DNDEBUG  "\
-    -DCMAKE_CXX_FLAGS="${CMAKE_CXX_FLAGS} -Wno-c++11-long-long -fPIC -O2 -DNDEBUG  "\
+    -DCMAKE_C_FLAGS="${CMAKE_C_FLAGS} -Wno-c++11-long-long ${compflags} -DNDEBUG  "\
+    -DCMAKE_CXX_FLAGS="${CMAKE_CXX_FLAGS} -Wno-c++11-long-long ${compflags} -DNDEBUG  "\
     -DCMAKE_SH:BOOL=OFF \
     -DCMAKE_MAKE_PROGRAM:FILEPATH=${CMAKE_MAKE_PROGRAM} \
     -DITK_USE_GIT_PROTOCOL:BOOL=OFF \
@@ -54,7 +49,38 @@ cmake \
     -D ITKGroup_IO=ON \
     -D ITKGroup_Numerics=ON \
     -D ITKGroup_Registration=ON \
+    -D ITKGroup_Segmentation=ON ../itks/    
+	# mv C:/Rtools/bin/sh.exe C:/Rtools/bin/_sh.exe
+else 
+    cmake \
+    -G "MinGW Makefiles" \
+    -DCMAKE_BUILD_TYPE:STRING="${CMAKE_BUILD_TYPE}" \
+    -DCMAKE_C_FLAGS="${CMAKE_C_FLAGS} -Wno-c++11-long-long ${compflags} -DNDEBUG  "\
+    -DCMAKE_CXX_FLAGS="${CMAKE_CXX_FLAGS} -Wno-c++11-long-long ${compflags} -DNDEBUG  "\
+    -DCMAKE_SH:BOOL=OFF \
+    -DITK_USE_GIT_PROTOCOL:BOOL=OFF \
+    -DBUILD_SHARED_LIBS=OFF \
+    -DBUILD_TESTING:BOOL=OFF \
+    -DBUILD_EXAMPLES:BOOL=OFF \
+    -DCMAKE_INSTALL_PREFIX:PATH=${R_PACKAGE_DIR}/libs/  \
+    -DITK_LEGACY_REMOVE:BOOL=OFF  \
+    -DITK_FUTURE_LEGACY_REMOVE:=BOOL=ON \
+    -DITKV3_COMPATIBILITY:BOOL=ON \
+    -DITK_BUILD_DEFAULT_MODULES:BOOL=OFF \
+    -DKWSYS_USE_MD5:BOOL=ON \
+    -DITK_WRAPPING:BOOL=OFF \
+    -DModule_MGHIO:BOOL=ON \
+    -DModule_ITKDeprecated:BOOL=OFF \
+    -DModule_ITKReview:BOOL=ON \
+    -DModule_ITKVtkGlue:BOOL=OFF \
+    -D ITKGroup_Core=ON \
+    -D Module_ITKReview=ON \
+    -D ITKGroup_Filtering=ON \
+    -D ITKGroup_IO=ON \
+    -D ITKGroup_Numerics=ON \
+    -D ITKGroup_Registration=ON \
     -D ITKGroup_Segmentation=ON ../itks/
+fi
 cd ../
 
 # if [ -n "${APPVEYOR}" ]; then
