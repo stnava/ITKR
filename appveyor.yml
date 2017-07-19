@@ -19,7 +19,7 @@ build_script:
 
 test_script:
   # need to move to higher dir because CMake path req
-  - mkdir -p C:\run
+  - mkdir C:\run
   - cp -avr * C:\run
   # need the tool a level above
   - cp ../travis-tool.sh C:\
@@ -46,7 +46,8 @@ test_script:
   - ls %TMP%
   - ls %TMPDIR%
   - ls %APPVEYOR_BUILD_FOLDER%
-  - cp ../*.zip ./
+  - ls %APPVEYOR_BUILD_FOLDER%/ITKR.Rcheck  
+  # - cp ../*.zip ./
   - cp -r C:\run\* %APPVEYOR_BUILD_FOLDER%
   - cd %APPVEYOR_BUILD_FOLDER%
 
@@ -58,6 +59,9 @@ on_failure:
 artifacts:
   - path: '*.Rcheck\**\*.log'
     name: Logs
+
+  - path: '*.Rcheck\**\*.zip'
+    name: Bits    
 
   - path: '*.Rcheck\**\*.out'
     name: Logs
