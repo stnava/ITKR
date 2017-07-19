@@ -20,6 +20,7 @@ build_script:
   - set PATH=%PATH%;C:\Rtools\mingw_64\bin;
   - set PATH=%PATH%;C:\Program Files\Git\cmd;
   - set PATH=%PATH%;C:\Program Files (x86)\CMake\bin ;
+  - set PATH=%PATH%;C:\R\bin\i386;
 
 test_script:
   - travis-tool.sh run_tests
