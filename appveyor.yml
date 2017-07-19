@@ -53,7 +53,6 @@ test_script:
   - ls %APPVEYOR_BUILD_FOLDER%/ITKR.Rcheck  
   # - cp ../*.zip ./
   - cp -r C:\run\* %APPVEYOR_BUILD_FOLDER%
-  - Rscript -e "x = list.files(tempdir()); cat(x)"
   - cd %APPVEYOR_BUILD_FOLDER%
 
 
