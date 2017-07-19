@@ -18,6 +18,8 @@ build_script:
   - travis-tool.sh install_deps
 
 test_script:
+  - set TMP=C:\
+  - set TMPDIR=C:\
   - set PATH=C:\Rtools\bin;C:\Rtools\MinGW\bin;
   - set PATH=%PATH%;C:\Rtools\mingw_64\bin;
   - set PATH=%PATH%;C:\Program Files\Git\cmd;
