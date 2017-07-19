@@ -47,7 +47,6 @@ test_script:
 
 
 on_failure:
-  - appveyor PushArtifact ITKR.Rcheck\00install.out
   - 7z a failure.zip *.Rcheck\*
   - appveyor PushArtifact failure.zip
 
@@ -69,3 +68,6 @@ artifacts:
 
   - path: '\*_*.zip'
     name: Bits
+
+  - path: '..\*_*.zip'
+    name: Bits    
