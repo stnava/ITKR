@@ -18,12 +18,14 @@ git checkout master;
 git checkout $itktag
 rm -rf .git
 cd ../itkb
-compflags=" -fPIC -O2  "
+# compflags=" -fPIC -O2  "
+ # -Wno-c++11-long-long 
+compflags=" -O2 "
 cmake \
     -G "MinGW Makefiles" \
     -DCMAKE_BUILD_TYPE:STRING="${CMAKE_BUILD_TYPE}" \
-    -DCMAKE_C_FLAGS="${CMAKE_C_FLAGS} -Wno-c++11-long-long ${compflags} -DNDEBUG  "\
-    -DCMAKE_CXX_FLAGS="${CMAKE_CXX_FLAGS} -Wno-c++11-long-long ${compflags} -DNDEBUG  "\
+    -DCMAKE_C_FLAGS="${CMAKE_C_FLAGS} ${compflags} -DNDEBUG  "\
+    -DCMAKE_CXX_FLAGS="${CMAKE_CXX_FLAGS}${compflags} -DNDEBUG  "\
     -DCMAKE_SH:BOOL=OFF \
     -DITK_USE_GIT_PROTOCOL:BOOL=OFF \
     -DBUILD_SHARED_LIBS=OFF \
