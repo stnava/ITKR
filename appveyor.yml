@@ -32,7 +32,6 @@ test_script:
   - set PATH=C:\Rtools\bin;C:\Rtools\MinGW\bin;
   - set PATH=%PATH%;C:\Rtools\mingw_64\bin;
   - set PATH=%PATH%;C:\Program Files\Git\cmd;
-  - set PATH=%PATH%;C:\Program Files (x86)\CMake\bin;
   - set PATH=%PATH%;"C:\Program Files (x86)\CMake\bin";
   - set PATH=%PATH%;C:\R\bin\i386;  
   - set PATH=%PATH%;C:\Program Files\Git\usr\bin  
