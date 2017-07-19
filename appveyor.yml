@@ -27,6 +27,11 @@ test_script:
   - set PATH=%PATH%;C:\Users\appveyor\AppData\Roaming\npm
   - set PATH=%PATH%;C:\Users\appveyor\AppData\Local\Yarn\bin
   - set PATH=%PATH%;C:\Program Files\AppVeyor\BuildAgent\
+  - set PATH=%PATH%;C:\Windows\system32
+  - set PATH=%PATH%;C:\Windows
+  - set PATH=%PATH%;C:\Windows\System32\Wbem
+  - set PATH=%PATH%;C:\Windows\System32\WindowsPowerShell\v1.0\
+  - set PATH=%PATH%;C:\Program Files\7-Zip
   - travis-tool.sh run_tests
 
 
