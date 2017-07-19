@@ -18,9 +18,6 @@ build_script:
   - travis-tool.sh install_deps
 
 test_script:
-  - set TMP=C:\
-  - set TMPDIR=C:\
-  - set TEMP=C:\
   # need to move to higher dir because CMake path req
   - mkdir -p C:\run
   - cp -avr * C:\run
@@ -46,6 +43,9 @@ test_script:
   - travis-tool.sh run_tests
   - ls
   - ls ../
+  - ls %TMP%
+  - ls %TMPDIR%
+  - ls %APPVEYOR_BUILD_FOLDER%
   - cp ../*.zip ./
   - cp -r C:\run\* %APPVEYOR_BUILD_FOLDER%
   - cd %APPVEYOR_BUILD_FOLDER%
