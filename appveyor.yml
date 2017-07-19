@@ -23,7 +23,7 @@ test_script:
   - set TEMP=C:\
   # need to move to higher dir because CMake path req
   - mkdir -p C:\run
-  - cp -r * C:\run
+  - cp -avr * C:\run
   # need the tool a level above
   - cp ../travis-tool.sh C:\
   - cd C:\run
