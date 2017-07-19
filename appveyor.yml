@@ -21,10 +21,13 @@ test_script:
   - set TMP=C:\
   - set TMPDIR=C:\
   - set TEMP=C:\
+  # need to move to higher dir because CMake path req
   - mkdir -p C:\run
   - cp -r * C:\run
+  # need the tool a level above
   - cp ../travis-tool.sh C:\
   - cd C:\run
+  # setting PATH to be specific - no MinGW overall - just R's
   - set PATH=C:\Rtools\bin;C:\Rtools\MinGW\bin;
   - set PATH=%PATH%;C:\Rtools\mingw_64\bin;
   - set PATH=%PATH%;C:\Program Files\Git\cmd;
