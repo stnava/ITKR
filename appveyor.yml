@@ -44,6 +44,8 @@ test_script:
   - set PATH=%PATH%;C:\Windows\System32\WindowsPowerShell\v1.0\
   - set PATH=%PATH%;C:\Program Files\7-Zip
   - travis-tool.sh run_tests
+  - cp -r C:\run\* %APPVEYOR_BUILD_FOLDER%
+  - cd %APPVEYOR_BUILD_FOLDER%
 
 
 on_failure:
