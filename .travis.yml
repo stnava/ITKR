@@ -35,9 +35,9 @@ cran: http://cran.rstudio.com
 before_install:
   - export PROJ_DIR=`basename $PWD`  
   - export ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS=1
-  - wget -O travis_helpers.sh http://bit.ly/travis_helpers
-  - source travis_helpers.sh
-  - rm travis_helpers.sh
+  - fname=travis_helpers.sh
+  - wget -O ${fname} http://bit.ly/travis_helpers
+  - source ${fname}; cat ${fname}; rm ${fname}  
   # does all the clang exports
   - x=`export_clang_cxx`; eval ${x}
   - echo "CC=${CC}, CXX=${CXX}, CXX1X=${CXX1X}"
