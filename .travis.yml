@@ -1,25 +1,14 @@
-# use containers
+language: r
 sudo: false
-# cache local R libraries directory:
 cache: packages
+warnings_are_errors: true
+use_bioc: true
+bioc_required: true
+cran: http://cran.rstudio.com
+
 os:
   - linux
   - osx
-
-compiler: clang
-
-r_build_args: --no-build-vignettes --no-manual
-env:
-  global:
-  - R_BUILD_ARGS="--no-build-vignettes --no-manual"
-  - R_CHECK_ARGS=" --timings --as-cran"
-  - R_CHECK_TIME="TRUE"
-  - R_CHECK_TESTS="TRUE"
-  - _R_CHECK_TIMINGS_="0"
-  - _R_CHECK_FORCE_SUGGESTS_="0"
-  - BOOTSTRAP_LATEX=1
-
-language: r
 
 r:
   - release
@@ -27,9 +16,16 @@ r:
 
 matrix:
   allow_failures:
-  - os: osx
+  - r: devel
 
-cran: http://cran.rstudio.com
+latex: false
+compiler: clang
+osx_image: xcode8.2
+
+env:
+  global:
+  - R_BUILD_ARGS=" --no-build-vignettes --no-manual"
+  - R_CHECK_ARGS=" --timings --as-cran --no-manual"
 
 before_install:
   - export PROJ_DIR=`basename $PWD`  
@@ -72,10 +68,12 @@ script:
     fi
 
 after_failure:
-  - echo ${TRAVIS_BUILD_DIR}
-  - dn=`dirname ${TRAVIS_BUILD_DIR}`
-  - cat ${dn}/${PACKAGE_NAME}.Rcheck/00install.out
-  - cat ${dn}/${PACKAGE_NAME}.Rcheck/00check.log
+  - cat ${PACKAGE_NAME}.Rcheck/00install.out
+  - cat ${PACKAGE_NAME}.Rcheck/00check.log
+
+after_success:
+  - cat ${PACKAGE_NAME}.Rcheck/00install.out
+  - cat ${PACKAGE_NAME}.Rcheck/00check.log
 
 notifications:
   email:
