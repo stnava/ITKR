@@ -5,7 +5,7 @@ src/itkb/
 src/*.o
 src/*.so
 src/symbols.rds
-cran-comments.md
+cran-comments\.md
 ^appveyor\.yml$
 ^.*\.Rproj$
 ^\.Rproj\.user$

@@ -7,39 +7,71 @@ init:
         Invoke-WebRequest http://raw.github.com/krlmlr/r-appveyor/master/scripts/appveyor-tool.ps1 -OutFile "..\appveyor-tool.ps1"
         Import-Module '..\appveyor-tool.ps1'
 
+environment:
+  global:
+    R_CHECK_INSTALL_ARGS: "--install-args=--build --no-multiarch"
+
 install:
-  ps: Bootstrap
+  - ps: Bootstrap
 
 cache:
   - C:\RLibrary
 
 # Adapt as necessary starting from here
-
 build_script:
   - travis-tool.sh install_deps
 
 test_script:
+  # need to move to higher dir because CMake path req
+  - mkdir C:\run
+  - cp -avr * C:\run
+  # need the tool a level above
+  - cp ../travis-tool.sh C:\
+  - cd C:\run
+  # setting PATH to be specific - no MinGW overall - just R's
+  - set PATH=C:\Rtools\bin;C:\Rtools\MinGW\bin;
+  - set PATH=%PATH%;C:\Rtools\mingw_64\bin;
+  - set PATH=%PATH%;C:\Program Files\Git\cmd;
+  - set PATH=%PATH%;"C:\Program Files (x86)\CMake\bin";
+  - set PATH=%PATH%;C:\R\bin\i386;  
+  - set PATH=%PATH%;C:\Program Files\Git\usr\bin  
+  - set PATH=%PATH%;C:\Users\appveyor\AppData\Roaming\npm
+  - set PATH=%PATH%;C:\Users\appveyor\AppData\Local\Yarn\bin
+  - set PATH=%PATH%;C:\Program Files\AppVeyor\BuildAgent\
+  - set PATH=%PATH%;C:\Windows\system32
+  - set PATH=%PATH%;C:\Windows
+  - set PATH=%PATH%;C:\Windows\System32\Wbem
+  - set PATH=%PATH%;C:\Windows\System32\WindowsPowerShell\v1.0\
+  - set PATH=%PATH%;C:\Program Files\7-Zip
+  # - ps: >-
+  #   If ($env:APPVEYOR_REPO_TAG -Match "true") {
+  #     $env:R_CHECK_INSTALL_ARGS="--install-args=--build --no-multiarch"
+  #   } Else {
+  #     $env:R_CHECK_INSTALL_ARGS=""
+  #   }  
   - travis-tool.sh run_tests
+  - ls
+  # - cp ../*.zip ./
+  - cp -r C:/run/* %APPVEYOR_BUILD_FOLDER%
+  - cd %APPVEYOR_BUILD_FOLDER%
+  - ls
+
 
 on_failure:
   - 7z a failure.zip *.Rcheck\*
   - appveyor PushArtifact failure.zip
 
 artifacts:
-  - path: '*.Rcheck\**\*.log'
-    name: Logs
-
-  - path: '*.Rcheck\**\*.out'
-    name: Logs
-
-  - path: '*.Rcheck\**\*.fail'
-    name: Logs
-
-  - path: '*.Rcheck\**\*.Rout'
-    name: Logs
-
-  - path: '\*_*.tar.gz'
-    name: Bits
-
   - path: '\*_*.zip'
     name: Bits
+
+deploy:
+  provider: GitHub
+  description: 'Windows Binary'
+  auth_token:
+    secure: tc2Va9OWLH9H/uKPUKCUmv+q+wQpzRVJd6t8ckXjqzGnOo9eWyiQCmuuUjcuM3b8
+  draft: false
+  prerelease: false
+  on:
+    appveyor_repo_tag: true
+  #tag: $(appveyor_repo_tag_name)
