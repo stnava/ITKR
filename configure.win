@@ -19,7 +19,9 @@ git checkout $itktag
 rm -rf .git
 cd ../itkb
 # compflags=" -fPIC -O2  "
- # -Wno-c++11-long-long 
+# -Wno-c++11-long-long 
+# -DVNL_CONFIG_ENABLE_SSE2_ROUNDING:BOOL=OFF \
+
 compflags=" -O2 "
 cmake \
     -G "MinGW Makefiles" \
@@ -27,7 +29,6 @@ cmake \
     -DCMAKE_C_FLAGS="${CMAKE_C_FLAGS} ${compflags} -DNDEBUG  "\
     -DCMAKE_CXX_FLAGS="${CMAKE_CXX_FLAGS}${compflags} -DNDEBUG  "\
     -DCMAKE_SH:BOOL=OFF \
-    -DVNL_CONFIG_ENABLE_SSE2_ROUNDING:BOOL=OFF \
     -DITK_USE_GIT_PROTOCOL:BOOL=OFF \
     -DBUILD_SHARED_LIBS=OFF \
     -DBUILD_TESTING:BOOL=OFF \

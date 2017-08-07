@@ -10,7 +10,5 @@ all: $(SHLIB)
 
 $(SHLIB): libs
 
-# libs: ; cd itkb && c:/Rtools/mingw_64/bin/mingw32-make.exe -j 2 &&  c:/Rtools/mingw_64/bin/mingw32-make.exe install && rm -rf ../itks
 libs: ; cd itkb && mingw32-make -j 2 && mingw32-make install && rm -rf ../itks
-# libs: ; cd itkb && make -j 2 && make install && rm -rf ../itks
 
