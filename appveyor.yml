@@ -67,6 +67,13 @@ artifacts:
   - path: '\*_*.zip'
     name: Bits
 
+  - path: '*.Rcheck\**\*.log'
+    name: Logs   
+
+  - path: '*.Rcheck\**\*.out'
+    name: Logs
+
+
 deploy:
   provider: GitHub
   description: 'Windows Binary'
