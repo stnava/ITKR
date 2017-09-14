@@ -9,3 +9,7 @@ cran-comments\.md
 ^appveyor\.yml$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+ITKR\.Rproj$
+appveyor\.yml$
+cran-comments\.md$
+travis-tool\.sh\.cmd$
