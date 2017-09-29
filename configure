@@ -38,7 +38,7 @@ echo "ITK;${itktag}" >> ../data/softwareVersions.csv
 mkdir -p itkb
 cd itkb
 compflags=" -fPIC -O2  "
-cmaker=`which cmake`
+cmaker=`command -v cmake`
 if [[ -z "${cmaker}" ]]; then
     git clone https://github.com/stnava/cmaker
     R CMD INSTALL cmaker

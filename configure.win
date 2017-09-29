@@ -23,7 +23,15 @@ cd ../itkb
 # -DVNL_CONFIG_ENABLE_SSE2_ROUNDING:BOOL=OFF \
 
 compflags=" -O2 "
-cmake \
+cmaker=`command -v cmake`
+if [[ -z "${cmaker}" ]]; then
+    git clone https://github.com/stnava/cmaker
+    R CMD INSTALL cmaker
+    rm -rf cmaker
+    cmaker=`Rscript -e "x=cmaker::cmake()"`
+fi
+
+${cmaker} \
     -G "MinGW Makefiles" \
     -DCMAKE_BUILD_TYPE:STRING="${CMAKE_BUILD_TYPE}" \
     -DCMAKE_C_FLAGS="${CMAKE_C_FLAGS} ${compflags} -DNDEBUG  "\
