@@ -38,7 +38,7 @@ echo "ITK;${itktag}" >> ../data/softwareVersions.csv
 mkdir -p itkb
 cd itkb
 compflags=" -fPIC -O2  "
-cmaker=`command -v cmake`
+cmaker=`Rscript -e "x=Sys.which('cmake'); cat(x)"`
 if [[ -z "${cmaker}" ]]; then
 	res=`Rscript -e "cat(('cmaker' %in% installed.packages())*1)"`
 	if [[ $res -eq 0 ]]; 
@@ -48,6 +48,8 @@ if [[ -z "${cmaker}" ]]; then
 	    rm -rf cmaker ;
 	fi
     cmaker=`Rscript -e "x=cmaker::cmake()"`
+else
+	cmaker="cmake"
 fi
 
 ${cmaker} \
