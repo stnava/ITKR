@@ -13,5 +13,5 @@ $(SHLIB): libs
 libs: ; cd itkb && mingw32-make -j 2 && \
 mingw32-make install && rm -rf ../itks && \
 rm -rf CMakeFiles/ && rm -rf Modules/ && rm -rf CMakeTmp/ \
-rm -f Makefile
+rm -f Makefile rm -rf Utilities/Doxygen
 
