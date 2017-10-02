@@ -28,7 +28,7 @@ if [ -z "${cmaker}" ]; then
     res=`${R_HOME}/bin/Rscript.exe -e "cat(('cmaker' %in% installed.packages())*1)"`
     if [ $res -eq 0 ]; 
     then     
-        git clone https://github.com/muschellij2/cmaker
+        git clone https://github.com/stnava/cmaker
         R CMD INSTALL cmaker
         rm -rf cmaker
     fi
