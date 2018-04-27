@@ -14,8 +14,9 @@ r:
   - release
   - devel
 
-allow_failures:
-  - r: devel
+matrix: 
+  allow_failures:
+    - r: devel
 
 latex: false
 compiler: clang
