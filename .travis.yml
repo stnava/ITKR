@@ -14,13 +14,13 @@ r:
   - release
   - devel
 
-matrix:
+matrix: 
   allow_failures:
-  - r: devel
+    - r: devel
 
 latex: false
 compiler: clang
-osx_image: xcode8.2
+osx_image: xcode9
 
 env:
   global:
@@ -58,6 +58,8 @@ script:
   - if [[ ${#TRAVIS_TAG} -eq 0 ]]; 
     then 
       travis_wait 100 R CMD check ${R_CHECK_ARGS} "${PKG_FILE_NAME}" --no-manual --install-args=--build; 
+      check_fail ;
+      check_warnings ;
     fi # --as-cran
   - ls
   - mydir=${PWD}
