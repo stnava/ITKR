@@ -15,20 +15,20 @@ itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
 itktag=d92873e33e8a54e933e445b92151191f02feab42 # 4.13
 # if ther is a directory but no git,
 # remove it
-if [[ -d itks ]]; then 
+if [[ -d itks ]]; then
 	if [[ ! -d itks/.git ]]; then
 		rm -rf itks/
-	fi	
+	fi
 fi
 # if no directory, clone it
-if [[ ! -d itks ]]; then 
-    git clone $itkgit itks	
+if [[ ! -d itks ]]; then
+    git clone $itkgit itks
 fi
 cd itks
 if [[ -d .git ]]; then
     git checkout master;
     git checkout $itktag
-    rm -rf .git    
+    rm -rf .git
 fi
 cd ../
 if [[ ! -d ../data/ ]] ; then
@@ -42,7 +42,7 @@ compflags=" -fPIC -O2  "
 cmaker=`${R_HOME}/bin/Rscript -e "x=Sys.which('cmake'); cat(x)"`
 if [[ -z "${cmaker}" ]]; then
 	res=`${R_HOME}/bin/Rscript -e "cat(('cmaker' %in% installed.packages())*1)"`
-	if [[ $res -eq 0 ]]; 
+	if [[ $res -eq 0 ]];
 		then
 	    git clone https://github.com/stnava/cmaker ;
 	    R CMD INSTALL cmaker ;
@@ -63,7 +63,7 @@ ${cmaker} \
     -DBUILD_EXAMPLES:BOOL=OFF \
     -DCMAKE_INSTALL_PREFIX:PATH=${R_PACKAGE_DIR}/libs/  \
     -DITK_LEGACY_REMOVE:BOOL=OFF  \
-    -DITK_FUTURE_LEGACY_REMOVE:=BOOL=ON \
+    -DITK_FUTURE_LEGACY_REMOVE:BOOL=OFF \
     -DITKV3_COMPATIBILITY:BOOL=ON \
     -DITK_BUILD_DEFAULT_MODULES:BOOL=OFF \
     -DKWSYS_USE_MD5:BOOL=ON \
