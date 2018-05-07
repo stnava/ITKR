@@ -102,17 +102,6 @@ before_deploy:
       rm -f *.tar.gz;
     fi
 
-# deploy:
-#   provider: releases
-#   api_key:
-#     secure: gx9V0xoHSNX9ajZ4rfUyBDusnJMtGb0xlZ4uaP6c46l9AOzFrvRGCLA8QyfZUOdIhyneKGcz2HbzooSwDzwJGtFS6hzHEl03+E/zSXFcj3e619+xrRlY9f6cdnclFC48nwN8qINFRHzgTX3w3Ri7IlnU6SfDAO8Ve/+aLDaqUSLddE2HOHmO8nZ2PFs+OqaP9BihKBe396sIJ+0PgMYVDfLYt3ThZbzaw0KqfgXAC8PCSqGCbmIv+BrKwH/jIUWlg+P5eMTvJndL8uj8GcH0wMSkBYFDdKcWHXBP+nGwZfeGYPWOmDWVNqqhZ+ZQ8wT/5n81ruv8/tAjje/HwbTWX6alrOlbIGjvQPp3Zs0olzHWQ9/yCimCJThnK/ehXIQNSFjvY81ArVybT+5S9ATDyk58JVlsEvq7lSBesgp5fXdwpDzkDLylFDq3TgnXu06YTVR0OHsnJO5qV1b0adVZ45y3ygzMvHPBLShcZ2+2jeQcrB+w07y4AkcXgzQeTRvl+EYh45iazOQbbCB7FZmF4z48she3io8tNHoUsESXpnjgEJRQR6+7nsdLFHu0Nv9KaUX7AgtQqE6xhwYHpo+EjKPMwhNvAkDUnpr+gfLXykhppOBW7IDwVdEqYx67+VEuhq1jqfthuiPC5LsQwlzkEp0VspkDtGnLqYSrW7We9hE=
-#   file: ${PKG_FILE_NAME}
-#   skip_cleanup: true
-#   on:
-#     tags: true
-#     repo: muschellij2/${PROJ_DIR}
-#     all_branches: true
-
 deploy:
   provider: releases
   api_key:
