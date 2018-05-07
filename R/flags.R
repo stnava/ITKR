@@ -81,7 +81,7 @@ itkCompileFlags <- function() {
 itkVersion <- function() {
   # should update this as versions change
   # "4.11"
-  # "4.13"
-  "5.0"
+  "4.13"
+  # "5.0"
 }
 
