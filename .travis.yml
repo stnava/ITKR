@@ -25,7 +25,7 @@ osx_image: xcode9
 env:
   global:
   - R_BUILD_ARGS=" --no-build-vignettes --no-manual"
-  - R_CHECK_ARGS=" --timings --as-cran --no-manual"
+  - R_CHECK_ARGS=" --timings --as-cran --no-manual --install-args=--build"
   - RGL_USE_NULL=TRUE
   - WARNINGS_ARE_ERRORS=1 
   - DISPLAY=:99.0
@@ -73,14 +73,8 @@ script:
       check_warnings ;
     fi # --as-cran
   - ls
-  - mydir=${PWD}
-  - if [[ ${#TRAVIS_TAG} -gt 0 ]];
-    then
-      travis_wait 100 R CMD INSTALL --build ${PROJ_DIR};
-      PKG_FILE_NAME=$(ls -1t *.tar.gz | head -n 1);
-    fi
-  - if [ "$TRAVIS_OS_NAME" == "osx" ];
-      then
+  - PKG_FILE_NAME=$(ls -1t *.tar.gz | head -n 1);
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then
       PKG_FILE_NAME=$(ls -1t *.tgz | head -n  1);
     fi
 
