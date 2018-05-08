@@ -11,11 +11,33 @@
 #' @export itkDir
 #' @import Rcpp
 itkDir <- function() {
-  itkd<-paste( system.file("libs",
-    package="ITKR"),"/lib/cmake/ITK-",itkVersion(),"/", sep="")
+  itkd = get_itk_dir()
   if ( ! file.exists(itkd) && !dir.exists(itkd) )
     print("itkDir: itk dir does not exist")
+  itkd = paste0(itkd, "/")
   cat( itkd )
+}
+
+get_itk_dir = function() {
+  lib_dir = system.file("libs", "lib", "cmake", package="ITKR")
+  dirs = list.dirs(path = lib_dir, recursive = FALSE)
+  bn = basename(dirs)
+  # Keep ITK dirs  
+  dirs = dirs[ grepl("^ITK", bn) ]
+  if (length(dirs) == 0) {
+    stop("No ITK Directory Found!")
+  }
+  if (length(dirs) == 1) {
+    itkd = dirs
+  } else {
+    bn = basename(dirs)
+    bn = strsplit(bn, split = "-")
+    bn = sapply(bn, function(x) x[2])
+    bn = numeric_version(bn)
+    dirs = dirs[order(bn, decreasing = TRUE)]
+    itkd = dirs[1]
+  }
+  return(itkd)
 }
 
 #' return ITK installation information
@@ -29,10 +51,12 @@ itkDir <- function() {
 #'
 #' @export itkIncludes
 itkIncludes <- function() {
-  itklocation<-paste( system.file("libs",
-    package="ITKR"),"/include/ITK-",itkVersion(),"/", sep="")
+  itklocation<- system.file(
+    "libs", "include", paste0("ITK-",itkVersion()),
+    package = "ITKR")
   if ( ! file.exists(itklocation) && !dir.exists(itklocation) )
     print("itkIncludes: itk includes do not exist")
+  itklocation = paste0(itklocation, "/")
   cat( itklocation )
 }
 
@@ -47,9 +71,10 @@ itkIncludes <- function() {
 #'
 #' @export itkLibs
 itkLibs <- function() {
-  itklibs <- paste( system.file("libs", package="ITKR"), '/lib/', sep="")
+  itklibs <- system.file("libs", "lib", package = "ITKR")
   if ( ! file.exists(itklibs) && !dir.exists(itklibs) )
     print("itkLibs: itk libs do not exist")
+  itklibs = paste0(itklibs, "/")
   cat( itklibs )
 }
 
@@ -81,6 +106,11 @@ itkCompileFlags <- function() {
 itkVersion <- function() {
   # should update this as versions change
   # "4.11"
-  "4.13"
+  ver = get_itk_dir()
+  ver = basename(ver)
+  ver = sub("ITK-", "", ver)
+  return(ver)
+  # "4.13"
+  # "5.0"
 }
 

@@ -25,61 +25,67 @@ osx_image: xcode9
 env:
   global:
   - R_BUILD_ARGS=" --no-build-vignettes --no-manual"
-  - R_CHECK_ARGS=" --timings --as-cran --no-manual"
+  - R_CHECK_ARGS=" --timings --as-cran --no-manual --install-args=--build"
+  - RGL_USE_NULL=TRUE
+  - WARNINGS_ARE_ERRORS=1 
+  - DISPLAY=:99.0
 
 before_install:
-  - export PROJ_DIR=`basename $PWD`  
+  - ulimit -n 2048  
+  - export LD_LIBRARY_PATH=/usr/local/clang/lib:${LD_LIBRARY_PATH}
+  - export PROJ_DIR=`basename $PWD`
   - export ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS=1
   - fname=travis_helpers.sh
   - wget -O ${fname} http://bit.ly/travis_helpers
   - cat ${fname}; source ${fname}; rm ${fname}  
-  # does all the clang exports
+  - cat DESCRIPTION  
+  - export PACKAGE_NAME=`package_name`
+  - export RCHECK_DIR=${PACKAGE_NAME}.Rcheck  
+  # does all the clang exports  
   - x=`export_clang_cxx`; eval ${x}
+  - if [ "$TRAVIS_OS_NAME" = "osx" ];
+    then
+      no_open_mp ; 
+    fi  
   - echo "CC=${CC}, CXX=${CXX}, CXX1X=${CXX1X}"
   - echo "CXX1XSTD=${CXX1XSTD}, CXX11=${CXX11}"  
   - clang_cxx  
-  - export cmake_version="3.4"
+  - export cmake_version="3.11"
   - cmake --version
   - x=`cmake_setup`; echo "${x}"; eval ${x};
   - cmake --version
-  - ./cleanup    
-  - export PACKAGE_NAME=`package_name`
+  - ./cleanup      
   # - export PATH=$HOME/bin/:$PATH;
   - echo $PATH ;
   - install_deps_no_suggests
 
 script:
-  - source ~/.R/Makevars
   - x=`export_clang_cxx`; eval ${x}
-  - cd ..
-  - travis_wait 100 R CMD build ${PROJ_DIR} ${R_BUILD_ARGS}
-  - PKG_FILE_NAME=$(ls -1t *.tar.gz | head -n 1)
+  - travis_wait 100 R CMD build ${R_BUILD_ARGS} .
+  - rm -f travis_wait*.log
+  - PKG_TARBALL=$(ls -1t *.tar.gz | head -n 1)  
   - ls
-  - if [[ ${#TRAVIS_TAG} -eq 0 ]]; 
-    then 
-      travis_wait 100 R CMD check ${R_CHECK_ARGS} "${PKG_FILE_NAME}" --no-manual --install-args=--build; 
-      check_fail ;
-      check_warnings ;
-    fi # --as-cran
-  - ls
-  - mydir=${PWD}
-  - if [[ ${#TRAVIS_TAG} -gt 0 ]];
+  - travis_wait 100 R CMD check ${R_CHECK_ARGS} "${PKG_TARBALL}"; CHECK_RET=$? ;
+  - rm -f travis_wait*.log
+  - if [[ $CHECK_RET -ne 0 ]];
     then
-      travis_wait 100 R CMD INSTALL --build ${PROJ_DIR};
-      PKG_FILE_NAME=$(ls -1t *.tar.gz | head -n 1);
+      echo "R CMD check failed"; 
+      check_fail; 
+      dump_logs; 
+      check_warnings ;      
+      travis_terminate 1;
     fi
-  - if [ "$TRAVIS_OS_NAME" == "osx" ];
-      then
+  - ls
+  - PKG_FILE_NAME=$(ls -1t *.tar.gz | head -n 1);
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then
       PKG_FILE_NAME=$(ls -1t *.tgz | head -n  1);
     fi
 
 after_failure:
-  - cat ${PACKAGE_NAME}.Rcheck/00install.out
-  - cat ${PACKAGE_NAME}.Rcheck/00check.log
+  - dump_logs
 
 after_success:
-  - cat ${PACKAGE_NAME}.Rcheck/00install.out
-  - cat ${PACKAGE_NAME}.Rcheck/00check.log
+  - dump_logs
 
 notifications:
   email:
@@ -89,16 +95,12 @@ notifications:
     on_success: change
     on_failure: always
 
-# deploy:
-#   provider: releases
-#   api_key:
-#     secure: gx9V0xoHSNX9ajZ4rfUyBDusnJMtGb0xlZ4uaP6c46l9AOzFrvRGCLA8QyfZUOdIhyneKGcz2HbzooSwDzwJGtFS6hzHEl03+E/zSXFcj3e619+xrRlY9f6cdnclFC48nwN8qINFRHzgTX3w3Ri7IlnU6SfDAO8Ve/+aLDaqUSLddE2HOHmO8nZ2PFs+OqaP9BihKBe396sIJ+0PgMYVDfLYt3ThZbzaw0KqfgXAC8PCSqGCbmIv+BrKwH/jIUWlg+P5eMTvJndL8uj8GcH0wMSkBYFDdKcWHXBP+nGwZfeGYPWOmDWVNqqhZ+ZQ8wT/5n81ruv8/tAjje/HwbTWX6alrOlbIGjvQPp3Zs0olzHWQ9/yCimCJThnK/ehXIQNSFjvY81ArVybT+5S9ATDyk58JVlsEvq7lSBesgp5fXdwpDzkDLylFDq3TgnXu06YTVR0OHsnJO5qV1b0adVZ45y3ygzMvHPBLShcZ2+2jeQcrB+w07y4AkcXgzQeTRvl+EYh45iazOQbbCB7FZmF4z48she3io8tNHoUsESXpnjgEJRQR6+7nsdLFHu0Nv9KaUX7AgtQqE6xhwYHpo+EjKPMwhNvAkDUnpr+gfLXykhppOBW7IDwVdEqYx67+VEuhq1jqfthuiPC5LsQwlzkEp0VspkDtGnLqYSrW7We9hE=
-#   file: ${PKG_FILE_NAME}
-#   skip_cleanup: true
-#   on:
-#     tags: true
-#     repo: muschellij2/${PROJ_DIR}
-#     all_branches: true
+# so no overwrite of linux build
+before_deploy:
+  - if [ "$TRAVIS_OS_NAME" = "osx" ];
+    then
+      rm -f *.tar.gz;
+    fi
 
 deploy:
   provider: releases

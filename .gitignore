@@ -7,3 +7,4 @@ src/*.o-*
 src/*.so
 src/symbols.rds
 .Rproj.user
+R/.Rhistory
