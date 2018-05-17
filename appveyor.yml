@@ -21,9 +21,9 @@ cache:
 
 # Adapt as necessary starting from here
 build_script:
-  - set TMP=C:\rtm
-  - set TMPDIR=C:\rtm
-  - set TEMP=C:\rtm
+  - set TMP=C:/rtm
+  - set TEMP=C:/rtm
+  - set TMPDIR=C:/rtm
   - mkdir -p C:\rtm
   # need to move to higher dir because CMake path req
   - mkdir C:\run
