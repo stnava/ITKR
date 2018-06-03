@@ -9,6 +9,7 @@ init:
 
 environment:
   global:
+    USE_RTOOLS: true    
     R_CHECK_INSTALL_ARGS: "--install-args=--build --no-multiarch"
     WARNINGS_ARE_ERRORS: 1
 
@@ -20,9 +21,10 @@ cache:
 
 # Adapt as necessary starting from here
 build_script:
-  - travis-tool.sh install_deps
-
-test_script:
+  - mkdir -p C:\rtm
+  - set TMP=C:/rtm
+  - set TEMP=C:/rtm
+  - set TMPDIR=C:/rtm
   # need to move to higher dir because CMake path req
   - mkdir C:\run
   - cp -avr * C:\run
@@ -45,15 +47,18 @@ test_script:
   - set PATH=%PATH%;C:\Windows\System32\Wbem
   - set PATH=%PATH%;C:\Windows\System32\WindowsPowerShell\v1.0\
   - set PATH=%PATH%;C:\Program Files\7-Zip
+  - RScript -e "install.packages('Rcpp', type = 'source', repos=c(CRAN='https://cran.rstudio.com'))"  
+  - travis-tool.sh install_deps
+
   # - ps: >-
   #   If ($env:APPVEYOR_REPO_TAG -Match "true") {
   #     $env:R_CHECK_INSTALL_ARGS="--install-args=--build --no-multiarch"
   #   } Else {
   #     $env:R_CHECK_INSTALL_ARGS=""
   #   }  
+test_script:  
   - travis-tool.sh run_tests
   - ls
-  # - cp ../*.zip ./
   - cp -r C:/run/* %APPVEYOR_BUILD_FOLDER%
   - cp C:/run/.Rbuildignore %APPVEYOR_BUILD_FOLDER%
   - cd %APPVEYOR_BUILD_FOLDER%
