@@ -67,7 +67,9 @@ ${cmaker} \
     -D ITKGroup_IO=ON \
     -D ITKGroup_Numerics=ON \
     -D ITKGroup_Registration=ON \
-    -D ITKGroup_Segmentation=ON ../itks/
+    -D ITKGroup_Segmentation=ON \
+    -DVNL_CONFIG_ENABLE_SSE2_ROUNDING:BOOL=OFF \
+    ../itks/
 cd ../
 
 # if [ -n "${APPVEYOR}" ]; then
