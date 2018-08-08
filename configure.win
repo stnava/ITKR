@@ -26,7 +26,7 @@ cd ../itkb
 # -Wno-c++11-long-long 
 # -DVNL_CONFIG_ENABLE_SSE2_ROUNDING:BOOL=OFF \
 
-compflags=" -O2 "
+compflags=" -fPIC -O2 -Wno-c++11-long-long "
 cmaker=`${R_HOME}/bin/Rscript.exe -e "x=Sys.which('cmake'); cat(x)"`
 if [ -z "${cmaker}" ]; then
     res=`${R_HOME}/bin/Rscript.exe -e "cat(('cmaker' %in% installed.packages())*1)"`
