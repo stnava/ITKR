@@ -22,7 +22,7 @@ cd ../itkb
 # -Wno-c++11-long-long 
 # -DVNL_CONFIG_ENABLE_SSE2_ROUNDING:BOOL=OFF \
 
-compflags=" -fPIC -O2 -Wno-c++11-long-long "
+compflags=" -fPIC -O2 -Wno-c++11-long-long -m32"
 cmaker=`${R_HOME}/bin/Rscript.exe -e "x=Sys.which('cmake'); cat(x)"`
 if [ -z "${cmaker}" ]; then
     res=`${R_HOME}/bin/Rscript.exe -e "cat(('cmaker' %in% installed.packages())*1)"`
@@ -44,7 +44,7 @@ ${cmaker} \
     -G "MinGW Makefiles" \
     -DCMAKE_BUILD_TYPE:STRING="${CMAKE_BUILD_TYPE}" \
     -DCMAKE_C_FLAGS="${CMAKE_C_FLAGS} ${compflags} -DNDEBUG -D_FILE_OFFSET_BITS=64 "\
-    -DCMAKE_CXX_FLAGS="${CMAKE_CXX_FLAGS}${compflags} -DNDEBUG  "\
+    -DCMAKE_CXX_FLAGS="${CMAKE_CXX_FLAGS} ${compflags} -DNDEBUG  "\
     -DCMAKE_SH:BOOL=OFF \
     -DITK_USE_GIT_PROTOCOL:BOOL=OFF \
     -DBUILD_SHARED_LIBS=OFF \
