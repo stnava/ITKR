@@ -13,3 +13,5 @@ ITKR\.Rproj$
 appveyor\.yml$
 cran-comments\.md$
 travis-tool\.sh\.cmd$
+^_pkgdown\.yml$
+^docs$
