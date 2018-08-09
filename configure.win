@@ -9,6 +9,9 @@ itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
 itktag=34c54c7929154df3bd40d5188b859731c54b8627 # 5.0 with less strict Mattes heuristic
 # itktag= # latest
 mkdir itks itkb
+# as per https://discourse.itk.org/t/path-length-limitation-in-windows-lifted/545/12
+longpaths=`git config --get core.longpaths`
+git config core.longpaths true
 git clone $itkgit itks
 mkdir -p ../data
 echo "Dependency;GitTag" > ../data/softwareVersions.csv
@@ -18,6 +21,12 @@ git checkout master;
 git checkout $itktag
 rm -rf .git
 cd ../itkb
+# removing the longpaths setting 
+if [ -n "${longpaths}" ]; then
+	git config core.longpaths ${longpaths}
+else
+	git config --unset core.longpaths
+fi
 # compflags=" -fPIC -O2  "
 # -Wno-c++11-long-long 
 # -DVNL_CONFIG_ENABLE_SSE2_ROUNDING:BOOL=OFF \
