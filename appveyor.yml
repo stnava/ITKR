@@ -27,7 +27,6 @@ build_script:
   - set TMPDIR=C:/rtm
   # need to move to higher dir because CMake path req
   - if not exist "C:\run" mkdir C:\run
-  - mkdir C:\run
   - cp -avr * C:\run
   - cp .Rbuildignore C:\run
   # need the tool a level above
