@@ -2,16 +2,16 @@
 CXX_STD=CXX11
 CC=`R CMD config CC`
 CXX=`R CMD config CXX`
-JTHREADS=2
+JTHREADS=1
 CMAKE_BUILD_TYPE=Release
 cd ./src
 itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
-# itktag=2714cc1805f50504f5b9a60d0f62ffec8e73989 # 4.11
-# itktag=c5138560409c75408ff76bccff938f21e5dcafc6 # 4.12
-itktag=d92873e33e8a54e933e445b92151191f02feab42 # 4.13
-# itktag=2f0c67f8831452189442eda50951e19b3fdbb3d3 # 5.0
+itktag=34c54c7929154df3bd40d5188b859731c54b8627 # 5.0 with less strict Mattes heuristic
 # itktag= # latest
 mkdir itks itkb
+# as per https://discourse.itk.org/t/path-length-limitation-in-windows-lifted/545/12
+longpaths=`git config --get core.longpaths`
+git config core.longpaths true
 git clone $itkgit itks
 mkdir -p ../data
 echo "Dependency;GitTag" > ../data/softwareVersions.csv
@@ -21,11 +21,17 @@ git checkout master;
 git checkout $itktag
 rm -rf .git
 cd ../itkb
+# removing the longpaths setting 
+if [ -n "${longpaths}" ]; then
+	git config core.longpaths ${longpaths}
+else
+	git config --unset core.longpaths
+fi
 # compflags=" -fPIC -O2  "
 # -Wno-c++11-long-long 
 # -DVNL_CONFIG_ENABLE_SSE2_ROUNDING:BOOL=OFF \
 
-compflags=" -O2 "
+compflags=" -fPIC -O2 -Wno-c++11-long-long -msse4.1 -mssse3"
 cmaker=`${R_HOME}/bin/Rscript.exe -e "x=Sys.which('cmake'); cat(x)"`
 if [ -z "${cmaker}" ]; then
     res=`${R_HOME}/bin/Rscript.exe -e "cat(('cmaker' %in% installed.packages())*1)"`
@@ -47,7 +53,7 @@ ${cmaker} \
     -G "MinGW Makefiles" \
     -DCMAKE_BUILD_TYPE:STRING="${CMAKE_BUILD_TYPE}" \
     -DCMAKE_C_FLAGS="${CMAKE_C_FLAGS} ${compflags} -DNDEBUG -D_FILE_OFFSET_BITS=64 "\
-    -DCMAKE_CXX_FLAGS="${CMAKE_CXX_FLAGS}${compflags} -DNDEBUG  "\
+    -DCMAKE_CXX_FLAGS="${CMAKE_CXX_FLAGS} ${compflags} -DNDEBUG  "\
     -DCMAKE_SH:BOOL=OFF \
     -DITK_USE_GIT_PROTOCOL:BOOL=OFF \
     -DBUILD_SHARED_LIBS=OFF \
@@ -70,7 +76,10 @@ ${cmaker} \
     -D ITKGroup_IO=ON \
     -D ITKGroup_Numerics=ON \
     -D ITKGroup_Registration=ON \
-    -D ITKGroup_Segmentation=ON ../itks/
+    -D ITKGroup_Segmentation=ON \
+    -DITK_SKIP_PATH_LENGTH_CHECKS:bool=ON \
+    -DVNL_CONFIG_ENABLE_SSE2_ROUNDING:BOOL=ON \
+    ../itks/
 cd ../
 
 # if [ -n "${APPVEYOR}" ]; then
