@@ -10,7 +10,7 @@ if [[ $TRAVIS -eq true ]] ; then
 fi
 cd ./src
 itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
-itktag=34c54c7929154df3bd40d5188b859731c54b8627 # 5.0 with less strict Mattes heuristic
+itktag=e5520e9078ed0ca6085e1defccbd132d85ed49f7 # ITK point set fix
 # if there is a directory but no git,
 # remove it
 if [[ -d itks ]]; then
