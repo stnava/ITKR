@@ -12,6 +12,17 @@ environment:
     USE_RTOOLS: true    
     R_CHECK_INSTALL_ARGS: "--install-args=--build --no-multiarch"
     WARNINGS_ARE_ERRORS: 1
+  matrix:
+    - R_VERSION: devel
+      R_VER: 3.6
+
+    - R_VERSION: release
+      R_VER: 3.5
+
+    - R_VERSION: oldrel
+      CRAN: http://cran.rstudio.com
+      R_VER: 3.4
+
 
 install:
   - ps: Bootstrap
@@ -48,6 +59,11 @@ test_script:
   - cp C:/run/.Rbuildignore %APPVEYOR_BUILD_FOLDER%
   - cd %APPVEYOR_BUILD_FOLDER%
   - ls
+  - for %%i in (*.zip) do echo %%~ni> zip_filename.txt
+  - SET /P PKG_TARBALL=<zip_filename.txt
+  - del zip_filename.txt
+  - rename %PKG_TARBALL%.zip %PKG_TARBALL%_R%R_VER%.zip
+  - echo Built tarball is %PKG_TARBALL%_R%R_VER%.zip  
 
 on_failure:
   - cat *.Rcheck/00install.out  
