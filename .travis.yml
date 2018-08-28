@@ -39,6 +39,7 @@ before_install:
   - fname=travis_helpers.sh
   - wget -O ${fname} http://bit.ly/travis_helpers
   - cat ${fname}; source ${fname}; rm ${fname}  
+  - export rver=`r_version`;
   - cat DESCRIPTION  
   - export PACKAGE_NAME=`package_name`
   - export RCHECK_DIR=${PACKAGE_NAME}.Rcheck  
@@ -78,9 +79,14 @@ script:
     fi
   - ls
   - PKG_FILE_NAME=$(ls -1t *.tar.gz | head -n 1);
+  - PKG_TARBALL_WITH_R=`echo $PKG_FILE_NAME | sed 's/.tar.gz/_'"R${rver}"'.tar.gz/'` ;
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then
       PKG_FILE_NAME=$(ls -1t *.tgz | head -n  1);
+      PKG_TARBALL_WITH_R=`echo $PKG_FILE_NAME | sed 's/.tgz/_'"R${rver}"'.tgz/'` ;
     fi
+  - mv ${PKG_FILE_NAME} ${PKG_TARBALL_WITH_R} ;      
+  - PKG_FILE_NAME=${PKG_TARBALL_WITH_R}
+
 
 after_failure:
   - dump_logs
