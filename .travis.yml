@@ -59,6 +59,7 @@ before_install:
   - ./cleanup      
   # - export PATH=$HOME/bin/:$PATH;
   - echo $PATH ;
+  - Rscript -e "install.packages('Rcpp', type = 'source', repos=c(CRAN='https://cran.rstudio.com'))"    
   - install_deps_no_suggests
 
 script:
