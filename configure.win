@@ -6,7 +6,7 @@ JTHREADS=1
 CMAKE_BUILD_TYPE=Release
 cd ./src
 itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
-itktag=e5520e9078ed0ca6085e1defccbd132d85ed49f7 # ITK point set fix
+itktag=4f89edd8334da198099c686b993ec9f9f12dccdf
 # itktag= # latest
 mkdir itks itkb
 # as per https://discourse.itk.org/t/path-length-limitation-in-windows-lifted/545/12
