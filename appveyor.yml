@@ -38,25 +38,17 @@ build_script:
   - set TMPDIR=C:/rtm
   # need to move to higher dir because CMake path req
   - if not exist "C:\run" mkdir C:\run
-  - cp -avr * C:\run
-  - cp .Rbuildignore C:\run
+  - cp -avr . C:\run
   # need the tool a level above
   - cp ../travis-tool.sh C:\
   - cd C:\run
   - RScript -e "install.packages('Rcpp', type = 'source', repos=c(CRAN='https://cran.rstudio.com'))"  
   - travis-tool.sh install_deps
 
-  # - ps: >-
-  #   If ($env:APPVEYOR_REPO_TAG -Match "true") {
-  #     $env:R_CHECK_INSTALL_ARGS="--install-args=--build --no-multiarch"
-  #   } Else {
-  #     $env:R_CHECK_INSTALL_ARGS=""
-  #   }  
 test_script:  
   - travis-tool.sh run_tests
   - ls
-  - cp -r C:/run/* %APPVEYOR_BUILD_FOLDER%
-  - cp C:/run/.Rbuildignore %APPVEYOR_BUILD_FOLDER%
+  - cp -ravTf C:/run %APPVEYOR_BUILD_FOLDER%
   - cd %APPVEYOR_BUILD_FOLDER%
   - ls
   - for %%i in (*.zip) do echo %%~ni> zip_filename.txt
