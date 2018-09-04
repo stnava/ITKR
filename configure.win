@@ -6,7 +6,7 @@ JTHREADS=1
 CMAKE_BUILD_TYPE=Release
 cd ./src
 itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
-itktag=8e821376ee7e19d81c29741acdc32bcda911eafc # Jacobian registration speedup
+itktag=8d4417e5c66880521413d24074b943f86898f264 # Jacobian registration speedup
 # itktag= # latest
 mkdir itks itkb
 # as per https://discourse.itk.org/t/path-length-limitation-in-windows-lifted/545/12
