@@ -9,8 +9,10 @@ if [[ $TRAVIS -eq true ]] ; then
   JTHREADS=2
 fi
 cd ./src
-itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
-itktag=8e821376ee7e19d81c29741acdc32bcda911eafc # Jacobian registration speedup
+# itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
+# itktag=8e821376ee7e19d81c29741acdc32bcda911eafc # Jacobian registration speedup
+itkgit=https://github.com/stnava/ITK.git
+itktag=f44174c188466da6a9dcfbf3928d52bbd3b05cd2
 # if there is a directory but no git,
 # remove it
 if [[ -d itks ]]; then
