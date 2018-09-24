@@ -8,7 +8,7 @@ cd ./src
 # itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
 # itktag=b2f5227b9f8d44cb155176f5dbcad6f911206841 # most up to date
 itkgit=https://github.com/stnava/ITK.git
-itktag=f44174c188466da6a9dcfbf3928d52bbd3b05cd2
+itktag=22ef020347e60f2b42648083ccebfadbf780f823
 # itktag= # latest
 mkdir itks itkb
 # as per https://discourse.itk.org/t/path-length-limitation-in-windows-lifted/545/12
