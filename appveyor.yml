@@ -2,7 +2,8 @@
 
 # Download script file from GitHub
 init:
-  ps: |
+  - rm -f *.Rproj
+  - ps: |
         $ErrorActionPreference = "Stop"
         Invoke-WebRequest http://raw.github.com/krlmlr/r-appveyor/master/scripts/appveyor-tool.ps1 -OutFile "..\appveyor-tool.ps1"
         Import-Module '..\appveyor-tool.ps1'
@@ -12,6 +13,8 @@ environment:
     USE_RTOOLS: true    
     R_CHECK_INSTALL_ARGS: "--install-args=--build --no-multiarch"
     WARNINGS_ARE_ERRORS: 1
+    CRAN: http://cran.rstudio.com
+
   matrix:
     - R_VERSION: devel
       R_VER: 3.6
@@ -20,7 +23,6 @@ environment:
       R_VER: 3.5
 
     - R_VERSION: oldrel
-      CRAN: http://cran.rstudio.com
       R_VER: 3.4
 
 
