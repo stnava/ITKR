@@ -41,7 +41,7 @@ before_install:
   - wget -O ${fname} http://bit.ly/travis_helpers
   - cat ${fname}; source ${fname}; rm ${fname}  
   - export rver=`r_version`;
-  - export gh_user=`get_gh_user` ; cat $gh_user ;
+  - export gh_user=`get_gh_user` ; echo $gh_user ;
   - cat DESCRIPTION  
   - export PACKAGE_NAME=`package_name`
   - export RCHECK_DIR=${PACKAGE_NAME}.Rcheck  
