@@ -32,7 +32,7 @@ fi
 # -Wno-c++11-long-long 
 # -DVNL_CONFIG_ENABLE_SSE2_ROUNDING:BOOL=OFF \
 
-compflags=" -fPIC -O2 -lws2_32 -lgdi32 -mwindows -Wno-c++11-long-long -msse4.1 -mssse3 -Wa,-mbig-obj"
+compflags=" -fPIC -O2   -lws2_32 -lgdi32 -mwindows -Wno-c++11-long-long -msse4.1 -mssse3 -Wa,-mbig-obj"
 cmaker=`${R_HOME}/bin/Rscript.exe -e "x=Sys.which('cmake'); cat(x)"`
 if [ -z "${cmaker}" ]; then
     res=`${R_HOME}/bin/Rscript.exe -e "cat(('cmaker' %in% installed.packages())*1)"`

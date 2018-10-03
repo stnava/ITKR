@@ -90,7 +90,14 @@ itkLibs <- function() {
 #'
 #' @export itkCompileFlags
 itkCompileFlags <- function() {
-  cat(" -fPIC -O2  ")
+  str = " -fPIC -O2  "
+  if (.Platform$OS.type == "windows") {
+    oflags = c("-lws2_32", "-lgdi32", "-mwindows", "-Wno-c++11-long-long", 
+               "-msse4.1", "-mssse3", "-Wa,-mbig-obj")
+    oflags = paste(oflags, collapse = " ")
+    str = paste(str, oflags)
+  }
+  cat( str )
 }
 
 #' return ITK version information
