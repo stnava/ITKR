@@ -13,7 +13,7 @@ cd ./src
 # itktag=8e821376ee7e19d81c29741acdc32bcda911eafc # Jacobian registration speedup
 # itkgit=https://github.com/stnava/ITK.git
 itkgit=https://github.com/muschellij2/ITK.git
-itktag=e84f2b1fe6e127acaff52acf9428c2aa514e6a23 # latest
+itktag=41fb22d489950fa7c843a3913ce2e44218878234 # latest
 # if there is a directory but no git,
 # remove it
 if [[ -d itks ]]; then
