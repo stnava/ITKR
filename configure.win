@@ -1,14 +1,14 @@
 #!/bin/bash
 CXX_STD=CXX11
-CC=`R CMD config CC`
-CXX=`R CMD config CXX`
+CC=`${R_HOME}/bin/R.exe CMD config CC`
+CXX=`${R_HOME}/bin/R.exe CMD config CXX`
 JTHREADS=1
 CMAKE_BUILD_TYPE=Release
 cd ./src
 # itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
 # itktag=22ef020347e60f2b42648083ccebfadbf780f823
 itkgit=https://github.com/muschellij2/ITK.git
-itktag=e84f2b1fe6e127acaff52acf9428c2aa514e6a23 # latest
+itktag=41fb22d489950fa7c843a3913ce2e44218878234 # latest
 mkdir itks itkb
 # as per https://discourse.itk.org/t/path-length-limitation-in-windows-lifted/545/12
 longpaths=`git config --get core.longpaths`
@@ -32,7 +32,7 @@ fi
 # -Wno-c++11-long-long 
 # -DVNL_CONFIG_ENABLE_SSE2_ROUNDING:BOOL=OFF \
 
-compflags=" -fPIC -O2 -Wno-c++11-long-long -msse4.1 -mssse3"
+compflags=" -fPIC -O2   -lws2_32 -lgdi32 -mwindows -Wno-c++11-long-long -msse4.1 -mssse3 -Wa,-mbig-obj"
 cmaker=`${R_HOME}/bin/Rscript.exe -e "x=Sys.which('cmake'); cat(x)"`
 if [ -z "${cmaker}" ]; then
     res=`${R_HOME}/bin/Rscript.exe -e "cat(('cmaker' %in% installed.packages())*1)"`
@@ -47,8 +47,10 @@ if [ -z "${cmaker}" ]; then
     # export PATH=${PATH}:${cmake_path}
     # cmaker="cmake"
 else 
-    cmaker="cmake"
+    cmaker="cmake.exe"
 fi
+
+echo ${cmaker}
 
 ${cmaker} \
     -G "MinGW Makefiles" \
