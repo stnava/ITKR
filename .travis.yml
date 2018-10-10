@@ -89,11 +89,6 @@ script:
     fi
   - mv ${PKG_FILE_NAME} ${PKG_TARBALL_WITH_R} ;      
   - PKG_FILE_NAME=${PKG_TARBALL_WITH_R}
-  - if [[ "${gh_user}" == "stnava" ]]; then 
-      export secure_key=Y+JfKm3oXRUxpxyWjBtXimuBcuv3+D5iakzCwMJLqEDPjd+w9ow1x5a4GN/LfFg8Lbhflc8Uaz2bpxRuD5enk+RRmFtcXBB/IsnxkXBEM3fA2eT4ZIxq/aTt4HisOdXclyZc5PxAXFOVO8/QWcjh3boqSpOjscS0kYCWkm4KT9M= ;
-    elif [[ "${gh_user}" == "muschellij2" ]]; then 
-      export secure_key=GEm6au7Z/KYE880stogn3I0lbvAgzbX/wjX1eOAI60iDeyGcaLQncrc32ERmdOhArka3hzvTId+llRh6zQcSjF29GvFjJda5u0j9ZIYLWN7PvsZyoi56CjXkpfa7UrriON8WulpAsZhavANCOSkSg3uNyZ0LqXL+3bXFuz78VKgnpoJm+raWKHxq/DGtLGlRJZC9/hZFM9njzpDI+Av7KcKStWN9qtut/iqZptV1ZuZuMlr8PbD5fPthFxSmz2DpJlUYpy0tc5AJfXvWnPcSxVz40qW5ekVKcajOTr3CFO1fMz7CV4nrCwVYCQiZHCkOgOQQqX692XsT9iSNVYCY3E+2Szwu4mQtQ4bp1eOy18Z9WHhk0OQcTcOxHtNV77/wwDvSyuEnirpfqxsgMrrFh8CmtwDs/oLp2Na6QCdjcQ/bZofVtyxwPtdfjSFR8zs9B8jkEMJW7xWW2Xv8SroPD28exTOlql4nysC3n/yE1cOCs2+tf0drD+9Zzb1Qnxm5Z3DBteevttwgcLkSsoDxLDiGFQWb4RO9JY+386ahG8yDl7VqFK67BaZ1qrLsllHWnm2vGlXPjyDOiyIW4CeklwLgzUu0zXdPhUvqsgTzbPsMCXLwOV4Gfa/pFB6f+M0VaiZpSYcE4dGoSNuo2zmYLHA+thYjUwnjf91sNMx4PlU= ;
-    fi    
 
 
 after_failure:
@@ -120,7 +115,7 @@ before_deploy:
 deploy:
   provider: releases
   api_key:
-    secure: ${secure_key}
+    secure: Y+JfKm3oXRUxpxyWjBtXimuBcuv3+D5iakzCwMJLqEDPjd+w9ow1x5a4GN/LfFg8Lbhflc8Uaz2bpxRuD5enk+RRmFtcXBB/IsnxkXBEM3fA2eT4ZIxq/aTt4HisOdXclyZc5PxAXFOVO8/QWcjh3boqSpOjscS0kYCWkm4KT9M=
   file: ${PKG_FILE_NAME}
   skip_cleanup: true
   on:
