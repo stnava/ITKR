@@ -8,7 +8,7 @@ cd ./src
 # itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
 # itktag=22ef020347e60f2b42648083ccebfadbf780f823
 itkgit=https://github.com/stnava/ITK.git
-itktag=20a456c3803d5d8e38b1c0a62df484fd10b8b71b # resolve hdf5 warnings
+itktag=dc8765dbfbcd47124579fba04c8cf5101dd585b7 # resolve hdf5 warnings
 mkdir itks itkb
 # as per https://discourse.itk.org/t/path-length-limitation-in-windows-lifted/545/12
 longpaths=`git config --get core.longpaths`
@@ -20,14 +20,15 @@ echo "ITK;${itktag}" >> ../data/softwareVersions.csv
 cd itks
 git checkout master;
 git checkout $itktag
-rm -rf .git
-cd ../itkb
 # removing the longpaths setting 
 if [ -n "${longpaths}" ]; then
 	git config core.longpaths ${longpaths}
 else
 	git config --unset core.longpaths
 fi
+rm -rf .git
+cd ../itkb
+
 # compflags=" -fPIC -O2  "
 # -Wno-c++11-long-long 
 # -DVNL_CONFIG_ENABLE_SSE2_ROUNDING:BOOL=OFF \
