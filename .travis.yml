@@ -40,6 +40,7 @@ before_install:
   - fname=travis_helpers.sh
   - wget -O ${fname} http://bit.ly/travis_helpers
   - cat ${fname}; source ${fname}; rm ${fname}  
+  - start_xvfb ;
   - export rver=`r_version`;
   - export gh_user=`get_gh_user` ; echo $gh_user ;
   - cat DESCRIPTION  
@@ -54,14 +55,13 @@ before_install:
   - echo "CC=${CC}, CXX=${CXX}, CXX1X=${CXX1X}"
   - echo "CXX1XSTD=${CXX1XSTD}, CXX11=${CXX11}"  
   - clang_cxx  
+  - hdf5_install ;
   - export cmake_version="3.11"
   - cmake --version
   - x=`cmake_setup`; echo "${x}"; eval ${x};
   - cmake --version
   - ./cleanup      
-  # - export PATH=$HOME/bin/:$PATH;
-  - echo $PATH ;
-  - Rscript -e "install.packages('Rcpp', type = 'source', repos=c(CRAN='https://cran.rstudio.com'))"    
+  - Rscript -e "install.packages(c('Rcpp', 'RcppEigen'), type = 'source', repos=c(CRAN='https://cran.rstudio.com'))"
   - install_deps_no_suggests
 
 script:
@@ -80,6 +80,12 @@ script:
       check_warnings ;      
       travis_terminate 1;
     fi
+
+after_failure:
+  - dump_logs
+
+after_success:
+  - dump_logs
   - ls
   - PKG_FILE_NAME=$(ls -1t *.tar.gz | head -n 1);
   - PKG_TARBALL_WITH_R=`echo $PKG_FILE_NAME | sed 's/.tar.gz/_'"R${rver}"'.tar.gz/'` ;
@@ -90,12 +96,6 @@ script:
   - mv ${PKG_FILE_NAME} ${PKG_TARBALL_WITH_R} ;      
   - PKG_FILE_NAME=${PKG_TARBALL_WITH_R}
 
-
-after_failure:
-  - dump_logs
-
-after_success:
-  - dump_logs
 
 notifications:
   email:
@@ -122,3 +122,4 @@ deploy:
     tags: true
     repo: ${gh_user}/${PROJ_DIR}
     all_branches: true
+    condition: $gh_user = "ANTsX"

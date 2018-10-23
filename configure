@@ -83,3 +83,4 @@ ${cmaker} \
     -D ITKGroup_Registration=ON \
     -D ITKGroup_Segmentation=ON ../itks/
 cd ../
+    # -DModule_ITKDCMTK:BOOL=ON \
