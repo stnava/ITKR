@@ -7,8 +7,8 @@ CMAKE_BUILD_TYPE=Release
 cd ./src
 # itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
 # itktag=22ef020347e60f2b42648083ccebfadbf780f823
-itkgit=https://github.com/stnava/ITK.git
-itktag=dc8765dbfbcd47124579fba04c8cf5101dd585b7 # resolve hdf5 warnings
+itkgit=https://github.com/muschellij2/ITK.git
+itktag=1533db32cb61af006f5124231bd0b637aa1ee226 # blowekamp line search improvements
 mkdir itks itkb
 # as per https://discourse.itk.org/t/path-length-limitation-in-windows-lifted/545/12
 longpaths=`git config --get core.longpaths`

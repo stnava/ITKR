@@ -9,8 +9,8 @@ if [[ $TRAVIS -eq true ]] ; then
   JTHREADS=2
 fi
 cd ./src
-itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
-itktag=407989d73f5a50ac9f2251663b2f497cf900cbd7 # blowekamp line search improvements
+itkgit=https://github.com/muschellij2/ITK.git
+itktag=1533db32cb61af006f5124231bd0b637aa1ee226 # blowekamp line search improvements
 
 # if there is a directory but no git,
 # remove it
