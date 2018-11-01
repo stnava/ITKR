@@ -10,7 +10,7 @@ if [[ $TRAVIS -eq true ]] ; then
 fi
 cd ./src
 itkgit=https://github.com/muschellij2/ITK.git
-itktag=7bf340906af6361e7fff67ac9014bb8e16d099a2 # blowekamp line search improvements
+itktag=f4727a45c6f170975b7a768e2a1243c720491645 # blowekamp line search improvements
 
 # if there is a directory but no git,
 # remove it
