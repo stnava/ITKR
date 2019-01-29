@@ -122,4 +122,4 @@ deploy:
     tags: true
     repo: ${gh_user}/${PROJ_DIR}
     all_branches: true
-    condition: $gh_user = "ANTsX"
+

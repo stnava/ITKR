@@ -92,7 +92,7 @@ itkLibs <- function() {
 itkCompileFlags <- function() {
   str = " -fPIC -O2  "
   if (.Platform$OS.type == "windows") {
-    oflags = c("-lws2_32", "-lgdi32", "-mwindows", "-Wno-c++11-long-long", 
+    oflags = c("-lws2_32", "-lgdi32", "-mwindows", 
                "-msse4.1", "-mssse3", "-Wa,-mbig-obj")
     oflags = paste(oflags, collapse = " ")
     str = paste(str, oflags)

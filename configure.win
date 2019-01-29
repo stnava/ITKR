@@ -6,9 +6,9 @@ JTHREADS=1
 CMAKE_BUILD_TYPE=Release
 cd ./src
 # itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
-# itktag=22ef020347e60f2b42648083ccebfadbf780f823
+# itktag=a369470c93c433bb34a3557091d8caf2c2bb637e
 itkgit=https://github.com/muschellij2/ITK.git
-itktag=186799e02a565e36b4e091202f89927ba42b34e9 # blowekamp line search improvements
+itktag=5b163e28df75396f36c8a5f1d82087e1adb14a8f # eigen3
 mkdir itks itkb
 # as per https://discourse.itk.org/t/path-length-limitation-in-windows-lifted/545/12
 longpaths=`git config --get core.longpaths`
@@ -33,7 +33,7 @@ cd ../itkb
 # -Wno-c++11-long-long 
 # -DVNL_CONFIG_ENABLE_SSE2_ROUNDING:BOOL=OFF \
 
-compflags=" -fPIC -O2  -Wno-c++11-long-long -lws2_32 -lgdi32 -mwindows -msse4.1 -mssse3 -Wa,-mbig-obj"
+compflags=" -fPIC -O2 -lws2_32 -lgdi32 -mwindows -msse4.1 -mssse3 -Wa,-mbig-obj"
 cmaker=`${R_HOME}/bin/Rscript.exe -e "x=Sys.which('cmake'); cat(x)"`
 if [ -z "${cmaker}" ]; then
     res=`${R_HOME}/bin/Rscript.exe -e "cat(('cmaker' %in% installed.packages())*1)"`
