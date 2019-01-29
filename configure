@@ -9,9 +9,9 @@ if [[ $TRAVIS -eq true ]] ; then
   JTHREADS=2
 fi
 cd ./src
-itkgit=https://github.com/muschellij2/ITK.git # abandoned windows attempts
+# itkgit=https://github.com/muschellij2/ITK.git # abandoned windows attempts
 itkgit=https://github.com/InsightSoftwareConsortium/ITK 
-itktag=80d5772a186ff60c93fd6db62be72821b9c7485b # eigen3 fix
+itktag=a369470c93c433bb34a3557091d8caf2c2bb637e ## 20181107
 # if there is a directory but no git,
 # remove it
 if [[ -d itks ]]; then
