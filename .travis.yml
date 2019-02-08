@@ -123,3 +123,4 @@ deploy:
     repo: ${gh_user}/${PROJ_DIR}
     all_branches: true
     condition: ${gh_user}=stnava
+
