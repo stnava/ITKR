@@ -5,10 +5,10 @@ CXX=`${R_HOME}/bin/R.exe CMD config CXX`
 JTHREADS=1
 CMAKE_BUILD_TYPE=Release
 cd ./src
-itkgit=https://github.com/InsightSoftwareConsortium/ITK
-itktag=73188f4e7b1bb558ed0f1871ac119c926950e49d ## eigen fixes
-# itkgit=https://github.com/muschellij2/ITK.git
-# itktag=fce0b64c32ffc1495c437b91830a39b3bfa22bd9 # eigen fixes
+# itkgit=https://github.com/InsightSoftwareConsortium/ITK
+# itktag=73188f4e7b1bb558ed0f1871ac119c926950e49d ## eigen fixes
+itkgit=https://github.com/muschellij2/ITK.git
+itktag=fce0b64c32ffc1495c437b91830a39b3bfa22bd9 # eigen fixes
 mkdir itks itkb
 # as per https://discourse.itk.org/t/path-length-limitation-in-windows-lifted/545/12
 longpaths=`git config --get core.longpaths`
