@@ -122,14 +122,14 @@ deploy:
       tags: true
       repo: ${gh_user}/${PROJ_DIR}
       all_branches: true
-      condition: ${gh_user}="stnava"
+      condition: "${gh_user}" = "stnava"
   - provider: releases
     api_key:
       secure: W21HS1wSxLGv5P4gxasaz7icEmEOphBwwAeWYSl4lzR3uY+K9Lb2tnAuBMYdwGx3P8kSsLTIqS81cncz17BQN0AK16DpFho1TSSp/LO0kHr+tJfJpqWqLl1iPpV5yeiIs9D8jbm1g79EIfEjFVtLh/Wjyagfur7Z48eIbD+o1yhe5jo2TBdtHg77kaHotvURRwM+EhbC7kerdSgOleJ1fUay4/FPftRPyMMjWUbvLjaeo9ZVxlrbaiuSv0FU/PCJYfyN17Y0ZZ8Sqc7iIzq2flsmvk2jAbIVea1yzUZlyPN8FURizvY4T4qiWuN/d2FUzuLQiEJJTKOonJwVsI6FmrQFsHpq7jCDYMnvrTSg2gntpOrZXqnaK1eugQQCOpH+6IEPYlYLA+GZLbRQZrOx6iku/s8vHSPS9+rtiK2GfzbIzfJCqxqYSfj+gu8FfZhBGsN8wam5ZIXkQC1zV43wGT20Wm7q6QIqjhABIz49k4hhp/6AC99nibA9BXc6pTgZxb2r+07iPLGDtQePDIM1LIeuBHPzhCNK7+P7m6iJyhpq2wVxyI4oIj99NKKzvnW6o7oFSTGGEljs5KxZpXI4Xi0Ngu4z/q9mFoNnZY1fSQWTGmSQSae5MfeKJ2V/qjJuDHg3DJ/1UIQR/mROiXBwtLiv5vEg/7S9pnb51Q/3Z5Q=
     file: ${PKG_FILE_NAME}
-      skip_cleanup: true
-      on:
-        tags: true
-        repo: ${gh_user}/${PROJ_DIR}
-        all_branches: true
-        condition: ${gh_user}="muschellij2"
+    skip_cleanup: true
+    on:
+      tags: true
+      repo: ${gh_user}/${PROJ_DIR}
+      all_branches: true
+      condition: "${gh_user}" = "muschellij2"
