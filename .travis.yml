@@ -123,13 +123,3 @@ deploy:
       repo: ${gh_user}/${PROJ_DIR}
       all_branches: true
       condition: "${gh_user} = muschellij2"
-  - provider: releases
-    api_key:
-      secure: UL/OXal9+cvomf7iDtJnAoVY8YEmVa7MECjbBrfnmGeloQ6yRhYVUk5sRlbPNM4VczdtN6/k8hH8LpN/3IT8Wqh+YxIaN0kw/0J05dzj1OLcilRKxTFtQo7i1VYqdTqytXbbvaISaVLF+0UjGIwfFARr/m/GZsKXV54wXhTFirY=
-    file: ${PKG_FILE_NAME}
-    skip_cleanup: true
-    on:
-      tags: true
-      repo: ${gh_user}/${PROJ_DIR}
-      all_branches: true
-      condition: "${gh_user} = stnava"
