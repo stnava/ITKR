@@ -115,12 +115,12 @@ before_deploy:
 deploy:
   - provider: releases
     api_key:
-      secure: jt5RGFQrg/JS5A0wcGo2kLx3QllE9MwWsnlCp213cO8+F9bKxVXN+PYTezNOleIdm0pR8XVK3VC9jlUcwVqwvqpbQRb8VD25rTETI6SoTLZ6pisDlyyfQE41CzSet9aGefy/Qv7ZFctE7kOAnkXVH4z8te2Nr0l/8zB8ipaLseAM3hQeGp8V7DenGAT6ktBzHfanzlwaSJRwelPxMi4hb5mbeEunODtQLwqvVmWrL9TR6DsYzlU81vZftCIFup84X+9duGsiFbO2tVUDxTfRJ1uAQc9pvn7WCK1KVnaBy30YFhqFuQC3AmYBxxX05lQk6/WqpdrcXe7UdwXG66i398w1JUYlIV2dJjRi0LskiC2nRab0jR6LLfKEdxnryrZNKwPOGDPPPeWGQNvvbx0c97Kb7vy9d8CrCmnTnEYbGCgO6+eOTk1GeyqBmDmAgFzwmDJC7w24YVqYpeVeHWoJ02Pre0bVmaD3nx9cklK7o8NoxgT/iEQjZqVoeVZSdK/MfVK9LOwMaOrU7oUchHLh68GLqEx8c0cpjnEo9OeFrec4w47X25kAG7xrPNCiPY3Qyy6axq52bvP4dUGEdKM4xy0nG6AHx8ydGuzL4o3e9Fnv3/4VmMkgrC29476ibZZaIvhH0kmpehMQ3QnWp2+ShDg0WQ9kpHC0L2wooW+PYpo=
+      secure: "r7FsUfP8EozlZBDTIHzAE5ENqyeuopoWxxpKoAxkhGkDwB6rLDkNhjmFk3SZxP/8Sx51CeO1oFDUC/G5QWpfYdSYRIkq0GoubhGTDdOk3S1F6z4ncsi6DO24MkxxZbAb4e7lyK1bBaVla/SKm0QQivzqNn5g+jNLAjek4Yc2hBCUdtbyYk++fuGKsBVSC/VeahE9I6SsHQAZMViOAVgR6Y80cxeIzsVk6yFljOmc/EQxCVG8M1Rq/VZYnkZfLB5E35bbCehcdwHWjPvsP1TfbBDFo4DsyHhmIe1L6k7AtuFOrBl9zK0rBAMJznwHsI0D4SsNAwdFYrqK/tSMB7pTxDR90KfkQpFjt2JxBdz5msFVZAQqcuvbbNlrbnf0m5wtX2DPB6wuPwdRxmCMrXyT5EZE4bbYmKhF4l3DDX0snncZvusSwrHD+r90kriwgZm7ogWSRFATOLRXtEVrWGyQYCjZoAFM9vB8lL+/8yQbB80e3gYexyYI+AFzgmiNTPc+6TYF8UUKMUiBsdN5iqbdYYrmuTexKDC0So23XuBO3vlRLQLhjmtFwY/FNywneOpEfwVZfxIMeleuF0T7z0XDgPpFQ4PmXtpXqKQiAxI18dplxfG8vsyACeLnVfslF8H2/bWdRgMukDUlLyKFBLVHUFoSyo8zPAcBM+7P+mS9SbQ="
     file: ${PKG_FILE_NAME}
     skip_cleanup: true
     on:
       tags: true
-      repo: ${gh_user}/${PROJ_DIR}
+      repo: muschellij2/ITKR
       all_branches: true
       condition: "${gh_user} = muschellij2"
   - provider: releases
