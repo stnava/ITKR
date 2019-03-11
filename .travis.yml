@@ -56,7 +56,7 @@ before_install:
   - echo "CXX1XSTD=${CXX1XSTD}, CXX11=${CXX11}"  
   - clang_cxx  
   - hdf5_install ;
-  - export cmake_version="3.13"
+  - export cmake_version="3.14"
   - get_cmake_url ;
   - cmake --version
   - x=`cmake_setup`; echo "${x}"; eval ${x};
