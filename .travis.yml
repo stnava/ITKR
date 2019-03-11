@@ -57,7 +57,6 @@ before_install:
   - clang_cxx  
   - hdf5_install ;
   - export cmake_version="3.14"
-  - get_cmake_url ;
   - cmake --version
   - x=`cmake_setup`; echo "${x}"; eval ${x};
   - ls ~/ ;
