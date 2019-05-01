@@ -12,7 +12,7 @@ cd ./src
 # itkgit=https://github.com/InsightSoftwareConsortium/ITK
 # itktag=73188f4e7b1bb558ed0f1871ac119c926950e49d ## eigen fixes
 itkgit=https://github.com/muschellij2/ITK.git
-itktag=7c0c1a597c8ad33e34e4112c366ad969bd36838d
+itktag=9c126b368e0476f578d2fdc56550c8ca2b667d9c
 # if there is a directory but no git,
 # remove it
 if [[ -d itks ]]; then
