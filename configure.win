@@ -17,8 +17,14 @@ echo "ITK;${itktag}" >> ../data/softwareVersions.csv
 git_exe=`${R_HOME}/bin/Rscript.exe -e "x=Sys.which('git'); cat(x)"`
 if [ -z "${git_exe}" ]; then
     str='if (!requireNamespace("git2r")) { install.packages("git2r") }'
-	str="${str}; repo = git2r::clone(\"${itkgit}\", local_path = \"./itks\")"
-	str="${str}; git2r::checkout(repo, branch = \"${itktag}\");"
+    str="${str}; repo = git2r::clone(\""
+    str="${str}${itkgit}"
+    str="${str}\", local_path = \"./itks\")"
+    if [ -n "${itktag}" ]; then
+        str="${str}; git2r::checkout(repo, branch = \""
+        str="${str}${itktag}"
+        str="${str}\");"
+    fi    
 	${R_HOME}/bin/Rscript.exe -e "${str}"
 	cd itks
 else
