@@ -16,7 +16,7 @@ echo "Dependency;GitTag" > ../data/softwareVersions.csv
 echo "ITK;${itktag}" >> ../data/softwareVersions.csv
 git_exe=`${R_HOME}/bin/Rscript.exe -e "x=Sys.which('git'); cat(x)"`
 if [ -z "${git_exe}" ]; then
-    str='if (!requireNamespace("git2r")) { install.packages("git2r") }'
+    str="if (!requireNamespace(\"git2r\")) { install.packages(\"git2r\") }"
     str="${str}; repo = git2r::clone(\""
     str="${str}${itkgit}"
     str="${str}\", local_path = \"./itks\")"
