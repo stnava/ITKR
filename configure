@@ -9,10 +9,10 @@ if [[ $TRAVIS -eq true ]] ; then
   JTHREADS=2
 fi
 cd ./src
-# itkgit=https://github.com/InsightSoftwareConsortium/ITK
-# itktag=73188f4e7b1bb558ed0f1871ac119c926950e49d ## eigen fixes
-itkgit=https://github.com/muschellij2/ITK.git
-itktag=19bb98fc72285412b65a0a18693e55a155cb339a
+itkgit=https://github.com/InsightSoftwareConsortium/ITK
+itktag=f136bfe8bdb86c068ef1627ca2a5c02d5aa2fa24 ## eigen fixes from itk
+# itkgit=https://github.com/muschellij2/ITK.git
+# itktag=19bb98fc72285412b65a0a18693e55a155cb339a
 # if there is a directory but no git,
 # remove it
 if [[ -d itks ]]; then
@@ -82,6 +82,7 @@ ${cmaker} \
     -DCMAKE_INSTALL_PREFIX:PATH="${R_PACKAGE_DIR}"/libs/  \
     -DITK_LEGACY_REMOVE:BOOL=OFF  \
     -DITK_FUTURE_LEGACY_REMOVE:BOOL=OFF \
+    -DITKV3_COMPATIBILITY:BOOL=ON \
     -DITK_BUILD_DEFAULT_MODULES:BOOL=OFF \
     -DKWSYS_USE_MD5:BOOL=ON \
     -DITK_WRAPPING:BOOL=OFF \
