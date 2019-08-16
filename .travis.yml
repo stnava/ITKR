@@ -6,6 +6,7 @@ warnings_are_errors: true
 use_bioc: true
 bioc_required: true
 cran: http://cran.rstudio.com
+dist: xenial
 
 os:
   - linux
@@ -15,6 +16,9 @@ r:
   - oldrel  
   - release
   - devel
+
+services:
+  - xvfb
 
 matrix: 
   allow_failures:
@@ -40,7 +44,11 @@ before_install:
   - fname=travis_helpers.sh
   - wget -O ${fname} http://bit.ly/travis_helpers
   - cat ${fname}; source ${fname}; rm ${fname}  
-  - start_xvfb ;
+  - codename=`linux_codename`;
+  - if [ "${codename}" = "trusty" ];
+    then
+      start_xvfb ;
+    fi  
   - export rver=`r_version`;
   - export gh_user=`get_gh_user` ; echo $gh_user ;
   - cat DESCRIPTION  
@@ -56,9 +64,10 @@ before_install:
   - echo "CXX1XSTD=${CXX1XSTD}, CXX11=${CXX11}"  
   - clang_cxx  
   - hdf5_install ;
-  - export cmake_version="3.11"
+  - export cmake_version="3.14"
   - cmake --version
   - x=`cmake_setup`; echo "${x}"; eval ${x};
+  - ls ~/ ;
   - cmake --version
   - ./cleanup      
   - Rscript -e "install.packages(c('Rcpp', 'RcppEigen'), type = 'source', repos=c(CRAN='https://cran.rstudio.com'))"
@@ -113,13 +122,23 @@ before_deploy:
     fi
 
 deploy:
-  provider: releases
-  api_key:
-    secure: UL/OXal9+cvomf7iDtJnAoVY8YEmVa7MECjbBrfnmGeloQ6yRhYVUk5sRlbPNM4VczdtN6/k8hH8LpN/3IT8Wqh+YxIaN0kw/0J05dzj1OLcilRKxTFtQo7i1VYqdTqytXbbvaISaVLF+0UjGIwfFARr/m/GZsKXV54wXhTFirY=
-  file: ${PKG_FILE_NAME}
-  skip_cleanup: true
-  on:
-    tags: true
-    repo: ${gh_user}/${PROJ_DIR}
-    all_branches: true
-    condition: ${gh_user}=stnava
+  - provider: releases
+    api_key:
+      secure: "r7FsUfP8EozlZBDTIHzAE5ENqyeuopoWxxpKoAxkhGkDwB6rLDkNhjmFk3SZxP/8Sx51CeO1oFDUC/G5QWpfYdSYRIkq0GoubhGTDdOk3S1F6z4ncsi6DO24MkxxZbAb4e7lyK1bBaVla/SKm0QQivzqNn5g+jNLAjek4Yc2hBCUdtbyYk++fuGKsBVSC/VeahE9I6SsHQAZMViOAVgR6Y80cxeIzsVk6yFljOmc/EQxCVG8M1Rq/VZYnkZfLB5E35bbCehcdwHWjPvsP1TfbBDFo4DsyHhmIe1L6k7AtuFOrBl9zK0rBAMJznwHsI0D4SsNAwdFYrqK/tSMB7pTxDR90KfkQpFjt2JxBdz5msFVZAQqcuvbbNlrbnf0m5wtX2DPB6wuPwdRxmCMrXyT5EZE4bbYmKhF4l3DDX0snncZvusSwrHD+r90kriwgZm7ogWSRFATOLRXtEVrWGyQYCjZoAFM9vB8lL+/8yQbB80e3gYexyYI+AFzgmiNTPc+6TYF8UUKMUiBsdN5iqbdYYrmuTexKDC0So23XuBO3vlRLQLhjmtFwY/FNywneOpEfwVZfxIMeleuF0T7z0XDgPpFQ4PmXtpXqKQiAxI18dplxfG8vsyACeLnVfslF8H2/bWdRgMukDUlLyKFBLVHUFoSyo8zPAcBM+7P+mS9SbQ="
+    file: ${PKG_FILE_NAME}
+    skip_cleanup: true
+    on:
+      tags: true
+      repo: muschellij2/ITKR
+      all_branches: true
+      condition: "${gh_user} = muschellij2"
+  - provider: releases
+    api_key:
+      secure: UL/OXal9+cvomf7iDtJnAoVY8YEmVa7MECjbBrfnmGeloQ6yRhYVUk5sRlbPNM4VczdtN6/k8hH8LpN/3IT8Wqh+YxIaN0kw/0J05dzj1OLcilRKxTFtQo7i1VYqdTqytXbbvaISaVLF+0UjGIwfFARr/m/GZsKXV54wXhTFirY=
+    file: ${PKG_FILE_NAME}
+    skip_cleanup: true
+    on:
+      tags: true
+      repo: ${gh_user}/${PROJ_DIR}
+      all_branches: true
+      condition: "${gh_user} = stnava"

@@ -1,30 +1,45 @@
 #!/bin/bash
 CXX_STD=CXX11
-CC=`${R_HOME}/bin/R.exe CMD config CC`
-CXX=`${R_HOME}/bin/R.exe CMD config CXX`
+CC=`${R_HOME}/bin${R_ARCH_BIN}/R.exe CMD config CC`
+CXX=`${R_HOME}/bin${R_ARCH_BIN}/R.exe CMD config CXX`
 JTHREADS=1
 CMAKE_BUILD_TYPE=Release
 cd ./src
-# itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
-# itktag=a369470c93c433bb34a3557091d8caf2c2bb637e
+# itkgit=https://github.com/InsightSoftwareConsortium/ITK
+# itktag=73188f4e7b1bb558ed0f1871ac119c926950e49d ## eigen fixes
 itkgit=https://github.com/muschellij2/ITK.git
-itktag=b567870e3f6a606e0f8c6d078ae4237bbb9d47ce # eigen3 and VNL
+itktag=19bb98fc72285412b65a0a18693e55a155cb339a
 mkdir itks itkb
 # as per https://discourse.itk.org/t/path-length-limitation-in-windows-lifted/545/12
-longpaths=`git config --get core.longpaths`
-git config core.longpaths true
-git clone $itkgit itks
 mkdir -p ../data
 echo "Dependency;GitTag" > ../data/softwareVersions.csv
 echo "ITK;${itktag}" >> ../data/softwareVersions.csv
-cd itks
-git checkout master;
-git checkout $itktag
-# removing the longpaths setting 
-if [ -n "${longpaths}" ]; then
-	git config core.longpaths ${longpaths}
+git_exe=`${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe -e "x=Sys.which('git'); cat(x)"`
+if [ -z "${git_exe}" ]; then
+    ${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe -e "if (!requireNamespace('git2r')) install.packages('git2r')"
+    str="repo = git2r::clone(\""
+    str="${str}${itkgit}"
+    str="${str}\", local_path = \"./itks\")"
+    if [ -n "${itktag}" ]; then
+        str="${str}; git2r::checkout(repo, branch = \""
+        str="${str}${itktag}"
+        str="${str}\");"
+    fi    
+	${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe -e "${str}"
+	cd itks
 else
-	git config --unset core.longpaths
+	longpaths=`git config --get core.longpaths`
+	git config core.longpaths true
+	git clone $itkgit itks
+	cd itks
+	git checkout master;
+	git checkout $itktag
+	# removing the longpaths setting 
+	if [ -n "${longpaths}" ]; then
+		git config core.longpaths ${longpaths}
+	else
+		git config --unset core.longpaths
+	fi
 fi
 rm -rf .git
 cd ../itkb
@@ -34,16 +49,16 @@ cd ../itkb
 # -DVNL_CONFIG_ENABLE_SSE2_ROUNDING:BOOL=OFF \
 
 compflags=" -fPIC -O2 -lws2_32 -lgdi32 -mwindows -msse4.1 -mssse3 -Wa,-mbig-obj"
-cmaker=`${R_HOME}/bin/Rscript.exe -e "x=Sys.which('cmake'); cat(x)"`
+cmaker=`${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe -e "x=Sys.which('cmake'); cat(x)"`
 if [ -z "${cmaker}" ]; then
-    res=`${R_HOME}/bin/Rscript.exe -e "cat(('cmaker' %in% installed.packages())*1)"`
+    res=`${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe -e "cat(('cmaker' %in% installed.packages())*1)"`
     if [ $res -eq 0 ]; 
     then     
         git clone https://github.com/stnava/cmaker
         R CMD INSTALL cmaker
         rm -rf cmaker
     fi
-    cmaker=`${R_HOME}/bin/Rscript.exe -e "x=cmaker::cmake()"`
+    cmaker=`${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe -e "x=cmaker::cmake()"`
     # cmake_path=`dirname cmaker`
     # export PATH=${PATH}:${cmake_path}
     # cmaker="cmake"
@@ -66,7 +81,6 @@ ${cmaker} \
     -DCMAKE_INSTALL_PREFIX:PATH="${R_PACKAGE_DIR}"/libs/  \
     -DITK_LEGACY_REMOVE:BOOL=OFF  \
     -DITK_FUTURE_LEGACY_REMOVE:BOOL=OFF \
-    -DITKV3_COMPATIBILITY:BOOL=ON \
     -DITK_BUILD_DEFAULT_MODULES:BOOL=OFF \
     -DKWSYS_USE_MD5:BOOL=ON \
     -DITK_WRAPPING:BOOL=OFF \

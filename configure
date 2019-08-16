@@ -11,6 +11,8 @@ fi
 cd ./src
 itkgit=https://github.com/InsightSoftwareConsortium/ITK
 itktag=f136bfe8bdb86c068ef1627ca2a5c02d5aa2fa24 ## eigen fixes from itk
+# itkgit=https://github.com/muschellij2/ITK.git
+# itktag=19bb98fc72285412b65a0a18693e55a155cb339a
 # if there is a directory but no git,
 # remove it
 if [[ -d itks ]]; then
@@ -18,16 +20,34 @@ if [[ -d itks ]]; then
 		rm -rf itks/
 	fi
 fi
-# if no directory, clone it
-if [[ ! -d itks ]]; then
-    git clone $itkgit itks
+git_exe=`${R_HOME}/bin/Rscript -e "x=Sys.which('git'); cat(x)"`
+if [ -z "${git_exe}" ]; then
+    ${R_HOME}/bin/Rscript -e 'if (!requireNamespace("git2r")) install.packages("git2r")'
+    str='if (!requireNamespace("git2r")) { install.packages("git2r") }'
+    str="${str}; repo = git2r::clone(\""
+    str="${str}${itkgit}"
+    str="${str}\", local_path = \"./itks\")"
+    if [ -n "${itktag}" ]; then
+        str="${str}; git2r::checkout(repo, branch = \""
+        str="${str}${itktag}"
+        str="${str}\");"
+    fi
+	${R_HOME}/bin/Rscript -e "${str}"
+	cd itks
+else
+	# if no directory, clone it
+	if [[ ! -d itks ]]; then
+	    git clone $itkgit itks
+	fi
+	cd itks
+	if [[ -d .git ]]; then
+	    git checkout master;
+	    git checkout $itktag
+	fi
 fi
-cd itks
-if [[ -d .git ]]; then
-    git checkout master;
-    git checkout $itktag
-    rm -rf .git
-fi
+rm -rf .git
+
+
 cd ../
 if [[ ! -d ../data/ ]] ; then
   mkdir -p ../data
