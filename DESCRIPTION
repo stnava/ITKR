@@ -23,4 +23,3 @@ SystemRequirements: cmake, git, clang, GNU make
 URL: http://github.com/stnava/ITKR/
 BugReports: http://github.com/stnava/ITKR/issues
 RoxygenNote: 6.1.1
-
