@@ -6,9 +6,9 @@ JTHREADS=1
 CMAKE_BUILD_TYPE=Release
 cd ./src
 # itkgit=https://github.com/InsightSoftwareConsortium/ITK
-# itktag=73188f4e7b1bb558ed0f1871ac119c926950e49d ## eigen fixes
+# itktag=81c14ce858a530699ee2fbf7fa48b884ad26b984
 itkgit=https://github.com/muschellij2/ITK.git
-itktag=19bb98fc72285412b65a0a18693e55a155cb339a
+itktag=5503d732159a7bb9e27fa2e4c4a6c1eb82769593
 mkdir itks itkb
 # as per https://discourse.itk.org/t/path-length-limitation-in-windows-lifted/545/12
 mkdir -p ../data
@@ -82,6 +82,7 @@ ${cmaker} \
     -DITK_LEGACY_REMOVE:BOOL=OFF  \
     -DITK_FUTURE_LEGACY_REMOVE:BOOL=OFF \
     -DITK_BUILD_DEFAULT_MODULES:BOOL=OFF \
+    -DModule_GenericLabelInterpolator:BOOL=ON \
     -DKWSYS_USE_MD5:BOOL=ON \
     -DITK_WRAPPING:BOOL=OFF \
     -DModule_MGHIO:BOOL=ON \
