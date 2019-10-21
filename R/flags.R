@@ -121,3 +121,19 @@ itkVersion <- function() {
   # "5.0"
 }
 
+#' Return ITK build tag
+#' 
+#' @examples
+#'
+#' itkTag()
+#'
+#' @export 
+itkTag = function() {
+  fname = system.file( "data", "softwareVersions.csv", package = "ITKR")
+  tag = NULL
+  if (file.exists(fname)) {
+    tag = utils::read.csv(fname, sep = ";", as.is = TRUE)
+    tag = tag$GitTag[ tag$Dependency == "ITK"]
+  }
+  return(tag)
+}
