@@ -10,7 +10,7 @@ if [[ $TRAVIS -eq true ]] ; then
 fi
 cd ./src
 itkgit=https://github.com/InsightSoftwareConsortium/ITK
-itktag=81c14ce858a530699ee2fbf7fa48b884ad26b984
+itktag=49671655c88612fabeb5f0784d3f40123100f166 # fixes n4 physical space drift bug
 # if there is a directory but no git,
 # remove it
 if [[ -d itks ]]; then
