@@ -51,6 +51,7 @@ build_script:
 test_script:  
   - travis-tool.sh run_tests
   - ls
+  - cp -ravTf *.zip %APPVEYOR_BUILD_FOLDER%
   - cp -ravTf C:/run %APPVEYOR_BUILD_FOLDER%
   - cd %APPVEYOR_BUILD_FOLDER%
   - ls
