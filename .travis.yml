@@ -26,7 +26,7 @@ matrix:
 
 latex: false
 compiler: clang
-osx_image: xcode11.3
+osx_image: xcode9.4
 
 env:
   global:
@@ -64,7 +64,7 @@ before_install:
   - echo "CXX1XSTD=${CXX1XSTD}, CXX11=${CXX11}"  
   - clang_cxx  
   # - hdf5_install ;
-  - export cmake_version="3.16"
+  - export cmake_version="3.14"
   - cmake --version
   - x=`cmake_setup`; echo "${x}"; eval ${x};
   - ls ~/ ;
