@@ -10,7 +10,7 @@ if [[ $TRAVIS -eq true ]] ; then
 fi
 cd ./src
 itkgit=https://github.com/InsightSoftwareConsortium/ITK
-itktag=7fd3e4082b13a580f6438e9efb041c3eb618fd1c # last release
+itktag=bcd762e7bd743341c2dce84852ced49d8292f293 # Type -> Enum
 # if there is a directory but no git,
 # remove it
 if [[ -d itks ]]; then
