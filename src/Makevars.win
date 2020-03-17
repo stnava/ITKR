@@ -10,10 +10,10 @@ all: $(SHLIB)
 
 $(SHLIB): libs
 
-libs: ; cd itkb && mingw32-make -j 1 && \
-dos2unix ITKInternalEigen3-build/CMakeFiles/3.16.2/CompilerIdC/CMakeCCompilerId.c && \
-dos2unix ITKInternalEigen3-build/CMakeFiles/3.16.2/CompilerIdCXX/CMakeCXXCompilerId.cpp && \
-dos2unix ITKInternalEigen3-build/Makefile && \
+libs: ; cd itkb && mingw32-make -j 1 || \
+(dos2unix ITKInternalEigen3-build/CMakeFiles/3.16.2/CompilerIdC/CMakeCCompilerId.c || \
+dos2unix ITKInternalEigen3-build/CMakeFiles/3.16.2/CompilerIdCXX/CMakeCXXCompilerId.cpp || \
+dos2unix ITKInternalEigen3-build/Makefile) || \
 mingw32-make install && rm -rf ../itks && \
 rm -rf CMakeFiles/ && rm -rf Modules/ && rm -rf CMakeTmp/ \
 rm -f Makefile && \
