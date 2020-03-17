@@ -4,7 +4,7 @@
 # PKG_LIBS = $(shell "Rscript.exe" -e "Rcpp:::LdFlags()")
 
 CXX_STD = CXX11
-.PHONY: all libs
+.PHONY: all libs clean
 
 all: $(SHLIB)
 
@@ -14,8 +14,10 @@ libs: ; cd itkb && mingw32-make -j 1 && \
 mingw32-make install && rm -rf ../itks && \
 rm -rf CMakeFiles/ && rm -rf Modules/ && rm -rf CMakeTmp/ \
 rm -f Makefile && \
-rm -rf Utilities/Doxygen && \
-unix2dos -q ITKInternalEigen3-build/CMakeFiles/3.16.2/CompilerIdC/CMakeCCompilerId.c && \
-unix2dos -q ITKInternalEigen3-build/CMakeFiles/3.16.2/CompilerIdCXX/CMakeCXXCompilerId.cpp && \
-unix2dos -q ITKInternalEigen3-build/Makefile 
+rm -rf Utilities/Doxygen
+
+clean: cd itkb && \
+	rm -f ITKInternalEigen3-build/CMakeFiles/3.16.2/CompilerIdC/CMakeCCompilerId.c && \
+	rm -f ITKInternalEigen3-build/CMakeFiles/3.16.2/CompilerIdCXX/CMakeCXXCompilerId.cpp && \
+	rm -f ITKInternalEigen3-build/Makefile 
 
