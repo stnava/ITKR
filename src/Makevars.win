@@ -15,6 +15,7 @@ dos2unix ITKInternalEigen3-build/CMakeFiles/3.16.2/CompilerIdC/CMakeCCompilerId.
 dos2unix ITKInternalEigen3-build/CMakeFiles/3.16.2/CompilerIdCXX/CMakeCXXCompilerId.cpp || \
 dos2unix ITKInternalEigen3-build/Makefile || \
 mingw32-make install && rm -rf ../itks && \
+rm -rf ITKInternalEigen3-build/Makefile && \
 rm -rf CMakeFiles/ && rm -rf Modules/ && rm -rf CMakeTmp/ && \
 rm -f Makefile && \
 rm -rf Utilities/Doxygen
