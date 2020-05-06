@@ -18,16 +18,13 @@ environment:
     CRAN: http://cran.rstudio.com
 
   matrix:
-    - R_VERSION: release
+    - R_VERSION: 3.6.3
       R_VER: 3.6
 
-    - R_VERSION: devel
+    - R_VERSION: release
       R_VER: 4.0
 
-    - R_VERSION: devel
-      R_VER: 3.7
-
-    - R_VERSION: oldrel
+    - R_VERSION: 3.5.3
       R_VER: 3.5
 
 install:
