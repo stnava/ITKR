@@ -52,6 +52,7 @@ build_script:
 
 test_script:  
   - R CMD INSTALL .
+  - Rscript -e 'cat(ITKR:::itkDir())'
   - travis-tool.sh run_tests
   - ls
   - cp -ravTf *.zip %APPVEYOR_BUILD_FOLDER%  & exit 0
