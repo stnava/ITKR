@@ -46,6 +46,8 @@ build_script:
   - cp ../travis-tool.sh C:\
   - cd C:\run
   - RScript -e "install.packages('Rcpp', type = 'source', repos=c(CRAN='https://cran.rstudio.com'))"  
+  - git config core.longpaths true
+  - git config --system core.longpaths true  
   - travis-tool.sh install_deps
 
 test_script:  
