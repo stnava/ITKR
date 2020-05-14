@@ -51,6 +51,7 @@ build_script:
   - travis-tool.sh install_deps
 
 test_script:  
+  - R CMD INSTALL .
   - travis-tool.sh run_tests
   - ls
   - cp -ravTf *.zip %APPVEYOR_BUILD_FOLDER%  & exit 0
