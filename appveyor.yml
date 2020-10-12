@@ -18,11 +18,14 @@ environment:
     CRAN: http://cran.rstudio.com
 
   matrix:
-    - R_VERSION: devel
-      R_VER: 3.7
-
     - R_VERSION: release
       R_VER: 3.6
+
+    - R_VERSION: devel
+      R_VER: 4.0
+
+    - R_VERSION: devel
+      R_VER: 3.7
 
     - R_VERSION: oldrel
       R_VER: 3.5
@@ -51,8 +54,8 @@ build_script:
 test_script:  
   - travis-tool.sh run_tests
   - ls
-  - cp -ravTf *.zip %APPVEYOR_BUILD_FOLDER%
-  - cp -ravTf C:/run %APPVEYOR_BUILD_FOLDER%
+  - cp -ravTf *.zip %APPVEYOR_BUILD_FOLDER%  & exit 0
+  - cp -ravTf C:/run %APPVEYOR_BUILD_FOLDER%  & exit 0
   - cd %APPVEYOR_BUILD_FOLDER%
   - ls
   - for %%i in (*.zip) do echo %%~ni> zip_filename.txt
