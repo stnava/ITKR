@@ -83,6 +83,7 @@ ${cmaker} \
     -DITK_LEGACY_REMOVE:BOOL=OFF  \
     -DITK_FUTURE_LEGACY_REMOVE:BOOL=OFF \
     -DITK_BUILD_DEFAULT_MODULES:BOOL=OFF \
+    -DModule_AdaptiveDenoising:BOOL=ON \
     -DModule_GenericLabelInterpolator:BOOL=ON \
     -DKWSYS_USE_MD5:BOOL=ON \
     -DITK_WRAPPING:BOOL=OFF \
