@@ -10,7 +10,7 @@ all: $(SHLIB)
 
 $(SHLIB): libs
 
-libs: ; cd itkb && $(MAKE) -j 2 || \
+libs: ; cd itkb && $(MAKE) VERBOSE=1 -j 2 || \
 $(MAKE) install && ls ../ && rm -rf ../itks && \
 rm -rf ITKInternalEigen3-build/Makefile && \
 rm -rf CMakeFiles/ && rm -rf Modules/ && rm -rf CMakeTmp/ && \
