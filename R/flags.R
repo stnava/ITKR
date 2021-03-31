@@ -28,6 +28,8 @@ get_itk_dir = function() {
     message("Printing out lib dir\n")
     message("lib_dir:", lib_dir)
     print(list.files(lib_dir))
+    message("package_dir:", system.file(package="ITKR"))
+    print(list.files(system.file(package="ITKR")))
     stop("No ITK Directory Found!")
   }
   if (length(dirs) == 1) {
