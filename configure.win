@@ -7,8 +7,8 @@ CMAKE_BUILD_TYPE=Release
 cd ./src
 # itkgit=https://github.com/InsightSoftwareConsortium/ITK
 # itktag=81c14ce858a530699ee2fbf7fa48b884ad26b984
-itkgit=https://github.com/muschellij2/ITK.git
-itktag=e088bafd5cb957d45ce6af0413f1cbe7aa8e9aa7
+itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
+itktag=3ecf6c87d18d51b124589d5a74389244d692109c # CMAKE_SH fix
 mkdir itks itkb
 # as per https://discourse.itk.org/t/path-length-limitation-in-windows-lifted/545/12
 mkdir -p ../data
@@ -72,9 +72,10 @@ echo ${cmaker}
 ${cmaker} \
     -G "MinGW Makefiles" \
     -DCMAKE_BUILD_TYPE:STRING="${CMAKE_BUILD_TYPE}" \
-    -DCMAKE_C_FLAGS="${CMAKE_C_FLAGS} ${compflags} -DNDEBUG -D_FILE_OFFSET_BITS=64 "\
-    -DCMAKE_CXX_FLAGS="${CMAKE_CXX_FLAGS} ${compflags} -DNDEBUG  "\
+    -DCMAKE_C_FLAGS=" ${CMAKE_C_FLAGS} ${compflags} -DNDEBUG -D_FILE_OFFSET_BITS=64 "\
+    -DCMAKE_CXX_FLAGS=" ${CMAKE_CXX_FLAGS} ${compflags} -DNDEBUG  "\
     -DCMAKE_SH:BOOL=OFF \
+    -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
     -DITK_USE_GIT_PROTOCOL:BOOL=OFF \
     -DBUILD_SHARED_LIBS=OFF \
     -DBUILD_TESTING:BOOL=OFF \
@@ -90,6 +91,7 @@ ${cmaker} \
     -DModule_ITKDeprecated:BOOL=OFF \
     -DModule_ITKReview:BOOL=ON \
     -DModule_ITKVtkGlue:BOOL=OFF \
+    -DModule_AdaptiveDenoising:BOOL=ON \
     -D ITKGroup_Core=ON \
     -D Module_ITKReview=ON \
     -D ITKGroup_Filtering=ON \

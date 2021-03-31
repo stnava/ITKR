@@ -18,16 +18,13 @@ environment:
     CRAN: http://cran.rstudio.com
 
   matrix:
-    - R_VERSION: release
+    - R_VERSION: 3.6.3
       R_VER: 3.6
 
-    - R_VERSION: devel
+    - R_VERSION: release
       R_VER: 4.0
 
-    - R_VERSION: devel
-      R_VER: 3.7
-
-    - R_VERSION: oldrel
+    - R_VERSION: 3.5.3
       R_VER: 3.5
 
 install:
@@ -49,9 +46,13 @@ build_script:
   - cp ../travis-tool.sh C:\
   - cd C:\run
   - RScript -e "install.packages('Rcpp', type = 'source', repos=c(CRAN='https://cran.rstudio.com'))"  
+  - git config core.longpaths true
+  - git config --system core.longpaths true  
   - travis-tool.sh install_deps
 
 test_script:  
+  - R CMD INSTALL .
+  - Rscript -e 'cat(ITKR:::itkDir())'
   - travis-tool.sh run_tests
   - ls
   - cp -ravTf *.zip %APPVEYOR_BUILD_FOLDER%  & exit 0
