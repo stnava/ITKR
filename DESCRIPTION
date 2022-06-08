@@ -1,7 +1,7 @@
 Package: ITKR
 Type: Package
 Title: ITK in R
-Version: 0.5.3.3
+Version: 0.6.0.0.1
 Date: 2021-07-23
 Authors@R: c(
     person(c("Brian", "B"), "Avants", role = c("aut", "cre"), email = "stnava@gmail.com"),
@@ -23,4 +23,4 @@ SystemRequirements: cmake, git, clang, GNU make
 URL: http://github.com/stnava/ITKR/
 BugReports: http://github.com/stnava/ITKR/issues
 RoxygenNote: 6.1.1
-Encoding: UTF-8 
+Encoding: UTF-8
