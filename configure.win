@@ -8,7 +8,7 @@ cd ./src
 # itkgit=https://github.com/InsightSoftwareConsortium/ITK
 # itktag=81c14ce858a530699ee2fbf7fa48b884ad26b984
 itkgit=https://github.com/InsightSoftwareConsortium/ITK.git
-itktag=3ecf6c87d18d51b124589d5a74389244d692109c # CMAKE_SH fix
+itktag=v5.3rc03 # CMAKE_SH fix
 mkdir itks itkb
 # as per https://discourse.itk.org/t/path-length-limitation-in-windows-lifted/545/12
 mkdir -p ../data
@@ -25,7 +25,7 @@ if [ -z "${git_exe}" ]; then
         str="${str}; git2r::checkout(repo, branch = \""
         str="${str}${itktag}"
         str="${str}\");"
-    fi    
+    fi
 	${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe -e "${str}"
 	cd itks
 else
@@ -35,7 +35,7 @@ else
 	cd itks
 	git checkout master;
 	git checkout $itktag
-	# removing the longpaths setting 
+	# removing the longpaths setting
 	if [ -n "${longpaths}" ]; then
 		git config core.longpaths ${longpaths}
 	else
@@ -46,15 +46,15 @@ rm -rf .git
 cd ../itkb
 
 # compflags=" -fPIC -O2  "
-# -Wno-c++11-long-long 
+# -Wno-c++11-long-long
 # -DVNL_CONFIG_ENABLE_SSE2_ROUNDING:BOOL=OFF \
 
 compflags=" -fPIC -O2 -lws2_32 -lgdi32 -mwindows -msse4.1 -mssse3 -Wa,-mbig-obj"
 cmaker=`${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe -e "x=Sys.which('cmake'); cat(x)"`
 if [ -z "${cmaker}" ]; then
     res=`${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe -e "cat(('cmaker' %in% installed.packages())*1)"`
-    if [ $res -eq 0 ]; 
-    then     
+    if [ $res -eq 0 ];
+    then
         git clone https://github.com/stnava/cmaker
         R CMD INSTALL cmaker
         rm -rf cmaker
@@ -63,7 +63,7 @@ if [ -z "${cmaker}" ]; then
     # cmake_path=`dirname cmaker`
     # export PATH=${PATH}:${cmake_path}
     # cmaker="cmake"
-else 
+else
     cmaker="cmake.exe"
 fi
 
