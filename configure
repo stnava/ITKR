@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-CXX_STD=CXX11
-JTHREADS=2
+CXX_STD=CXX14
+JTHREADS=4
 if [[ `uname` -eq Darwin ]] ; then
   CMAKE_BUILD_TYPE=Release
 fi
